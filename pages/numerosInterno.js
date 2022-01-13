@@ -1,4 +1,4 @@
-import RegisterNumber from "../components/RegisterNumbers";
+import RegisterUsers from "../components/RegisterUsers";
 import SideBar from "../components/SideBar";
 import Head from 'next/head'
 
@@ -12,7 +12,7 @@ function numerosInterno() {
   
         <main className="flex">
           <SideBar/>
-          <RegisterNumber/>
+          <RegisterUsers/>
         </main>
       </div>
     );

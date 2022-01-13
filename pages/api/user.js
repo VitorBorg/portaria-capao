@@ -1,4 +1,4 @@
-import Phone from "../../models/PhoneNumber"
+import User from "../../models/UserInfo"
 import dbConnect from "../services/db"
 
 dbConnect()
@@ -9,8 +9,8 @@ export default async function handler(req, res) {
     switch(method) {
         case 'GET':
             try{
-                const phones = await Phone.find({})
-                res.status(200).json({success: true, data: phones})
+                const users = await User.find({})
+                res.status(200).json({success: true, data: users})
             }catch(e){
                 console.log(e)
                 res.status(500).json({success: false, e})
@@ -24,14 +24,14 @@ export default async function handler(req, res) {
 
                 if(!name && !email) throw 'invalid data'
 
-                const phone = await Phone.create({
+                const users = await User.create({
                     name: name, 
                     email: email, 
                     phoneFirst: firstNumber,
                     phoneSecond: secondNumber
                     })
 
-                res.status(201).json({success: true, data: phone})
+                res.status(201).json({success: true, data: users})
             } catch (e) {
                 console.log(e)
                 res.status(500).json({success: false, e})

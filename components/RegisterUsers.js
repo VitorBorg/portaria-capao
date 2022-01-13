@@ -3,13 +3,12 @@ import {
 	SaveIcon
 } from "@heroicons/react/solid";
 import React, {useEffect, useState} from "react";
-import { set } from 'mongoose'
 import api from '../pages/services/api'
-import CadastroNumberPhones from "./CadastroNumberPhones";
+import CadastroNumberPhones from "./CadastroModalUsers";
 import Pagination from "./Pagination";
 
 
-function RegisterNumber(){
+function RegisterUsers(){
 
 	const [clientsMain, setClientsMain] = useState([])
 	const [clientsSearch, setClientsSearch] = useState([])
@@ -28,7 +27,7 @@ function RegisterNumber(){
 
 	//Getting data from database
 	useEffect(() => {
-		api.get('/numberPhones').then(({data}) => {
+		api.get('/user').then(({data}) => {
 			setClientsMain(data.data)
 		})
 	}, [])
@@ -59,7 +58,7 @@ function RegisterNumber(){
 	///////////////// Delete user implementation
 	const handleDeleteClient = async (_id) => {
 		try {
-			await api.delete(`/numberPhones/${_id}`)
+			await api.delete(`/user/${_id}`)
 			setClientsMain(clientsMain.filter(client => client._id !== _id))
 		}
 		catch(e){
@@ -171,8 +170,8 @@ function RegisterNumber(){
             <div className="bg-white p-8 rounded-md w-full">
 	<div className=" flex items-center justify-between pb-6">
 		<div>
-			<h2 className="text-gray-600 font-semibold">Registro Interno</h2>
-			<span className="text-xs">Entradas na câmara</span>
+			<h2 className="text-gray-600 font-semibold">Registro de Usuários</h2>
+			<span className="text-xs">usuários no sistema</span>
 		</div>
 		<div className="flex items-center justify-between">
 			<div className="flex bg-gray-50 items-center p-2 rounded-md">
@@ -238,11 +237,11 @@ function RegisterNumber(){
 								</th>
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-									Telefone primário
+									Tipo de usuário
 								</th>
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-									Telefone secundário
+									Telefone Primário
 								</th>
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -284,4 +283,4 @@ function RegisterNumber(){
     );
 }
 
-export default RegisterNumber;
+export default RegisterUsers;
