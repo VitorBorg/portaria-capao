@@ -59,6 +59,9 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId}){
 
       try {
 
+        if(secondNumber == "")
+            setsecondNumber("0")
+
         console.log('data: ', name)
         console.log('data: ', email)
         console.log('data: ', firstNumber)
@@ -71,8 +74,6 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId}){
           firstNumber,
           secondNumber
         })
-        
-      console.log('GO FOR IT')
 
       setClientsMain(clients.concat(data.data))
 
@@ -81,6 +82,7 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId}){
       setsecondNumber('')
       setfirstNumber('')
 
+      console.log("Close it!")
       {() => onClose}
         
     } catch (e) {
@@ -94,8 +96,8 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId}){
     if(theId){
       setName(theId.name)
       setEmail(theId.email)
-      setsecondNumber(theId.phoneFirst)
-      setfirstNumber(theId.phoneSecond)
+      setsecondNumber(theId.phoneSecond)
+      setfirstNumber(theId.phoneFirst)
   
     }
     }, [theId])
@@ -116,7 +118,6 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId}){
   const handleChangeName = (text) => {
     setName(text)
   }
-
   return(
         <div>
             <div className="flex justify-center h-screen items-center antialiased">
@@ -158,7 +159,7 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId}){
                 onChange={e => handleChangeSecondNumber(e.target.value)}
               >
                 <option value="0">Vereador</option>
-                <option value="1">Asessor</option>
+                <option value="1">Assessor</option>
                 <option value="2">Funcionário</option>
               </select>
             </div>

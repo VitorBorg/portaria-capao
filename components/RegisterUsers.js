@@ -14,7 +14,6 @@ function RegisterUsers(){
 	const [clientsSearch, setClientsSearch] = useState([])
 
 	const [open, setOpen] = useState(false);
-	//const [edit, setEdit] = useState(false);
 	const [idEdit, setIdEdit] = useState(null);
 
 	const [posts, setPosts] = useState([]);
@@ -70,6 +69,20 @@ function RegisterUsers(){
 		setSearch(text)
 	}
 
+	const showFunctionName = (value) => {
+
+
+		switch(value){
+			case '1':
+				return 'Assessor'
+			case '2':
+				return 'Funcionário'  
+			default:
+				return 'Vereador'
+		}
+	}
+	
+
 	const listData = currentPosts.map(client => (
 		<tr key={client._id}>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -88,12 +101,12 @@ function RegisterUsers(){
 					</div>
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.phoneFirst}</p>
+				<p className="text-gray-900 whitespace-no-wrap">
+				{showFunctionName(client.phoneSecond)}
+				</p>
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">
-				{client.phoneSecond}
-				</p>
+				<p className="text-gray-900 whitespace-no-wrap">{client.phoneFirst}</p>
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 				<p className="text-gray-900 whitespace-no-wrap">{client.email}</p>
@@ -136,12 +149,12 @@ function RegisterUsers(){
 					</div>
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.phoneFirst}</p>
+				<p className="text-gray-900 whitespace-no-wrap">
+				{showFunctionName(client.phoneSecond)}
+				</p>
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">
-				{client.phoneSecond}
-				</p>
+				<p className="text-gray-900 whitespace-no-wrap">{client.phoneFirst}</p>
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 				<p className="text-gray-900 whitespace-no-wrap">{client.email}</p>
