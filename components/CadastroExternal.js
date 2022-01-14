@@ -2,18 +2,18 @@ import { set } from 'mongoose'
 import React, {useEffect, useState} from "react";
 import api from '../pages/services/api'
 
-function CadastroNumberPhones({clients,setClientsMain, onClose, theId}){
+function CadastroExternal({clients,setClientsMain, onClose, theId}){
     
   const [name, setName] = useState("")
   //const [id, setId] = useState(null)
 
   const [email, setEmail] = useState("")
-  //const [hourEnter, setHourEnter] = useState('')
-  //const [hourLeft, setHourLeft] = useState('')
+  const [hourEnter, setHourEnter] = useState('')
+  const [hourLeft, setHourLeft] = useState('')
   const [firstNumber, setfirstNumber] = useState('')
-  const [secondNumber, setsecondNumber] = useState('')
+  const [temperature, setTemperature] = useState('')
 
-  const [errors, setErrors] = useState({name: null, email: null, firstNumber: null, secondNumber: null})
+  const [errors, setErrors] = useState({name: null, email: null, firstNumber: null, temperature: null})
 
   //console.log("before errors: " + errors)
   const isValidFormData = () => {
@@ -40,7 +40,7 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId}){
       try {
         let iId = theId._id;
 
-        await api.put(`/numberPhones/${iId}`, {name, email, firstNumber, secondNumber})
+        await api.put(`/regExternal/${iId}`, {name, email, firstNumber, secondNumber})
         setClientsMain(clients.map(client => client._id === iId ? {name, email, firstNumber, secondNumber, _id: iId} : client))
     
         setName('')
@@ -59,17 +59,22 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId}){
 
       try {
 
+        const hourEnterFinal = (hourEnter.getHours() + 3 + ":" + hourEnter.getMinutes())
+        //const hourLeftFinal = (hourLeft.getHours() + 3 + ":" + hourLeft.getMinutes())
+
         console.log('data: ', name)
         console.log('data: ', email)
         console.log('data: ', firstNumber)
-        console.log('data: ', secondNumber)
+        console.log('data: ', temperature)
+        console.log('data: ', hourEnterFinal)
 
 
-        const {data} = await api.post('/numberPhones', {
+        const {data} = await api.post('/regExternal', {
           name,
           email,
           firstNumber,
-          secondNumber
+          temperature,
+          hourEnterFinal
         })
         
       console.log('GO FOR IT')
@@ -94,8 +99,9 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId}){
     if(theId){
       setName(theId.name)
       setEmail(theId.email)
-      setsecondNumber(theId.phoneFirst)
       setfirstNumber(theId.phoneSecond)
+
+      setsecondNumber(theId.phoneFirst)
   
     }
     }, [theId])
@@ -109,12 +115,20 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId}){
     setfirstNumber(text)
   }
 
-  const handleChangeSecondNumber = (text) => {
-    setsecondNumber(text)
+  const handleChangeTemperature = (text) => {
+    setTemperature(text)
   }
 
   const handleChangeName = (text) => {
     setName(text)
+  }
+
+  const handleChangeHourEnter = (text) => {
+    setHourEnter(text)
+  }
+
+  const handleChangeHourLeft = (text) => {
+    setHourLeft(text)
   }
 
   return(
@@ -176,15 +190,38 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId}){
             </div>
             
             <div className="w-full sm:w-1/2 mt-2 sm:mt-0">
-              <p className="mb-2 font-semibold text-gray-700">Telefone Secundário</p>
+              <p className="mb-2 font-semibold text-gray-700">Temperatura</p>
               <input type="tel" 
               id="telSecundary" 
               name="telSecundary"
               className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-                min="06:00" max="22:00" required
-                placeholder="Campo opcional"
+                placeholder="Campo Obrigatório"
                 value={secondNumber}
                 onChange={e => handleChangeSecondNumber(e.target.value)}
+                />
+            </div>    
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center mb-5 sm:space-x-5">
+            <div className="w-full sm:w-1/2">
+              <p className="mb-2 font-semibold text-gray-700">Horário de entrada</p>
+              <input type="time" 
+              id="hourEnter" 
+              name="hourEnter"
+              className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
+                min="06:00" max="22:00" required
+                onChange={e => handleChangeHourEnter(e.target.valueAsDate)}
+                />
+            </div>
+            
+            <div className="w-full sm:w-1/2 mt-2 sm:mt-0">
+              <p className="mb-2 font-semibold text-gray-700">Horário de Saída</p>
+              <input type="time" 
+              id="hourLeft" 
+              name="hourLeft"
+              className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
+                min="06:00" max="22:00" required
+                onChange={e => handleChangeHourLeft(e.target.valueAsDate)}
                 />
             </div>
           </div>
@@ -214,4 +251,4 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId}){
     );
 }
 
-export default CadastroNumberPhones;
+export default CadastroExternal;

@@ -1,4 +1,4 @@
-import Register from "../components/register";
+import RegisterExternal from "../components/RegisterExternal";
 import SideBar from "../components/SideBar";
 import Head from 'next/head'
 
@@ -12,7 +12,7 @@ function registroInterno() {
   
         <main className="flex">
           <SideBar/>
-          <Register/>
+          <RegisterExternal/>
         </main>
       </div>
     );
