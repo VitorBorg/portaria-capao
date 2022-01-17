@@ -12,6 +12,7 @@ function RegisterUsers(){
 
 	const [clientsMain, setClientsMain] = useState([])
 	const [clientsSearch, setClientsSearch] = useState([])
+	const [refresh, setRefresh] = useState(false)
 
 	const [open, setOpen] = useState(false);
 	const [idEdit, setIdEdit] = useState(null);
@@ -29,7 +30,17 @@ function RegisterUsers(){
 		api.get('/user').then(({data}) => {
 			setClientsMain(data.data)
 		})
+		setRefresh(false)
 	}, [])
+
+	useEffect(() => {
+		api.get('/user').then(({data}) => {
+			setClientsMain(data.data)
+		})
+		setRefresh(false)
+	}, [refresh])
+
+
 
 	/////////////////////Search implementation
 	useEffect(() => {
@@ -223,6 +234,7 @@ function RegisterUsers(){
 									 setClientsMain={setClientsMain} 
 									 onClose={() => setOpen(!open)}
 									 theId={idEdit}
+									 setRefresh={setRefresh}
 									 />
 								</div>
 						 	</div>

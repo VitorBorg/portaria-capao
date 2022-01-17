@@ -1,21 +1,17 @@
-import { set } from 'mongoose'
 import React, {useEffect, useState} from "react";
 import api from '../pages/services/api'
 
-function CadastroNumberPhones({clients,setClientsMain, onClose, theId}){
+function CadastroNumberPhones({clients,setClientsMain, onClose, theId, setRefresh}){
     
   const [name, setName] = useState("")
-  //const [id, setId] = useState(null)
 
   const [email, setEmail] = useState("")
-  //const [hourEnter, setHourEnter] = useState('')
-  //const [hourLeft, setHourLeft] = useState('')
+
   const [firstNumber, setfirstNumber] = useState('')
   const [secondNumber, setsecondNumber] = useState('')
 
   const [errors, setErrors] = useState({name: null, email: null, firstNumber: null, secondNumber: null})
 
-  //console.log("before errors: " + errors)
   const isValidFormData = () => {
 
     if(name == "" ){
@@ -49,6 +45,7 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId}){
         setfirstNumber('')
 
         onClose()
+        setRefresh(true)
     
       } catch (e) {
         console.log(e)
@@ -84,6 +81,7 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId}){
       setfirstNumber('')
 
       onClose();
+      setRefresh(true)
         
     } catch (e) {
       console.log("error: " + e)
@@ -96,8 +94,8 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId}){
     if(theId){
       setName(theId.name)
       setEmail(theId.email)
-      setsecondNumber(theId.phoneFirst)
-      setfirstNumber(theId.phoneSecond)
+      setsecondNumber(theId.phoneSecond)
+      setfirstNumber(theId.phoneFirst)
   
     }
     }, [theId])

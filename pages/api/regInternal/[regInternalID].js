@@ -21,7 +21,7 @@ export default async function handler(req, res) {
                     hourEnter: hourEnter,
                     hourLeft: hourLeft
                 })
-                res.status(200).json("PHONE PUT: " + firstNumber)
+                res.status(200).json({success: true})
             }catch(e){
                 console.log(e)
                 res.status(500).json({success: false, e})

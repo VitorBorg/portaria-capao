@@ -3,7 +3,6 @@ import {
 	SaveIcon
 } from "@heroicons/react/solid";
 import React, {useEffect, useState} from "react";
-import { set } from 'mongoose'
 import api from '../pages/services/api'
 import CadastroNumberPhones from "./CadastroNumberPhones";
 import Pagination from "./Pagination";
@@ -13,6 +12,7 @@ function RegisterNumber(){
 
 	const [clientsMain, setClientsMain] = useState([])
 	const [clientsSearch, setClientsSearch] = useState([])
+	const [refresh, setRefresh] = useState(false)
 
 	const [open, setOpen] = useState(false);
 	//const [edit, setEdit] = useState(false);
@@ -32,6 +32,12 @@ function RegisterNumber(){
 			setClientsMain(data.data)
 		})
 	}, [])
+
+	useEffect(() => {
+		api.get('/numberPhones').then(({data}) => {
+			setClientsMain(data.data)
+		})
+	}, [refresh])
 
 	/////////////////////Search implementation
 	useEffect(() => {
@@ -211,6 +217,7 @@ function RegisterNumber(){
 									 setClientsMain={setClientsMain} 
 									 onClose={() => setOpen(!open)}
 									 theId={idEdit}
+									 setRefresh={setRefresh}
 									 />
 								</div>
 						 	</div>

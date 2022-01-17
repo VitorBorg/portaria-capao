@@ -1,8 +1,7 @@
-import { set } from 'mongoose'
 import React, {useEffect, useState} from "react";
 import api from '../pages/services/api'
 
-function CadastroModalUser({clients,setClientsMain, onClose, theId}){
+function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh}){
     
   const [name, setName] = useState("")
   //const [id, setId] = useState(null)
@@ -39,6 +38,9 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId}){
     
       try {
         let iId = theId._id;
+          
+        if(secondNumber == "")
+           secondNumber = "Vereador"
 
         await api.put(`/user/${iId}`, {name, email, firstNumber, secondNumber})
         setClientsMain(clients.map(client => client._id === iId ? {name, email, firstNumber, secondNumber, _id: iId} : client))
@@ -49,6 +51,7 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId}){
         setfirstNumber('')
 
         onClose()
+        setRefresh(true)
     
       } catch (e) {
         console.log(e)
@@ -85,6 +88,7 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId}){
       setfirstNumber('')
 
       onClose()
+      setRefresh(true)
         
     } catch (e) {
       console.log("error: " + e)
