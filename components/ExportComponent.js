@@ -1,15 +1,11 @@
-import { ChevronDownIcon, UserAddIcon } from "@heroicons/react/outline";
-//import Register from "./register";
-
-function Center () {
+function ExportComponent () {
     return (
     <div className="bg-white">
        <link rel="stylesheet" href="https://cdn.tailgrids.com/tailgrids-fallback.css" />
 <section
    class="
    bg-white
-   pt-20
-   lg:pt-[120px]
+   lg:pt-[20px]
    pb-12
    lg:pb-[90px]
    relative
@@ -689,4 +685,4 @@ function Center () {
     );
 };
 
-export default Center;
+export default ExportComponent;
