@@ -47,6 +47,8 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId}){
         setEmail('')
         setsecondNumber('')
         setfirstNumber('')
+
+        onClose()
     
       } catch (e) {
         console.log(e)
@@ -81,7 +83,7 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId}){
       setsecondNumber('')
       setfirstNumber('')
 
-      {() => onClose}
+      onClose();
         
     } catch (e) {
       console.log("error: " + e)

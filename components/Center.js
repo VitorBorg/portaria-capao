@@ -1,5 +1,5 @@
 import { ChevronDownIcon, UserAddIcon } from "@heroicons/react/outline";
-import Register from "./register";
+//import Register from "./register";
 
 function Center () {
     return (

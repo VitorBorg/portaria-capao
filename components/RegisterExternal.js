@@ -1,9 +1,9 @@
 import {
     PlusIcon,
-	SaveIcon
+	SaveIcon,
+	XIcon
 } from "@heroicons/react/solid";
 import React, {useEffect, useState} from "react";
-import { set } from 'mongoose'
 import api from '../pages/services/api'
 import CadastroNumberPhones from "./CadastroExternal";
 import Pagination from "./Pagination";
@@ -21,7 +21,7 @@ function RegisterExternal(){
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [postPerPage] = useState(10);
+	const [postPerPage] = useState(7);
 
 	const [search, setSearch] = useState("");
 	
@@ -80,25 +80,32 @@ function RegisterExternal(){
 							src="https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"
 							alt="" />
 					</div>
-						<div className="ml-3">
-							<p className="text-gray-900 whitespace-no-wrap">
-							{client.name}
+					<div className="ml-3">
+						<p className="text-gray-900 whitespace-no-wrap">
+						{client.name}
 							
-							</p>
-						</div>
+						</p>
 					</div>
+				</div>
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 				<p className="text-gray-900 whitespace-no-wrap">{client.phoneFirst}</p>
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 				<p className="text-gray-900 whitespace-no-wrap">
-				{client.phoneSecond}
+				{client.email}
 				</p>
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.email}</p>
+				<p className="text-gray-900 whitespace-no-wrap">{client.temperature}</p>
 			</td>
+			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+				<p className="text-gray-900 whitespace-no-wrap">{client.hourEnter}</p>
+			</td>
+			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+				<p className="text-gray-900 whitespace-no-wrap">{client.hourLeft == "00:00"?  <XIcon className="h-5 w-5 fill-red-700" /> : client.hourLeft}</p>
+			</td>
+			
 
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 
@@ -141,11 +148,17 @@ function RegisterExternal(){
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 				<p className="text-gray-900 whitespace-no-wrap">
-				{client.phoneSecond}
+				{client.email}
 				</p>
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.email}</p>
+				<p className="text-gray-900 whitespace-no-wrap">{client.temperature}</p>
+			</td>
+			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+				<p className="text-gray-900 whitespace-no-wrap">{client.hourEnter}</p>
+			</td>
+			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+				<p className="text-gray-900 whitespace-no-wrap">{client.hourLeft == "00:00"?  <XIcon className="h-5 w-5 fill-red-700" /> : client.hourLeft}</p>
 			</td>
 
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -171,7 +184,7 @@ function RegisterExternal(){
             <div className="bg-white p-8 rounded-md w-full">
 	<div className=" flex items-center justify-between pb-6">
 		<div>
-			<h2 className="text-gray-600 font-semibold">Registro Interno</h2>
+			<h2 className="text-gray-600 font-semibold">Registro de entrada de visitantes</h2>
 			<span className="text-xs">Entradas na câmara</span>
 		</div>
 		<div className="flex items-center justify-between">
@@ -210,7 +223,7 @@ function RegisterExternal(){
 									 clients={clientsMain} 
 									 setClientsMain={setClientsMain} 
 									 onClose={() => setOpen(!open)}
-									 theId={idEdit}
+									 theId={idEdit}		 
 									 />
 								</div>
 						 	</div>
@@ -234,19 +247,27 @@ function RegisterExternal(){
 							<tr>
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-									Nome da instituição
+									Nome
 								</th>
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-									Telefone primário
-								</th>
-								<th
-									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-									Telefone secundário
+									Telefone
 								</th>
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
 									Email
+								</th>
+								<th
+									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+									Temperatura
+								</th>
+								<th
+									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+									Entrada
+								</th>
+								<th
+									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+									Saída
 								</th>
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">

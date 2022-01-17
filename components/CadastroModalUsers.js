@@ -47,6 +47,8 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId}){
         setEmail('')
         setsecondNumber('')
         setfirstNumber('')
+
+        onClose()
     
       } catch (e) {
         console.log(e)
@@ -59,13 +61,13 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId}){
 
       try {
 
-        if(secondNumber == "")
-            setsecondNumber("0")
+      //  console.log('data: ', name)
+       // console.log('data: ', email)
+      //  console.log('data: ', firstNumber)
+      //  console.log('data: ', secondNumber)
 
-        console.log('data: ', name)
-        console.log('data: ', email)
-        console.log('data: ', firstNumber)
-        console.log('data: ', secondNumber)
+      if(secondNumber == "")
+        secondNumber = "Vereador"
 
 
         const {data} = await api.post('/user', {
@@ -82,8 +84,7 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId}){
       setsecondNumber('')
       setfirstNumber('')
 
-      console.log("Close it!")
-      {() => onClose}
+      onClose()
         
     } catch (e) {
       console.log("error: " + e)
@@ -158,9 +159,9 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId}){
                 value={secondNumber}
                 onChange={e => handleChangeSecondNumber(e.target.value)}
               >
-                <option value="0">Vereador</option>
-                <option value="1">Assessor</option>
-                <option value="2">Funcionário</option>
+                <option value="Vereador">Vereador</option>
+                <option value="Assessor">Assessor</option>
+                <option value="Funcionário">Funcionário</option>
               </select>
             </div>
           </div>

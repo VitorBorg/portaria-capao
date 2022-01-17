@@ -1,15 +1,15 @@
 import {
     PlusIcon,
-	SaveIcon
+	SaveIcon,
+	XIcon
 } from "@heroicons/react/solid";
 import React, {useEffect, useState} from "react";
-import { set } from 'mongoose'
 import api from '../pages/services/api'
-import CadastroNumberPhones from "./CadastroNumberPhones";
+import CadastroNumberPhones from "./CadastroInternal";
 import Pagination from "./Pagination";
 
 
-function RegisterNumber(){
+function RegisterInternal(){
 
 	const [clientsMain, setClientsMain] = useState([])
 	const [clientsSearch, setClientsSearch] = useState([])
@@ -28,7 +28,7 @@ function RegisterNumber(){
 
 	//Getting data from database
 	useEffect(() => {
-		api.get('/numberPhones').then(({data}) => {
+		api.get('/regInternal').then(({data}) => {
 			setClientsMain(data.data)
 		})
 	}, [])
@@ -59,7 +59,7 @@ function RegisterNumber(){
 	///////////////// Delete user implementation
 	const handleDeleteClient = async (_id) => {
 		try {
-			await api.delete(`/numberPhones/${_id}`)
+			await api.delete(`/regInternal/${_id}`)
 			setClientsMain(clientsMain.filter(client => client._id !== _id))
 		}
 		catch(e){
@@ -80,25 +80,27 @@ function RegisterNumber(){
 							src="https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"
 							alt="" />
 					</div>
-						<div className="ml-3">
-							<p className="text-gray-900 whitespace-no-wrap">
-							{client.name}
+					<div className="ml-3">
+						<p className="text-gray-900 whitespace-no-wrap">
+						{client.name}
 							
-							</p>
-						</div>
+						</p>
 					</div>
+				</div>
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.phoneFirst}</p>
+				<p className="text-gray-900 whitespace-no-wrap">{client.userType}</p>
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">
-				{client.phoneSecond}
-				</p>
+				<p className="text-gray-900 whitespace-no-wrap">{client.temperature}</p>
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.email}</p>
+				<p className="text-gray-900 whitespace-no-wrap">{client.hourEnter}</p>
 			</td>
+			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+				<p className="text-gray-900 whitespace-no-wrap">{client.hourLeft == "00:00"?  <XIcon className="h-5 w-5 fill-red-700" /> : client.hourLeft}</p>
+			</td>
+			
 
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 
@@ -141,11 +143,17 @@ function RegisterNumber(){
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 				<p className="text-gray-900 whitespace-no-wrap">
-				{client.phoneSecond}
+				{client.email}
 				</p>
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.email}</p>
+				<p className="text-gray-900 whitespace-no-wrap">{client.temperature}</p>
+			</td>
+			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+				<p className="text-gray-900 whitespace-no-wrap">{client.hourEnter}</p>
+			</td>
+			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+				<p className="text-gray-900 whitespace-no-wrap">{client.hourLeft == "00:00"?  <XIcon className="h-5 w-5 fill-red-700" /> : client.hourLeft}</p>
 			</td>
 
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -171,8 +179,8 @@ function RegisterNumber(){
             <div className="bg-white p-8 rounded-md w-full">
 	<div className=" flex items-center justify-between pb-6">
 		<div>
-			<h2 className="text-gray-600 font-semibold">Números úteis</h2>
-			<span className="text-xs">Lista de cadastro de contatos</span>
+			<h2 className="text-gray-600 font-semibold">Registro de entrada de visitantes</h2>
+			<span className="text-xs">Entradas na câmara</span>
 		</div>
 		<div className="flex items-center justify-between">
 			<div className="flex bg-gray-50 items-center p-2 rounded-md">
@@ -210,7 +218,7 @@ function RegisterNumber(){
 									 clients={clientsMain} 
 									 setClientsMain={setClientsMain} 
 									 onClose={() => setOpen(!open)}
-									 theId={idEdit}
+									 theId={idEdit}		 
 									 />
 								</div>
 						 	</div>
@@ -234,19 +242,23 @@ function RegisterNumber(){
 							<tr>
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-									Nome da instituição
+									Nome
 								</th>
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-									Telefone primário
+									Tipo de usuário
 								</th>
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-									Telefone secundário
+									Temperatura
 								</th>
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-									Email
+									Entrada
+								</th>
+								<th
+									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+									Saída
 								</th>
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -284,4 +296,4 @@ function RegisterNumber(){
     );
 }
 
-export default RegisterNumber;
+export default RegisterInternal;

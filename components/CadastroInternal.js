@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from "react";
 import api from '../pages/services/api'
 
-function CadastroExternal({clients,setClientsMain, onClose, theId}){
+function CadastroInternal({clients,setClientsMain, onClose, theId}){
     
-  const [name, setName] = useState("")
+  const [clientsList, setClientsList] = useState([])
+	const [clientsSearch, setClientsSearch] = useState([])
 
-  const [email, setEmail] = useState("")
+  const [name, setName] = useState("")
 
   const [hourEnter, setHourEnter] = useState('07:00')
   const [hourEnterFlag, setHourEnterFlag] = useState(false)
   const [hourLeft, setHourLeft] = useState('00:00')
   const [hourLeftFlag, setHourLeftFlag] = useState(false)
 
-  const [firstNumber, setfirstNumber] = useState('')
+  const [userType, setUserType] = useState('null')
   const [temperature, setTemperature] = useState('')
 
   const [errors, setErrors] = useState({name: null, email: null, firstNumber: null, temperature: null})
@@ -20,12 +21,12 @@ function CadastroExternal({clients,setClientsMain, onClose, theId}){
   //console.log("before errors: " + errors)
   const isValidFormData = () => {
 
-    if(name == "" ){
-      setErrors({name: 'Selecione uma pessoa!'})
+    if(userType == "" ){
+      setErrors({userType: 'Selecione uma função!'})
       return false
     }
-    if(email == "") {
-      setErrors({email: 'Indique o seu email!'})
+    if(name == "") {
+      setErrors({name: 'Selecione uma pessoa!'})
       return false
     }
     if(temperature == "") {
@@ -46,15 +47,14 @@ function CadastroExternal({clients,setClientsMain, onClose, theId}){
       try {
         let iId = theId._id;
 
-        await api.put(`/regExternal/${iId}`, {name, email, firstNumber, temperature, hourEnter, hourLeft})
+        await api.put(`/regInternal/${iId}`, {name, userType, temperature, hourEnter, hourLeft})
 
         setClientsMain(clients.map(client => client._id === iId ? 
-          {name, email, firstNumber, temperature, hourEnter, hourLeft, _id: iId} : client))
+          {name, userType, temperature, hourEnter, hourLeft, _id: iId} : client))
     
         setName('')
-        setEmail('')
+        setUserType('')
         setTemperature('')
-        setfirstNumber('')
         setHourEnter('07:00')
         setHourLeft('13:00')
         setHourEnterFlag(false)
@@ -68,36 +68,36 @@ function CadastroExternal({clients,setClientsMain, onClose, theId}){
     } else{
       e.preventDefault()
 
-      if(!isValidFormData()) return
+      //if(!isValidFormData()) return
 
       try {
 
-        /*
+        console.log("entering")
         console.log(
           "name: ", name,
-          "email: ", email,
-          "firstNumber: ", firstNumber,
+          "usertype: ", userType,
           "temperature: ", temperature,
           "hourEnter: ", hourEnter,
           "hourLeft: ", hourLeft
         )
-*/
 
-        const {data} = await api.post('/regExternal', {name, email, firstNumber, temperature, hourEnter, hourLeft})
+
+        const {data} = await api.post('/regInternal', {name, userType, temperature, hourEnter, hourLeft})
 
         setClientsMain(clients.concat(data.data))
 
         setName('')
-        setEmail('')
+        setUserType('')
         setTemperature('')
-        setfirstNumber('')
         setHourEnter('07:00')
+        setHourLeft('13:00')
         setHourEnterFlag(false)
         setHourLeftFlag(false)
 
         onClose()
         
     } catch (e) {
+      console.log("YOU: ")
       console.log("error: " + e)
       }
 
@@ -107,23 +107,37 @@ function CadastroExternal({clients,setClientsMain, onClose, theId}){
   useEffect(() => {
     if(theId){
       setName(theId.name)
-      setEmail(theId.email)
-      setfirstNumber(theId.phoneFirst)
+      setUserType(theId.userType)
       setTemperature(theId.temperature)
       setHourEnter(theId.hourEnter)
       setHourLeft(theId.hourLeft)
-
-      console.log("ATT: " + theId.phoneFirst + "; AFTER: " + theId.name)
     }
     }, [theId])
 
 
-  const handleChangeEmail = (text) => {
-    setEmail(text)
-  }
+/////////  GET LIST TO CADASTRO
+function strcmp(a, b) {
+  if (a < b) return -1;
+  if (a > b) return 1;
+  return 0;
+}
 
-  const handleChangefirstNumber = (text) => {
-    setfirstNumber(text)
+	//Getting data from database
+	useEffect(() => {
+		api.get('/user').then(({data}) => {
+			setClientsList(data.data)
+      //console.log("List: ", data.data)
+		})
+	}, [])
+
+	/////////////////////Search implementation
+	useEffect(() => {
+		setClientsSearch(clientsList.filter(client => strcmp(client.phoneSecond, userType) == 0))
+	}, [userType])
+
+///////////////////////////////////////////////////////////////////////
+  const handleChangeUserType = (text) => {
+    setUserType(text)
   }
 
   const handleChangeTemperature = (text) => {
@@ -154,9 +168,33 @@ function CadastroExternal({clients,setClientsMain, onClose, theId}){
     setHourLeft((hour.length == 3? hour.substring(1, 3): hour) + ":" + minute)
   }
 
+
+  const listDataSearch = 
+  userType == "null"? (null) : (
+  <div>
+  <p className="mb-2 font-semibold text-gray-700">Nome</p>
+  <select
+    type="text"
+    name="name"
+    placeholder="Campo obrigatório"
+    className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
+    id="name"
+    value={name}
+    onChange={e => handleChangeName(e.target.value)}
+  >
+   
+   <option value="null">Campo Obrigatório</option>
+  {clientsSearch.map(client => (
+    <option key={client._id} value={client.name}>{client.name}</option>
+    ))}
+  </select>
+  </div>
+  )
+
+
   return(
-        <div>
-            <div className="flex justify-center h-screen items-center antialiased">
+    <div>
+      <div className="flex justify-center h-screen items-center antialiased">
       <div className="flex flex-col mx-auto rounded-lg border border-gray-300 shadow-xl"
       >
         <form
@@ -164,53 +202,43 @@ function CadastroExternal({clients,setClientsMain, onClose, theId}){
         <div
           className="flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
         >
-          <p className="font-semibold text-gray-800">Registro de entrada de visitantes</p>
+          <p className="font-semibold text-gray-800">Registro de entrada Interno</p>
         </div>
         <div className="flex flex-col px-6 py-5 bg-gray-50">
 
 
         <div className="flex flex-col sm:flex-row items-center mb-5 sm:space-x-5">
-            <div className="w-full sm:w-1/2">
-              <p className="mb-2 font-semibold text-gray-700">Nome</p>
-              <input
+
+        <div className="w-full sm:w-1/2 mt-2 sm:mt-0">
+              <p className="mb-2 font-semibold text-gray-700">Função</p>
+              <select
                 type="text"
-                name="name"
-                placeholder="Campo obrigatório"
+                name="userType"
                 className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-                id="name"
-                value={name}
-                onChange={e => handleChangeName(e.target.value)}
+                id="userType"
+                value={userType}
+                onChange={e => handleChangeUserType(e.target.value)}
               >
-              </input>
+                <option value="null">Campo Obrigatório</option>
+                <option value="Vereador">Vereador</option>
+                <option value="Assessor">Assessor</option>
+                <option value="Funcionário">Funcionário</option>
+              </select>
+
+            </div>
+
+
+            <div className="w-full sm:w-1/2">
+            
+              {listDataSearch}
+
             </div>
             
-            <div className="w-full sm:w-1/2 mt-2 sm:mt-0">
-              <p className="mb-2 font-semibold text-gray-700">Email</p>
-              <input
-                type="email"
-                name="email"
-                className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-                id="email"
-                placeholder="Campo opcional"
-                value={email}
-                onChange={e => handleChangeEmail(e.target.value)}
-              />
-            </div>
+          
           </div>
 
           <div className="flex flex-col sm:flex-row items-center mb-5 sm:space-x-5">
-            <div className="w-full sm:w-1/2">
-              <p className="mb-2 font-semibold text-gray-700">Telefone</p>
-              <input type="tel" 
-              id="telPrincipal" 
-              name="telPrincipal"
-              className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-                min="06:00" max="22:00" required
-                value={firstNumber}
-                placeholder="Campo obrigatório"
-                onChange={e => handleChangefirstNumber(e.target.value)}
-                />
-            </div>
+
             
             <div className="w-full sm:w-1/2 mt-2 sm:mt-0">
               <p className="mb-2 font-semibold text-gray-700">Temperatura</p>
@@ -232,7 +260,7 @@ function CadastroExternal({clients,setClientsMain, onClose, theId}){
               id="hourEnter" 
               name="hourEnter"
               value={
-                (!hourEnterFlag && theId? hourEnter: console.log("DOING NOTHING"))
+                (!hourEnterFlag && theId? hourEnter: console.log())
                 }
               className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
                 min="06:00" max="22:00" required
@@ -284,4 +312,4 @@ function CadastroExternal({clients,setClientsMain, onClose, theId}){
     );
 }
 
-export default CadastroExternal;
+export default CadastroInternal;

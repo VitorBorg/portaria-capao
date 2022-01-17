@@ -5,7 +5,7 @@ dbConnect()
 
 export default async function handler(req, res) {
     const {method} = req
-    const {NumberPhonesID} = req.query
+    const {UserID} = req.query
 
     switch(method) {
         case 'PUT':
@@ -14,13 +14,13 @@ export default async function handler(req, res) {
 
                 if(!name && !firstNumber) throw 'invalid data'
 
-                await Phone.updateOne({_id: NumberPhonesID}, {
+                await Phone.updateOne({_id: UserID}, {
                     name: name, 
                     email: email, 
                     phoneFirst: firstNumber,
                     phoneSecond: secondNumber
                 })
-                res.status(200).json({success: true})
+                res.status(202).json({success: true})
             }catch(e){
                 console.log(e)
                 res.status(500).json({success: false, e})
@@ -30,9 +30,9 @@ export default async function handler(req, res) {
 
         case 'DELETE':
             try {          
-                await Phone.deleteOne({_id: NumberPhonesID})
+                await Phone.deleteOne({_id: UserID})
 
-                res.status(201).json({success: true})
+                res.status(201).json(UserID + "")
             } catch (e) {
                 console.log(e)
                 res.status(500).json({success: false, e})

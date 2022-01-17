@@ -1,4 +1,4 @@
-import Phone from "../../../models/regExternal"
+import Phone from "../../../models/regExternalInfo"
 import dbConnect from "../../services/db"
 
 dbConnect()

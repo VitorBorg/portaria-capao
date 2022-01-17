@@ -1,4 +1,4 @@
-import Phone from "../../models/regExternalInfo"
+import Phone from "../../models/regInternalInfo"
 import dbConnect from "../services/db"
 
 dbConnect()
@@ -21,15 +21,14 @@ export default async function handler(req, res) {
 
         case 'POST':
             try {
-                const {name, email, firstNumber,temperature, hourEnter, hourLeft} = req.body
+                const {name, userType,temperature, hourEnter, hourLeft} = req.body
 
                 if(!name && !email) throw 'invalid data'
 
                 const phone = await Phone.create({
                     name: name, 
-                    email: email, 
+                    userType: userType, 
                     temperature: temperature,
-                    phoneFirst: firstNumber,
                     hourEnter: hourEnter,
                     hourLeft: hourLeft
                 })

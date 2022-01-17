@@ -20,7 +20,7 @@ export default async function handler(req, res) {
                     phoneFirst: firstNumber,
                     phoneSecond: secondNumber
                 })
-                res.status(200).json({success: true})
+                res.status(202).json({success: true})
             }catch(e){
                 console.log(e)
                 res.status(500).json({success: false, e})

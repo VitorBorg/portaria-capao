@@ -19,7 +19,7 @@ function RegisterUsers(){
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [postPerPage] = useState(10);
+	const [postPerPage] = useState(7);
 
 	const [search, setSearch] = useState("");
 	
@@ -102,7 +102,7 @@ function RegisterUsers(){
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 				<p className="text-gray-900 whitespace-no-wrap">
-				{showFunctionName(client.phoneSecond)}
+				{client.phoneSecond}
 				</p>
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">

@@ -1,23 +1,22 @@
-import Phone from "../../../models/regExternalInfo"
+import Phone from "../../../models/regInternalInfo"
 import dbConnect from "../../services/db"
 
 dbConnect()
 
 export default async function handler(req, res) {
     const {method} = req
-    const {regExternalID} = req.query
+    const {regInternalID} = req.query
 
     switch(method) {
         case 'PUT':
             try{
-                const {name, email, firstNumber,temperature, hourEnter, hourLeft} = req.body
+                const {name, userType, temperature, hourEnter, hourLeft} = req.body
 
-                if(!name && !firstNumber && !temperature) throw 'invalid data'
+                if(!name && !userType && !temperature) throw 'invalid data'
 
-                await Phone.updateOne({_id: regExternalID}, {
+                await Phone.updateOne({_id: regInternalID}, {
                     name: name, 
-                    email: email, 
-                    firstNumber: firstNumber,
+                    userType: userType, 
                     temperature: temperature,
                     hourEnter: hourEnter,
                     hourLeft: hourLeft
@@ -32,7 +31,7 @@ export default async function handler(req, res) {
 
         case 'DELETE':
             try {          
-                await Phone.deleteOne({_id: regExternalID})
+                await Phone.deleteOne({_id: regInternalID})
 
                 res.status(202).json({success: true})
             } catch (e) {
