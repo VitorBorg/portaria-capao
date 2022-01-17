@@ -39,6 +39,9 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId}){
     
       try {
         let iId = theId._id;
+          
+        if(secondNumber == "")
+           secondNumber = "Vereador"
 
         await api.put(`/user/${iId}`, {name, email, firstNumber, secondNumber})
         setClientsMain(clients.map(client => client._id === iId ? {name, email, firstNumber, secondNumber, _id: iId} : client))
