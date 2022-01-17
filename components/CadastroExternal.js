@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import api from '../pages/services/api'
 
-function CadastroExternal({clients,setClientsMain, onClose, theId}){
+function CadastroExternal({clients,setClientsMain, onClose, theId, setRefresh}){
     
   const [name, setName] = useState("")
 
@@ -61,6 +61,7 @@ function CadastroExternal({clients,setClientsMain, onClose, theId}){
         setHourLeftFlag(false)
 
         onClose()
+        setRefresh(true)
     
       } catch (e) {
         console.log(e)
@@ -96,6 +97,7 @@ function CadastroExternal({clients,setClientsMain, onClose, theId}){
         setHourLeftFlag(false)
 
         onClose()
+        setRefresh(true)
         
     } catch (e) {
       console.log("error: " + e)

@@ -1,8 +1,7 @@
-import { set } from 'mongoose'
 import React, {useEffect, useState} from "react";
 import api from '../pages/services/api'
 
-function CadastroModalUser({clients,setClientsMain, onClose, theId}){
+function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh}){
     
   const [name, setName] = useState("")
   //const [id, setId] = useState(null)
@@ -52,6 +51,7 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId}){
         setfirstNumber('')
 
         onClose()
+        setRefresh(true)
     
       } catch (e) {
         console.log(e)
@@ -88,6 +88,7 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId}){
       setfirstNumber('')
 
       onClose()
+      setRefresh(true)
         
     } catch (e) {
       console.log("error: " + e)

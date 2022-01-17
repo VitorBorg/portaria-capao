@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import api from '../pages/services/api'
 
-function CadastroInternal({clients,setClientsMain, onClose, theId}){
+function CadastroInternal({clients,setClientsMain, onClose, theId, setRefresh}){
     
   const [clientsList, setClientsList] = useState([])
 	const [clientsSearch, setClientsSearch] = useState([])
@@ -16,7 +16,7 @@ function CadastroInternal({clients,setClientsMain, onClose, theId}){
   const [userType, setUserType] = useState('null')
   const [temperature, setTemperature] = useState('')
 
-  const [errors, setErrors] = useState({name: null, email: null, firstNumber: null, temperature: null})
+  const [errors, setErrors] = useState({name: null, email: null, temperature: null})
 
   //console.log("before errors: " + errors)
   const isValidFormData = () => {
@@ -56,11 +56,12 @@ function CadastroInternal({clients,setClientsMain, onClose, theId}){
         setUserType('')
         setTemperature('')
         setHourEnter('07:00')
-        setHourLeft('13:00')
+        setHourLeft('00:00')
         setHourEnterFlag(false)
         setHourLeftFlag(false)
 
         onClose()
+        setRefresh(true)
     
       } catch (e) {
         console.log(e)
@@ -95,6 +96,7 @@ function CadastroInternal({clients,setClientsMain, onClose, theId}){
         setHourLeftFlag(false)
 
         onClose()
+        setRefresh(true)
         
     } catch (e) {
       console.log("YOU: ")
@@ -106,11 +108,13 @@ function CadastroInternal({clients,setClientsMain, onClose, theId}){
 
   useEffect(() => {
     if(theId){
-      setName(theId.name)
       setUserType(theId.userType)
       setTemperature(theId.temperature)
       setHourEnter(theId.hourEnter)
       setHourLeft(theId.hourLeft)
+      setName(theId.name)
+
+      console.log("useEffect: ", theId)
     }
     }, [theId])
 
@@ -161,41 +165,58 @@ function strcmp(a, b) {
   const handleChangeHourLeft = (text) => {
     setHourLeftFlag(true)
 
-    console.log((text.getHours() + "").length + ", " + (text.getHours() + ""))
+    //console.log((text.getHours() + "").length + ", " + (text.getHours() + ""))
     let hour = ((text.getHours() + "").length <= 1? "0" + ((text.getHours() + 3 ) + "") : text.getHours() + 3)
     let minute = ((text.getMinutes() + "").length <= 1? "0" + (text.getMinutes() + "") : text.getMinutes())
     
     setHourLeft((hour.length == 3? hour.substring(1, 3): hour) + ":" + minute)
   }
 
+  const listDataShowEdit = 
+  !theId? (null) : (
+    <div className="">
+        <p className="mb-2 font-semibold text-gray-700">Usuário</p>
+        <input type="text" 
+              id="telSecundary" 
+              name="telSecundary"
+              className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
+                value={theId.name + ", " + theId.userType}
+                readOnly="readOnly"
+                />
+      </div>
+  )
+
 
   const listDataSearch = 
-  userType == "null"? (null) : (
+  (userType == "null" || theId)? (listDataShowEdit) : (
   <div>
-  <p className="mb-2 font-semibold text-gray-700">Nome</p>
-  <select
-    type="text"
-    name="name"
-    placeholder="Campo obrigatório"
-    className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-    id="name"
-    value={name}
-    onChange={e => handleChangeName(e.target.value)}
-  >
-   
-   <option value="null">Campo Obrigatório</option>
-  {clientsSearch.map(client => (
-    <option key={client._id} value={client.name}>{client.name}</option>
-    ))}
-  </select>
+      <div className="">
+        <p className="mb-2 font-semibold text-gray-700">Nome</p>
+        <select
+          type="text"
+          name="name"
+          placeholder="Campo obrigatório"
+          className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
+          id="name"
+          value={name}
+          onChange={e => handleChangeName(e.target.value)}
+        >
+        
+        <option value="null">Campo Obrigatório</option>
+        {clientsSearch.map(client => (
+          <option key={client._id} value={client.name}>{client.name}</option>
+          ))}
+        </select>
+      </div>
   </div>
   )
+  
 
 
   return(
     <div>
-      <div className="flex justify-center h-screen items-center antialiased">
-      <div className="flex flex-col mx-auto rounded-lg border border-gray-300 shadow-xl"
+      <div className="flex justify-center h-screen w-screen items-center antialiased">
+      <div className="flex flex-col rounded-lg border border-gray-300 shadow-xl"
       >
         <form
         onSubmit={handleSubmitCreateClient}>
@@ -209,12 +230,13 @@ function strcmp(a, b) {
 
         <div className="flex flex-col sm:flex-row items-center mb-5 sm:space-x-5">
 
-        <div className="w-full sm:w-1/2 mt-2 sm:mt-0">
+        { theId? (null) : (
+          <div className=" mt-2 sm:mt-0">
               <p className="mb-2 font-semibold text-gray-700">Função</p>
               <select
                 type="text"
                 name="userType"
-                className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
+                className="p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
                 id="userType"
                 value={userType}
                 onChange={e => handleChangeUserType(e.target.value)}
@@ -224,23 +246,17 @@ function strcmp(a, b) {
                 <option value="Assessor">Assessor</option>
                 <option value="Funcionário">Funcionário</option>
               </select>
-
             </div>
-
-
-            <div className="w-full sm:w-1/2">
-            
+           )}
+                   
               {listDataSearch}
-
-            </div>
-            
-          
+     
           </div>
 
           <div className="flex flex-col sm:flex-row items-center mb-5 sm:space-x-5">
 
             
-            <div className="w-full sm:w-1/2 mt-2 sm:mt-0">
+            <div className="w-full mt-2 sm:mt-0">
               <p className="mb-2 font-semibold text-gray-700">Temperatura</p>
               <input type="text" 
               id="telSecundary" 
@@ -277,7 +293,7 @@ function strcmp(a, b) {
               id="hourLeft" 
               name="hourLeft"
               value={
-                (!hourLeftFlag && theId.hourLeft? hourLeft: console.log("DOING NOTHING"))
+                (!hourLeftFlag && theId.hourLeft? hourLeft: console.log())
                 }
               className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
                 min="06:00" max="22:00" required

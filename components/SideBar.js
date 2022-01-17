@@ -70,7 +70,7 @@ function SideBar () {
                 <button className="flex items-center space-x-2 hover:text-gray-400"
                 >
                    <SaveIcon className="h-5 w-5" />
-                     <a href="/numerosInterno">Exportar</a>
+                     <a href="/Export">Exportar</a>
                     
                 </button>
             </div>

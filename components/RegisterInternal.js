@@ -13,6 +13,7 @@ function RegisterInternal(){
 
 	const [clientsMain, setClientsMain] = useState([])
 	const [clientsSearch, setClientsSearch] = useState([])
+	const [refresh, setRefresh] = useState(false)
 
 	const [open, setOpen] = useState(false);
 	//const [edit, setEdit] = useState(false);
@@ -32,6 +33,13 @@ function RegisterInternal(){
 			setClientsMain(data.data)
 		})
 	}, [])
+
+	useEffect(() => {
+		api.get('/regInternal').then(({data}) => {
+			setClientsMain(data.data)
+		})
+	}, [refresh])
+
 
 	/////////////////////Search implementation
 	useEffect(() => {
@@ -219,6 +227,7 @@ function RegisterInternal(){
 									 setClientsMain={setClientsMain} 
 									 onClose={() => setOpen(!open)}
 									 theId={idEdit}		 
+									 setRefresh={setRefresh}
 									 />
 								</div>
 						 	</div>

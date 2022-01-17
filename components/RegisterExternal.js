@@ -13,6 +13,7 @@ function RegisterExternal(){
 
 	const [clientsMain, setClientsMain] = useState([])
 	const [clientsSearch, setClientsSearch] = useState([])
+	const [refresh, setRefresh] = useState(false)
 
 	const [open, setOpen] = useState(false);
 	//const [edit, setEdit] = useState(false);
@@ -32,6 +33,12 @@ function RegisterExternal(){
 			setClientsMain(data.data)
 		})
 	}, [])
+
+	useEffect(() => {
+		api.get('/regExternal').then(({data}) => {
+			setClientsMain(data.data)
+		})
+	}, [refresh])
 
 	/////////////////////Search implementation
 	useEffect(() => {
@@ -223,7 +230,8 @@ function RegisterExternal(){
 									 clients={clientsMain} 
 									 setClientsMain={setClientsMain} 
 									 onClose={() => setOpen(!open)}
-									 theId={idEdit}		 
+									 theId={idEdit}		
+									 setRefresh={setRefresh} 
 									 />
 								</div>
 						 	</div>
