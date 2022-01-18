@@ -12,7 +12,7 @@ import {
 function SideBar () {
     return (
         <div className="text-gray-300 font-bold  font-sans p-11 border-r border-gray-100 bg-gradient-to-tr from-blue-800 to-green-800
-        overflow-y-scroll scrollbar-hide min-h-screen
+        overflow-y-scroll scrollbar-hide min-h-screen min-w-fit
 ">
             <div className="">
                 <div className="flex justify-center">
