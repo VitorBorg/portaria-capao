@@ -1,7 +1,7 @@
 import {
     PlusIcon,
-	SaveIcon,
-	XIcon
+	XIcon,
+	DotsVerticalIcon
 } from "@heroicons/react/solid";
 import React, {useEffect, useState} from "react";
 import api from '../pages/services/api'
@@ -234,8 +234,28 @@ function RegisterInternal(){
 						 )
 					 }
 
-                    <button className="bg-yellow-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer"
-					>Selecionar outro dia</button>
+<button id="dropdownButton" data-dropdown-toggle="dropdown" class="bg-gray-100 focus:ring-4 rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" type="button"><DotsVerticalIcon className="h-5 w-5" /></button>
+
+<div id="dropdown" class="hidden z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
+    <ul class="py-1" aria-labelledby="dropdownButton">
+      <li>
+        <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+      </li>
+      <li>
+        <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
+      </li>
+      <li>
+        <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
+      </li>
+      <li>
+        <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+      </li>
+    </ul>
+</div>
+
+				
+
+					
 
 				</div>
 			</div>
