@@ -3,20 +3,30 @@ import {
 	XIcon,
 	DotsVerticalIcon
 } from "@heroicons/react/solid";
+
 import React, {useEffect, useState} from "react";
 import api from '../pages/services/api'
-import CadastroNumberPhones from "./CadastroInternal";
-import Pagination from "./Pagination";
 
+import CadastroNumberPhones from "./CadastroInternal";
+import FilterDay from "./FilterDay";
+
+import Pagination from "./Pagination";
+import moment from "moment";
+
+function strcmp(a, b)
+{   
+    return (a<b?-1:(a>b?1:0));  
+}
 
 function RegisterInternal(){
 
+	const [databaseClients, setDatabaseClients] = useState([])
 	const [clientsMain, setClientsMain] = useState([])
 	const [clientsSearch, setClientsSearch] = useState([])
 	const [refresh, setRefresh] = useState(false)
 
 	const [open, setOpen] = useState(false);
-	//const [edit, setEdit] = useState(false);
+	const [openDay, setOpenDay] = useState(false);
 	const [idEdit, setIdEdit] = useState(null);
 
 	const [posts, setPosts] = useState([]);
@@ -24,28 +34,40 @@ function RegisterInternal(){
 	const [currentPage, setCurrentPage] = useState(1);
 	const [postPerPage] = useState(7);
 
+	const [searchDay, setSearchDay] = useState("");
 	const [search, setSearch] = useState("");
-	
 
 	//Getting data from database
 	useEffect(() => {
 		api.get('/regInternal').then(({data}) => {
-			setClientsMain(data.data)
+			setDatabaseClients(data.data)
 		})
-	}, [])
+	}, [, refresh])
 
+	//Getting data from database
+		useEffect(() => {	
+			setClientsMain(databaseClients.filter(client => 
+				strcmp(client.createdAt.substring(0,10), moment().format("YYYY-MM-DD")) == 0))
+		}, [databaseClients])
+
+		/*
 	useEffect(() => {
 		api.get('/regInternal').then(({data}) => {
-			setClientsMain(data.data)
+			setDatabaseClients(data.data)
 		})
 	}, [refresh])
+	*/
 
 
 	/////////////////////Search implementation
 	useEffect(() => {
 		if(search != "")
 			setClientsSearch(clientsMain.filter(client => client.name.toLowerCase().includes(search.toLowerCase())))
-	}, [search])
+		else if(searchDay != ""){
+			setClientsMain(databaseClients.filter(client => 
+				strcmp(client.createdAt.substring(0,10), searchDay) == 0))
+		}
+	}, [search, searchDay])
 
 	///////////////// PAGINATION
 	useEffect(() => {
@@ -234,24 +256,48 @@ function RegisterInternal(){
 						 )
 					 }
 
-<button id="dropdownButton" data-dropdown-toggle="dropdown" class="bg-gray-100 focus:ring-4 rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" type="button"><DotsVerticalIcon className="h-5 w-5" /></button>
+<button
+						data-dropdown-toggle="dropdown" 
+						className="bg-gray-200 rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" 
+						type="button"
+						onClick={() => (setOpenDay(!open))}
+						><DotsVerticalIcon className="h-5 w-5" />
+						</button>
 
-<div id="dropdown" class="hidden z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
-    <ul class="py-1" aria-labelledby="dropdownButton">
-      <li>
-        <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
-      </li>
-      <li>
-        <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
-      </li>
-      <li>
-        <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
-      </li>
-      <li>
-        <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-      </li>
-    </ul>
-</div>
+						{
+						console.log("MODAL: " + openDay),
+						 openDay && (
+							 <div 
+							 className="modal">
+								<div className="overlay"></div>
+						 		<div className="modal-content">								 
+									<FilterDay
+									onClose={() => setOpenDay(!openDay)}
+									setSearch={setSearchDay}
+									currentDate={searchDay}
+									/>							 
+								</div>
+						 	</div>
+						 )
+					 }
+
+
+						<div id="dropdown" className="hidden z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
+							<ul className="py-1" aria-labelledby="dropdownButton">
+							<li>
+								<a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+							</li>
+							<li>
+								<a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
+							</li>
+							<li>
+								<a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
+							</li>
+							<li>
+								<a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+							</li>
+							</ul>
+						</div>
 
 				
 
