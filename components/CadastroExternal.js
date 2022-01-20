@@ -15,17 +15,13 @@ function CadastroExternal({clients,setClientsMain, onClose, theId, setRefresh}){
   const [firstNumber, setfirstNumber] = useState('')
   const [temperature, setTemperature] = useState('')
 
-  const [errors, setErrors] = useState({name: null, email: null, firstNumber: null, temperature: null})
+  const [errors, setErrors] = useState({name: null, email: null, temperature: null})
 
   //console.log("before errors: " + errors)
   const isValidFormData = () => {
 
     if(name == "" ){
       setErrors({name: 'Selecione uma pessoa!'})
-      return false
-    }
-    if(email == "") {
-      setErrors({email: 'Indique o seu email!'})
       return false
     }
     if(temperature == "") {
@@ -207,9 +203,8 @@ function CadastroExternal({clients,setClientsMain, onClose, theId, setRefresh}){
               id="telPrincipal" 
               name="telPrincipal"
               className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-                min="06:00" max="22:00" required
                 value={firstNumber}
-                placeholder="Campo obrigatório"
+                placeholder="Campo opcional"
                 onChange={e => handleChangefirstNumber(e.target.value)}
                 />
             </div>
@@ -243,7 +238,7 @@ function CadastroExternal({clients,setClientsMain, onClose, theId, setRefresh}){
             </div>
             
 
-            {theId && (
+            {theId && theId.hourLeft != "00:00" &&  (
             
             <div className="w-full sm:w-1/2 mt-2 sm:mt-0">
               <p className="mb-2 font-semibold text-gray-700">Horário de Saída</p>

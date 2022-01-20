@@ -147,7 +147,7 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh})
                 placeholder="Campo obrigatório"
                 className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
                 id="name"
-                value={name}
+                value={name} required
                 onChange={e => handleChangeName(e.target.value)}
               >
               </input>
@@ -190,7 +190,7 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh})
               id="telPrincipal" 
               name="telPrincipal"
               className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-                value={firstNumber}
+                value={firstNumber} required
                 placeholder="Campo obrigatório"
                 onChange={e => handleChangefirstNumber(e.target.value)}
                 />

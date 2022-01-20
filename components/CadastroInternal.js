@@ -25,7 +25,7 @@ function CadastroInternal({clients,setClientsMain, onClose, theId, setRefresh}){
       setErrors({userType: 'Selecione uma função!'})
       return false
     }
-    if(name == "") {
+    if(name == "" || name == "Campo obrigatório") {
       setErrors({name: 'Selecione uma pessoa!'})
       return false
     }
@@ -197,7 +197,7 @@ function strcmp(a, b) {
           name="name"
           placeholder="Campo obrigatório"
           className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-          id="name"
+          id="name" required
           value={name}
           onChange={e => handleChangeName(e.target.value)}
         >
@@ -262,8 +262,8 @@ function strcmp(a, b) {
               id="telSecundary" 
               name="telSecundary"
               className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-                placeholder="Campo Obrigatório"
-                value={temperature}
+                placeholder="Campo Obrigatório" required
+                value={temperature} 
                 onChange={e => handleChangeTemperature(e.target.value)}
                 />
             </div>    
@@ -285,7 +285,7 @@ function strcmp(a, b) {
             </div>
             
 
-            {theId && (
+            {theId && theId.hourLeft != "00:00" && (
             
             <div className="w-full sm:w-1/2 mt-2 sm:mt-0">
               <p className="mb-2 font-semibold text-gray-700">Horário de Saída</p>

@@ -1,6 +1,6 @@
 import {
     PlusIcon,
-	XIcon,
+	LogoutIcon,
 	DotsVerticalIcon
 } from "@heroicons/react/solid";
 
@@ -8,7 +8,9 @@ import React, {useEffect, useState} from "react";
 import api from '../pages/services/api'
 
 import CadastroNumberPhones from "./CadastroInternal";
+import CadastroInternalLeft from "./CadastroInternalLeft";
 import FilterDay from "./FilterDay";
+import FilterName from "./FilterName";
 
 import Pagination from "./Pagination";
 import moment from "moment";
@@ -26,15 +28,19 @@ function RegisterInternal(){
 	const [refresh, setRefresh] = useState(false)
 
 	const [open, setOpen] = useState(false);
+	const [openDropDown, setOpenDropDown] = useState(false);
+	const [openLeft, setOpenLeft] = useState(false);
 	const [openDay, setOpenDay] = useState(false);
+	const [openName, setOpenName] = useState(false);
 	const [idEdit, setIdEdit] = useState(null);
 
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [postPerPage] = useState(7);
+	const [postPerPage] = useState(15);
 
 	const [searchDay, setSearchDay] = useState("");
+	const [searchName, setSearchName] = useState("");
 	const [search, setSearch] = useState("");
 
 	//Getting data from database
@@ -61,13 +67,20 @@ function RegisterInternal(){
 
 	/////////////////////Search implementation
 	useEffect(() => {
+		//filtro de nome no dia atual
 		if(search != "")
 			setClientsSearch(clientsMain.filter(client => client.name.toLowerCase().includes(search.toLowerCase())))
-		else if(searchDay != ""){
+		//filtro de dia
+			else if(searchDay != ""){
 			setClientsMain(databaseClients.filter(client => 
 				strcmp(client.createdAt.substring(0,10), searchDay) == 0))
 		}
-	}, [search, searchDay])
+		//filtro de nome em todos os dias
+		else if(searchName != ""){
+			setClientsMain(databaseClients.filter(client => client.name.toLowerCase().includes(search.toLowerCase())))
+			}
+	}, [search, searchDay, searchName])
+
 
 	///////////////// PAGINATION
 	useEffect(() => {
@@ -82,7 +95,7 @@ function RegisterInternal(){
 
 	const indexOfLastPost = currentPage * postPerPage;
 	const indexOfFirstPost = indexOfLastPost - postPerPage;
-	const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+	const currentPosts = posts.slice(0).reverse().slice(indexOfFirstPost, indexOfLastPost);
 
 	const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -128,7 +141,15 @@ function RegisterInternal(){
 				<p className="text-gray-900 whitespace-no-wrap">{client.hourEnter}</p>
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.hourLeft == "00:00"?  <XIcon className="h-5 w-5 fill-red-700" /> : client.hourLeft}</p>
+				<p className="text-gray-900 whitespace-no-wrap">
+					{client.hourLeft == "00:00"? (
+				  <button className="px-4 py-2 cursor-pointer"
+				  onClick={() => (setIdEdit(client), setOpenLeft(!openLeft))}
+				  >
+					  <LogoutIcon className="h-5 w-5 fill-red-500" />
+				  </button>
+					)
+				   : client.hourLeft}</p>
 			</td>
 			
 
@@ -183,7 +204,15 @@ function RegisterInternal(){
 				<p className="text-gray-900 whitespace-no-wrap">{client.hourEnter}</p>
 			</td>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.hourLeft == "00:00"?  <XIcon className="h-5 w-5 fill-red-700" /> : client.hourLeft}</p>
+				<p className="text-gray-900 whitespace-no-wrap">{client.hourLeft == "00:00"?
+				  (
+					  <button className="px-4 py-2 cursor-pointer"
+					  onClick={() => (setIdEdit(client), setOpenLeft(!openLeft))}
+					 >
+						<LogoutIcon className="h-5 w-5 fill-red-500" />
+					  </button>
+				  )
+				   : client.hourLeft}</p>
 			</td>
 
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -201,6 +230,29 @@ function RegisterInternal(){
 	</tr>
 
 	))
+
+	const dropDown = (
+		<div className="py-1" role="none">
+
+		<a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-0"
+		onClick={() => (setOpenDay(!openDay), setOpenDropDown(!openDropDown))}
+		>
+		   Filtro por data</a>
+		<a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-1"
+		onClick={() => (setOpenName(!openName), setOpenDropDown(!openDropDown))}
+		>
+		   Filtro por nome</a>
+		  {(searchName != "" || searchDay != "" || search != "") && (
+			  <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-1"
+			  onClick={() => (setSearchName(""), setSearchDay(""), setRefresh(true), setOpenDropDown(!openDropDown))}
+			  >
+				  Limpar Filtros</a>
+		  )
+		  }
+  
+	  </div>
+	)
+
 
     return(
         <div>
@@ -256,13 +308,21 @@ function RegisterInternal(){
 						 )
 					 }
 
-<button
-						data-dropdown-toggle="dropdown" 
-						className="bg-gray-200 rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" 
-						type="button"
-						onClick={() => (setOpenDay(!open))}
-						><DotsVerticalIcon className="h-5 w-5" />
-						</button>
+{/* /////////////////////////////////// MENU DROP DROWN */}
+<div className="inline-block">
+  <div>
+    <button type="button" className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50" id="menu-button" aria-expanded="true" aria-haspopup="true"
+	onClick={() => setOpenDropDown(!openDropDown)}
+	>
+	<DotsVerticalIcon className="h-5 w-5" />
+    </button>
+  </div>
+  <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-gray-200" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
+		{openDropDown && (
+			dropDown
+		)}
+  </div>
+</div>
 
 						{
 						console.log("MODAL: " + openDay),
@@ -281,25 +341,52 @@ function RegisterInternal(){
 						 )
 					 }
 
+{
+						console.log("MODAL: " + openName),
+						 openName && (
+							 <div 
+							 className="modal">
+								<div className="overlay"></div>
+						 		<div className="modal-content">								 
+									<FilterName
+									onClose={() => setOpenName(!openName)}
+									setSearch={setSearchDay}
+									/>							 
+								</div>
+						 	</div>
+						 )
+					 }
 
-						<div id="dropdown" className="hidden z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
-							<ul className="py-1" aria-labelledby="dropdownButton">
-							<li>
-								<a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
-							</li>
-							<li>
-								<a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
-							</li>
-							<li>
-								<a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
-							</li>
-							<li>
-								<a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-							</li>
-							</ul>
-						</div>
 
 				
+{/* ///////////////////////////////////   BOTAO PARA SETAR HORARIO DE SAIDA */}
+
+{
+						 openLeft && (
+							 <div 
+							 className="modal">
+								<div className="overlay"></div>
+						 		<div className="modal-content">
+									 <CadastroInternalLeft 
+									 clients={clientsMain} 
+									 setClientsMain={setClientsMain} 
+									 onClose={() => setOpenLeft(!openLeft)}
+									 theId={idEdit}		 
+									 setRefresh={setRefresh}
+									 />
+								</div>
+						 	</div>
+						 )
+					 }
+
+
+
+
+
+
+
+
+
 
 					
 

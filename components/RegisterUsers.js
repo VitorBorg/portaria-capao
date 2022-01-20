@@ -20,7 +20,7 @@ function RegisterUsers(){
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [postPerPage] = useState(7);
+	const [postPerPage] = useState(15);
 
 	const [search, setSearch] = useState("");
 	
@@ -61,7 +61,7 @@ function RegisterUsers(){
 
 	const indexOfLastPost = currentPage * postPerPage;
 	const indexOfFirstPost = indexOfLastPost - postPerPage;
-	const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+	const currentPosts = posts.slice(0).reverse().slice(indexOfFirstPost, indexOfLastPost);
 
 	const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
