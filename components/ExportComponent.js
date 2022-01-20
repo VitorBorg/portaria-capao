@@ -1,4 +1,13 @@
+import { useState } from "react";
+import { useEffect } from "react/cjs/react.development";
+import ModalPDF from "./pdf/modalPDF";
+import PdfCreate from "./pdf/PdfCreate";
+
 function ExportComponent () {
+
+   const [openMonth, setOpenMonth] = useState(false)
+   const [openDay, setOpenDay] = useState(false)
+
     return (
     <div className="bg-white">
        <link rel="stylesheet" href="https://cdn.tailgrids.com/tailgrids-fallback.css" />
@@ -75,8 +84,9 @@ function ExportComponent () {
                   Este backup deve ser feito todo último dia útil do mês. Ele exportará os registros e essa exportação é a que deve ir para a nuvem.
                </p>
                <a
-                  href="javascript:void(0)"
+                  onClick={() => setOpenMonth(!openMonth)}
                   className="
+                  cursor-pointer
                   w-full
                   block
                   text-base
@@ -112,10 +122,10 @@ function ExportComponent () {
                               y2="172"
                               gradientUnits="userSpaceOnUse"
                               >
-                              <stop stop-color="#53915a" stopOpacity="0.09" />
+                              <stop stopColor="#53915a" stopOpacity="0.09" />
                               <stop
                                  offset="1"
-                                 stop-color="#C4C4C4"
+                                 stopColor="#C4C4C4"
                                  stopOpacity="0"
                                  />
                            </linearGradient>
@@ -394,8 +404,9 @@ function ExportComponent () {
                  Opção para alguma situação específica onde seja necessário obter o registro de algum dia.
                </p>
                <a
-                  href="javascript:void(0)"
+                   onClick={() => setOpenDay(!openDay)}
                   className="
+                  cursor-pointer
                   w-full
                   block
                   text-base
@@ -431,10 +442,10 @@ function ExportComponent () {
                               y2="172"
                               gradientUnits="userSpaceOnUse"
                               >
-                              <stop stop-color="#53915a" stopOpacity="0.09" />
+                              <stop stopColor="#53915a" stopOpacity="0.09" />
                               <stop
                                  offset="1"
-                                 stop-color="#C4C4C4"
+                                 stopColor="#C4C4C4"
                                  stopOpacity="0"
                                  />
                            </linearGradient>
@@ -681,6 +692,15 @@ function ExportComponent () {
       </div>
    </div>
 </section>
+
+{openMonth &&(
+         <ModalPDF 
+         onClose={() => setOpenMonth(!openMonth)}
+         />
+      )
+      }
+
+
     </div>
     );
 };
