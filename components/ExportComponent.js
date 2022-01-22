@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react/cjs/react.development";
 import ModalPDF from "./pdf/modalPDF";
-import PdfCreate from "./pdf/PdfCreate";
 
 function ExportComponent () {
 
@@ -686,19 +685,29 @@ function ExportComponent () {
                            />
                      </svg>
                   </span>
+
+
+
+                  {openMonth &&(
+                     <div 
+                     className="modal">
+                        <div className="overlay"></div>
+                        <div className="modal-content">	
+                           <ModalPDF 
+                           onClose={() => setOpenMonth(!openMonth)}
+                           />
+                           </div>
+                        </div>
+                        
+                     )
+                  }
+                  
                </div>
             </div>
          </div>
       </div>
    </div>
 </section>
-
-{openMonth &&(
-         <ModalPDF 
-         onClose={() => setOpenMonth(!openMonth)}
-         />
-      )
-      }
 
 
     </div>

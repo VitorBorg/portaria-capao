@@ -317,7 +317,7 @@ function RegisterInternal(){
 	<DotsVerticalIcon className="h-5 w-5" />
     </button>
   </div>
-  <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-gray-200" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
+  <div className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-gray-200" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
 		{openDropDown && (
 			dropDown
 		)}

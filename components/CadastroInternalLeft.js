@@ -132,7 +132,7 @@ function strcmp(a, b) {
         <div className="flex flex-col px-6 py-5 bg-gray-50">
 
 
-          <div className="flex flex-col sm:flex-row items-center mb-5 sm:space-x-5">
+          <div className="flex flex-col w-content items-center mb-5 ">
             
 
             {theId && theId.hourLeft == "00:00" && (
@@ -159,12 +159,14 @@ function strcmp(a, b) {
         <div
           className="flex flex-row items-center justify-between p-5 bg-white border-t border-gray-200 rounded-bl-lg rounded-br-lg"
         >
-          <button className="px-4 py-2 text-white font-semibold bg-red-400 rounded
-          "
-          onClick={onClose}>
-            Cancelar
-            
-          </button>
+          <div className="pr-3">
+            <button className="px-4 py-2 text-white font-semibold bg-red-400 rounded
+            "
+            onClick={onClose}>
+              Cancelar
+              
+            </button>
+          </div>
 
           <button className="px-4 py-2 text-white font-semibold bg-blue-500 rounded"
           type='submit'

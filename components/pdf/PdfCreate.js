@@ -1,13 +1,26 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { PDFViewer } from '@react-pdf/renderer';
-import ModalPDF from './modalPDF';
+import { Page, Text, View, Document, StyleSheet, ReactPDF } from '@react-pdf/renderer';
 
-const pdf = () => (
-  <div>
-      <ModalPDF />
-  </div>
-);
+// Create styles
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'row',
+    backgroundColor: '#E4E4E4'
+  },
+  section: {
+    margin: 10,
+    padding: 10,
+    flexGrow: 1
+  }
+});
 
+// Create Document Component
+function PdfCreate ({data}) {
+  return(
+    <div>{console.log(data)}</div>
+  )
+}
+//ReactPDF.render(<MyDocument />, `${__dirname}/example.pdf`);
+//console.log("PATH: ", `${__dirname}/example.pdf`)
 
-export default pdf;
+export default PdfCreate;
