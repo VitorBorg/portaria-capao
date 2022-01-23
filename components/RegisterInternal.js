@@ -261,7 +261,7 @@ function RegisterInternal(){
             <div className="bg-white p-8 rounded-md w-full">
 	<div className=" flex items-center justify-between pb-6">
 		<div>
-			<h2 className="text-gray-600 font-semibold">Registro de entrada de visitantes</h2>
+			<h2 className="text-gray-600 font-semibold">Registro de entrada/saída dos empregados</h2>
 			<span className="text-xs">Entradas na câmara</span>
 		</div>
 		<div className="flex items-center justify-between">
@@ -325,7 +325,6 @@ function RegisterInternal(){
 </div>
 
 						{
-						console.log("MODAL: " + openDay),
 						 openDay && (
 							 <div 
 							 className="modal">
@@ -342,7 +341,6 @@ function RegisterInternal(){
 					 }
 
 {
-						console.log("MODAL: " + openName),
 						 openName && (
 							 <div 
 							 className="modal">

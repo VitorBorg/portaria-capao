@@ -9,7 +9,9 @@ const regExternalSchema = new mongoose.Schema({
     hourLeft: String,
     createdAt: {
         type: Date,
-        default: new Date()
+        default: new Date().toLocaleString('en-US', {
+            timeZone: 'America/Sao_Paulo'
+        })
     }
 })
 

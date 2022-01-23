@@ -229,7 +229,7 @@ function CadastroExternal({clients,setClientsMain, onClose, theId, setRefresh}){
               id="hourEnter" 
               name="hourEnter"
               value={
-                (!hourEnterFlag && theId? hourEnter: console.log("DOING NOTHING"))
+                (!hourEnterFlag && theId? hourEnter: console.log(''))
                 }
               className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
                 min="06:00" max="22:00" required

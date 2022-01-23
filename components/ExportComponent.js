@@ -40,10 +40,10 @@ function ExportComponent () {
                   >
                   Página para exportar os dados
                </h2>
-               <p className="text-base text-body-color">
+               <p className="text-base text-body-color mb-5">
                  Os dados só estarão seguros depois que forem exportados (em pdf) e colocados em nuvem. DADOS NO BANCO NÃO ESTÃO SEGUROS DE PERDAS!
                </p>
-               <button className="sm:w-full lg:w-auto my-2 border rounded md py-4 px-8 text-center bg-green-600 text-white hover:bg-green-400">Saber mais sobre backup</button>
+               <a href="/" className=" border rounded md py-4 px-8 text-center bg-green-600 text-white hover:bg-green-400">Saber mais sobre backup</a>
             </div>
          </div>
       </div>
@@ -366,8 +366,25 @@ function ExportComponent () {
                      </svg>
                   </span>
                </div>
+               
+               {openMonth &&(
+                     <div 
+                     className="modal">
+                        <div className="overlay"></div>
+                        <div className="modal-content">	
+                           <ModalPDF 
+                           onClose={() => setOpenMonth(!openMonth)}
+                           />
+                           </div>
+                        </div>
+                        
+                     )
+                  }
             </div>
          </div>
+
+
+         {/*
          <div className="w-full md:w-1/2 lg:w-1/3 px-4">
             <div
                className="
@@ -686,25 +703,13 @@ function ExportComponent () {
                      </svg>
                   </span>
 
-
-
-                  {openMonth &&(
-                     <div 
-                     className="modal">
-                        <div className="overlay"></div>
-                        <div className="modal-content">	
-                           <ModalPDF 
-                           onClose={() => setOpenMonth(!openMonth)}
-                           />
-                           </div>
-                        </div>
-                        
-                     )
-                  }
                   
-               </div>
-            </div>
+               </div>             
+            </div>   
          </div>
+         */}
+
+
       </div>
    </div>
 </section>

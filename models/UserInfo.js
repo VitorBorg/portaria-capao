@@ -7,7 +7,9 @@ const UserSchema = new mongoose.Schema({
     phoneSecond: String,
     createdAt: {
         type: Date,
-        default: new Date()
+        default: new Date().toLocaleString('en-US', {
+            timeZone: 'America/Sao_Paulo'
+        })
     }
 })
 

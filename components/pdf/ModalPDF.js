@@ -2,27 +2,44 @@ import React, {useEffect, useState} from "react";
 import api from "../../pages/services/api";
 import PdfCreate from "./PdfCreate";
 
+function strcmp(a, b)
+{   
+    return (a<b?-1:(a>b?1:0));  
+}
+
 function ModalPDF({onClose}){
     
 	const [databaseClientsInternal, setDatabaseClientsInternal] = useState([])
   const [databaseClientsExternal, setDatabaseClientsExternal] = useState([])
+  const [databaseClientsUsersData, setDatabaseClientsUsersData] = useState([])
 
   const [date, setDate] = useState('')
   const [loading, setLoading] = useState(false)
   const [start, setStart] = useState(false)
   const [finished, setFinished] = useState(false)
 
+  const [detail, setDetail] = useState('...')
+  const [btnDelete, setBtnDelete] = useState(null)
+
   useEffect(() => {
-    if(start){
+    if(start && date != ''){
       setLoading(true)
 
 
       api.get('/regExternal').then(({data}) => {
-        setDatabaseClientsExternal(data.data)
+        setDatabaseClientsExternal(data.data.filter(client => 
+          strcmp(client.createdAt.substring(5,7), date) == 0))
       })
 
-     
-      console.log("PASS")
+
+      api.get('/regInternal').then(({data}) => {
+        setDatabaseClientsInternal(data.data.filter(client => 
+          strcmp(client.createdAt.substring(5,7), date) == 0))
+      })
+
+      api.get('/user').then(({data}) => {
+        setDatabaseClientsUsersData(data.data)
+      })
 /*
 
 
@@ -34,9 +51,13 @@ function ModalPDF({onClose}){
 
   }, [start])
 
-  useEffect(() => {
-    console.log(databaseClientsExternal)
-  }, [databaseClientsExternal])
+	const done = (data) => {
+    console.log("Made it!")
+    setLoading(false)
+    setStart(false)
+    setFinished(true)
+	}
+  
 
   const handleChangeDate = (text) => {
     setDate(text)
@@ -44,13 +65,17 @@ function ModalPDF({onClose}){
 
   return(
         <div>
-
-{loading && (
-  <PdfCreate 
-  data="PIRULITO"
-  />
-)
-
+        {loading && (
+          <PdfCreate 
+          dataExternal={databaseClientsExternal}
+          dataInternal= {databaseClientsInternal}
+          dataUsers={databaseClientsUsersData}
+          finished = {done}
+          date = {date}
+          detl={setDetail}
+          btnDelete={setBtnDelete}
+          />
+        )
 }
 
 
@@ -60,7 +85,22 @@ function ModalPDF({onClose}){
 
     {/*MENSAGEM DE CARREGAMENTO*/}
           {loading && (
-            <div>FAZENDO BACKUP...</div>
+              <div
+              >
+                  <div
+                    className="flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
+                  >
+                    <ul>
+                      <li>
+                        <p className="font-semibold text-gray-800">Processando backup...</p>
+                      </li>
+                      <li>
+                        <p className=" text-gray-800">{detail}</p>
+                      </li>
+                    </ul>
+
+                  </div>
+              </div>
           )}
 
     {/*POPUP*/}
@@ -93,7 +133,7 @@ function ModalPDF({onClose}){
                   placeholder="Selecione um mês"
                   onChange={e => handleChangeDate(e.target.value)}
                 >
-                
+                 <option value="00">Selecione um mês</option>
                 <option value="01">Janeiro</option>
                 <option value="02">Fevereiro</option>
                 <option value="03">Março</option>
@@ -113,11 +153,14 @@ function ModalPDF({onClose}){
 
           {!loading && finished && (
               <div className="">
+                {/*
                   <button className="px-4 py-2 text-white font-semibold bg-red-400 rounded
                       "
                       onClick={() => (setFinished(false), onClose())}>
                         Excluir estes arquivos do banco
                   </button>
+                */
+                btnDelete}
                </div>
             )
           }
@@ -137,19 +180,19 @@ function ModalPDF({onClose}){
             </button>
           )}
 
-          {(loading || finished) && (
+          {/*(loading || finished) && (
             <button className="px-4 py-2 text-white font-semibold bg-red-400 rounded
             "
             onClick={() => (setFinished(false), onClose())}>
               fechar janela
               
             </button>
-          )}  
+          )*/}  
           </div>
 
     {(!loading && !finished) && (
           <button className="px-4 py-2 text-white font-semibold bg-blue-500 rounded"
-          onClick={() => setStart(true)}
+          onClick={() =>(date != "" && setStart(true))}
           >Fazer backup
           </button>
       )}

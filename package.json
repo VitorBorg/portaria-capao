@@ -7,11 +7,11 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.5",
-    "@react-pdf/renderer": "^2.1.0",
     "axios": "^0.24.0",
     "moment": "^2.29.1",
     "mongoose": "^6.1.4",
     "next": "latest",
+    "pdfmake": "^0.2.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-moment": "^1.1.1",

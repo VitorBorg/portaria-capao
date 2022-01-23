@@ -20,6 +20,7 @@ function strcmp(a, b)
     return (a<b?-1:(a>b?1:0));  
 }
 
+
 function RegisterExternal(){
 
 	const [databaseClients, setDatabaseClients] = useState([])
@@ -331,7 +332,6 @@ function RegisterExternal(){
 </div>
 
 						{
-						console.log("MODAL: " + openDay),
 						 openDay && (
 							 <div 
 							 className="modal">
@@ -348,7 +348,6 @@ function RegisterExternal(){
 					 }
 
 {
-						console.log("MODAL: " + openName),
 						 openName && (
 							 <div 
 							 className="modal">
