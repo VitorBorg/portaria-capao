@@ -13,10 +13,6 @@ const PhoneSchema = new mongoose.Schema({
     }
 })
 
-//new Date().toLocaleString('en-US', {
-    timeZone: 'Asia/Calcutta'
-});
-
 const Phone = mongoose.models.Phone || mongoose.model('Phone', PhoneSchema)
 
 export default Phone

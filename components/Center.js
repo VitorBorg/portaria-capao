@@ -36,9 +36,9 @@ function Center () {
                   >
                 Informações sobre o sistema
                </h2>
-               <p className="text-base text-body-color">
+               <span className="text-base text-body-color">
                  Informações sobre a utilização do sistema, como ele foi feito e alguns dados que estão no banco.
-               </p>
+               </span>
             </div>
          </div>
       </div>
@@ -956,9 +956,9 @@ function Center () {
                 /O que foi usado para fazer o sistema? 
                   </span>
                </h2>
-               <p className="text-base text-body-color">
+               <span className="text-base text-body-color">
                  O sistema foi feito com node.js utilizando React para o front-end, Next.js para o back-end, e para o banco usa-se o gerenciador MONGO-DB. <br/> O email cadastrado no mongo é o email da portaria.
-               </p>
+               </span>
              
                <div>
                   <span className="absolute right-0 top-7 z-[-1]">
@@ -1257,9 +1257,9 @@ function Center () {
                 /Como fazer o backup?
                   </span>
                </h2>
-               <p className="text-base text-body-color">
+               <span className="text-base text-body-color">
                  Para fazer o backup deve-se ir na página "Exportações" e escolher uma das opções. O sistema pegará os registros (no período de tempo definido) e fará um arquivo .pdf. Feito todo o processo esses arquivos gerados devem ser colocados em nuvem: na conta capaocamarabackup@gmail.com.
-               </p>
+               </span>
              
                <div>
                   <span className="absolute right-0 top-7 z-[-1]">
@@ -1558,9 +1558,9 @@ function Center () {
                 /Como funcionam?
                   </span>
                </h2>
-               <p className="text-base text-body-color">
+               <span className="text-base text-body-color">
                  O registro de visitas é utilizado para registrar a entrada e saída da comunidade na câmara de vereadores.<br/>  Enquanto que o interno é para os servidores. <br/> Para registrar alguém no interno é necessário que essa pessoa já esteja cadastrada no sistema (em usuários).
-               </p>
+               </span>
              
                <div>
                   <span className="absolute right-0 top-7 z-[-1]">
@@ -1860,14 +1860,14 @@ function Center () {
                 /Como acessar o mongodb? 
                   </span>
                </h2>
-               <p className="text-base text-body-color">
+               <span className="text-base text-body-color">
                  <ul>
                     <li>
                        Acesse "cloud.mongodb.com", acesse pelo google com o email da portaria.
                     </li>
                       Terá apenas um banco de dados, e o nome dele será "CapaoPortaria". O login e senha deles estão no arquivo da TI de senhas.
                  </ul>
-               </p>
+               </span>
              
                <div>
                   <span className="absolute right-0 top-7 z-[-1]">
@@ -2167,7 +2167,7 @@ function Center () {
                 /O sistema não está mais listando nada? 
                   </span>
                </h2>
-               <p className="text-base text-body-color">
+               <span className="text-base text-body-color">
                   A conexão com o banco foi perdida. Isso, provavelmente, é causado pela troca de ip do computador.
                   <ul>
                      <li>
@@ -2186,7 +2186,7 @@ function Center () {
 
                      </li>
                   </ul>
-               </p>
+               </span>
              
                <div>
                   <span className="absolute right-0 top-7 z-[-1]">

@@ -171,10 +171,10 @@ function RegisterNumber(){
 	))
 
     return(
-        <div>
-            <div className="pt-10">
+        <div className="container">
+            <div className="pt-10 w-content">
             
-            <div className="bg-white p-8 rounded-md w-full">
+    <div className="bg-white p-8 rounded-md w-full">
 	<div className=" flex items-center justify-between pb-6">
 		<div>
 			<h2 className="text-gray-600 font-semibold">Números úteis</h2>
@@ -198,7 +198,7 @@ function RegisterNumber(){
 				 />
 
           </div>
-				<div className="lg:ml-40 ml-10 space-x-8">
+		  		<div className="lg:ml-40 ml-10 mr-7 pr-3 space-x-8">	
 
 					<button className="bg-green-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer
 					"
