@@ -111,7 +111,7 @@ function CadastroExternal({clients,setClientsMain, onClose, theId, setRefresh}){
       setHourEnter(theId.hourEnter)
       setHourLeft(theId.hourLeft)
 
-      console.log("ATT: " + theId.phoneFirst + "; AFTER: " + theId.name)
+     // console.log("ATT: " + theId.phoneFirst + "; AFTER: " + theId.name)
     }
     }, [theId])
 
@@ -145,7 +145,7 @@ function CadastroExternal({clients,setClientsMain, onClose, theId, setRefresh}){
   const handleChangeHourLeft = (text) => {
     setHourLeftFlag(true)
 
-    console.log((text.getHours() + "").length + ", " + (text.getHours() + ""))
+    //console.log((text.getHours() + "").length + ", " + (text.getHours() + ""))
     let hour = ((text.getHours() + "").length <= 1? "0" + ((text.getHours() + 3 ) + "") : text.getHours() + 3)
     let minute = ((text.getMinutes() + "").length <= 1? "0" + (text.getMinutes() + "") : text.getMinutes())
     
@@ -246,7 +246,7 @@ function CadastroExternal({clients,setClientsMain, onClose, theId, setRefresh}){
               id="hourLeft" 
               name="hourLeft"
               value={
-                (!hourLeftFlag && theId.hourLeft? hourLeft: console.log("DOING NOTHING"))
+                (!hourLeftFlag && theId.hourLeft? hourLeft: console.log(""))
                 }
               className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
                 min="06:00" max="22:00" required

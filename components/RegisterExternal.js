@@ -70,8 +70,9 @@ function RegisterExternal(){
 	/////////////////////Search implementation
 	useEffect(() => {
 		//filtro de nome no dia atual
-		if(search != "")
+		if(search != ""){
 			setClientsSearch(clientsMain.filter(client => client.name.toLowerCase().includes(search.toLowerCase())))
+		}
 		//filtro de dia
 		else if(searchDay != ""){
 			setClientsMain(databaseClients.filter(client => 
@@ -79,7 +80,9 @@ function RegisterExternal(){
 			}
 		//filtro de nome em todos os dias
 		else if(searchName != ""){
-			setClientsMain(databaseClients.filter(client => client.name.toLowerCase().includes(search.toLowerCase())))
+			setClientsMain(databaseClients.filter(client => 
+				client.name.toLowerCase().includes(searchName.toLowerCase())
+				))
 			}
 	}, [search, searchDay, searchName])
 
@@ -241,16 +244,20 @@ function RegisterExternal(){
 		<div className="py-1" role="none">
 
 		<a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-0"
-		onClick={() => (setOpenDay(!openDay), setOpenDropDown(!openDropDown))}
+		onClick={() => (setOpenDay(!openDay), setOpenDropDown(!openDropDown),
+			(setSearchName(""), setSearchDay(""), setSearch(""), setRefresh(true))
+			)}
 		>
 		   Filtro por data</a>
 		<a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-1"
-		onClick={() => (setOpenName(!openName), setOpenDropDown(!openDropDown))}
+		onClick={() => (setOpenName(!openName), setOpenDropDown(!openDropDown),
+			(setSearchName(""), setSearchDay(""), setSearch(""), setRefresh(true))
+			)}
 		>
 		   Filtro por nome</a>
 		  {(searchName != "" || searchDay != "" || search != "") && (
 			  <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-1"
-			  onClick={() => (setSearchName(""), setSearchDay(""), setRefresh(true))}
+			  onClick={() => (setSearchName(""), setSearchDay(""), setSearch("") , setRefresh(true))}
 			  >
 				  Limpar Filtros</a>
 		  )
@@ -355,7 +362,7 @@ function RegisterExternal(){
 						 		<div className="modal-content">								 
 									<FilterName
 									onClose={() => setOpenName(!openName)}
-									setSearch={setSearchDay}
+									setSearch={setSearchName}
 									/>							 
 								</div>
 						 	</div>

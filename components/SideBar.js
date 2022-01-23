@@ -1,12 +1,7 @@
 import {
     HomeIcon,
-    SearchIcon,
-    LibraryIcon,
-    PlusCircleIcon,
-    HeartIcon,
-    RssIcon,
-    Phone,
-    SaveIcon
+    SaveIcon,
+    CogIcon
 } from "@heroicons/react/solid";
 import React, { useEffect, useState } from "react";
 
@@ -42,7 +37,7 @@ function SideBar () {
 
 
 
-              {path == "/" &&  <button className="w-full pt-4 pb-4 rounded-l-lg bg-gradient-to-r from-white to-white from-transparent to-transparent hover:to-white hover:from-white text-emerald-600 flex items-center space-x-2"
+              {path == "/" &&  <button className="w-full pt-4 pb-4 rounded-l-lg bg-gradient-to-r from-white to-white hover:to-white hover:from-white text-emerald-600 flex items-center space-x-2"
                >
                     <div className=""></div> 
                     <HomeIcon className="h-5 w-5" />
@@ -61,7 +56,7 @@ function SideBar () {
 
 
 
-             {path ==  "/registroInterno" && <button className="w-full pt-4 pb-4 rounded-l-lg bg-gradient-to-r from-white to-white from-transparent to-transparent hover:to-white hover:from-white text-emerald-600 flex items-center space-x-2"
+             {path ==  "/registroInterno" && <button className="w-full pr-4 pt-4 pb-4 rounded-l-lg bg-gradient-to-r from-white to-white hover:to-white hover:from-white text-emerald-600 flex items-center space-x-2"
                >
                     <div className=""></div> 
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -71,7 +66,7 @@ function SideBar () {
                 <a className="pl-1" href="/registroInterno">Registro de Empregados</a>
                 </button>}
 
-                {path !=  "/registroInterno" && <button className="pr-4 pt-4 pb-4 rounded-l-lg bg-gradient-to-r from-transparent to-transparent hover:to-white hover:from-white text-gray-200 hover:text-emerald-600 flex items-center space-x-2"
+                {path !=  "/registroInterno" && <button className="w-full pr-4 pt-4 pb-4 rounded-l-lg bg-gradient-to-r from-transparent to-transparent hover:to-white hover:from-white text-gray-200 hover:text-emerald-600 flex items-center space-x-2"
                 >
                     <div className=""></div> 
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -85,7 +80,7 @@ function SideBar () {
 
 
 
-               {path ==  "/registroExterno" && <button className="w-full pt-4 pb-4 rounded-l-lg bg-gradient-to-r from-white to-white from-transparent to-transparent hover:to-white hover:from-white text-emerald-600 flex items-center space-x-2"
+               {path ==  "/registroExterno" && <button className="w-full pt-4 pb-4 rounded-l-lg bg-gradient-to-r from-white to-white hover:to-white hover:from-white text-emerald-600 flex items-center space-x-2"
                >
                     <div className=""></div> 
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -107,7 +102,7 @@ function SideBar () {
                
 
 
-                {path == "/numerosuteis" &&  <button className="w-full pt-4 pb-4 rounded-l-lg bg-gradient-to-r from-white to-white from-transparent to-transparent hover:to-white hover:from-white text-emerald-600 flex items-center space-x-2"
+                {path == "/numerosuteis" &&  <button className="w-full pt-4 pb-4 rounded-l-lg bg-gradient-to-r from-white to-white hover:to-white hover:from-white text-emerald-600 flex items-center space-x-2"
                >
                     <div className=""></div> 
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -128,7 +123,7 @@ function SideBar () {
 
 
 
-                {path == "/numerosInterno" &&  <button className="w-full pt-4 pb-4 rounded-l-lg bg-gradient-to-r from-white to-white from-transparent to-transparent hover:to-white hover:from-white text-emerald-600 flex items-center space-x-2"
+                {path == "/numerosInterno" &&  <button className="w-full pt-4 pb-4 rounded-l-lg bg-gradient-to-r from-white to-white hover:to-white hover:from-white text-emerald-600 flex items-center space-x-2"
                >
                     <div className=""></div> 
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -152,7 +147,7 @@ function SideBar () {
 
 
 
-             { path == "/Export" &&  <button className="w-full pt-4 pb-4 rounded-l-lg bg-gradient-to-r from-white to-white from-transparent to-transparent hover:to-white hover:from-white text-emerald-600 flex items-center space-x-2"
+             { path == "/Export" &&  <button className="w-full pt-4 pb-4 rounded-l-lg bg-gradient-to-r from-white to-white hover:to-white hover:from-white text-emerald-600 flex items-center space-x-2"
                >
                     <div className=""></div> 
                    <SaveIcon className="h-5 w-5" />
@@ -175,12 +170,14 @@ function SideBar () {
             </div>
 
             <div className="fixed inset-x-0 bottom-0 span-5">
-                <span>Você está logado como:</span>
-                <div className="flex">
+            <a href="/login" className="cursor-pointer">
+                <div className="flex ml-3 mb-3">
+                <CogIcon className="h-4 w-4 mt-1 mr-1" />
                     <span>Mario Silva</span>
                     {","}&nbsp;
                     <span>Porteiro</span>
                 </div>
+                </a>
             </div>
         </div>
     );

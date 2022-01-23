@@ -6,21 +6,13 @@ function CadastroExternal({onClose, setSearch}){
 
   const [date, setDate] = useState('')
 
-  const [errors, setErrors] = useState({name: null, email: null, firstNumber: null, temperature: null})
+  const [errors, setErrors] = useState({date: null})
 
   //console.log("before errors: " + errors)
   const isValidFormData = () => {
 
-    if(day == "" ){
+    if(date == "" ){
       setErrors({day: 'Indique um dia!'})
-      return false
-    }
-    if(month == "") {
-      setErrors({month: 'Indique um mês!'})
-      return false
-    }
-    if(year == "") {
-      setErrors({year: 'Indique um ano!'})
       return false
     }
     setErrors({})
@@ -42,8 +34,7 @@ function CadastroExternal({onClose, setSearch}){
             <div className="flex items-center antialiased">
       <div className="flex flex-col rounded-lg border border-gray-300 shadow-xl"
       >
-        <form
-        onSubmit={handleSubmitFilter}>
+        <div>
         <div
           className="flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
         >
@@ -79,11 +70,11 @@ function CadastroExternal({onClose, setSearch}){
           </button>
 
           <button className="px-4 py-2 text-white font-semibold bg-blue-500 rounded"
-          type='submit'
+          onClick={handleSubmitFilter}
           >Filtrar
           </button>
         </div>
-        </form>
+        </div>
       </div>
     </div>
         </div>

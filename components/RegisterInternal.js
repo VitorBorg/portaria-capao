@@ -77,7 +77,7 @@ function RegisterInternal(){
 		}
 		//filtro de nome em todos os dias
 		else if(searchName != ""){
-			setClientsMain(databaseClients.filter(client => client.name.toLowerCase().includes(search.toLowerCase())))
+			setClientsMain(databaseClients.filter(client => client.name.toLowerCase().includes(searchName.toLowerCase())))
 			}
 	}, [search, searchDay, searchName])
 
@@ -235,16 +235,20 @@ function RegisterInternal(){
 		<div className="py-1" role="none">
 
 		<a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-0"
-		onClick={() => (setOpenDay(!openDay), setOpenDropDown(!openDropDown))}
+		onClick={() => (setOpenDay(!openDay), setOpenDropDown(!openDropDown),
+			(setSearchName(""), setSearchDay(""), setSearch(""), setRefresh(true))
+			)}
 		>
 		   Filtro por data</a>
 		<a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-1"
-		onClick={() => (setOpenName(!openName), setOpenDropDown(!openDropDown))}
+		onClick={() => (setOpenName(!openName), setOpenDropDown(!openDropDown),
+			(setSearchName(""), setSearchDay(""), setSearch(""), setRefresh(true))
+			)}
 		>
 		   Filtro por nome</a>
 		  {(searchName != "" || searchDay != "" || search != "") && (
 			  <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabIndex="-1" id="menu-item-1"
-			  onClick={() => (setSearchName(""), setSearchDay(""), setRefresh(true), setOpenDropDown(!openDropDown))}
+			  onClick={() => (setSearchName(""), setSearchDay(""), setSearch("") , setRefresh(true))}
 			  >
 				  Limpar Filtros</a>
 		  )
@@ -348,7 +352,7 @@ function RegisterInternal(){
 						 		<div className="modal-content">								 
 									<FilterName
 									onClose={() => setOpenName(!openName)}
-									setSearch={setSearchDay}
+									setSearch={setSearchName}
 									/>							 
 								</div>
 						 	</div>

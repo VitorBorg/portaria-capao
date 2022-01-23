@@ -73,14 +73,14 @@ function CadastroInternal({clients,setClientsMain, onClose, theId, setRefresh}){
 
       try {
 
-        console.log("entering")
+       /* console.log("entering")
         console.log(
           "name: ", name,
           "usertype: ", userType,
           "temperature: ", temperature,
           "hourEnter: ", hourEnter,
           "hourLeft: ", hourLeft
-        )
+        )*/
 
 
         const {data} = await api.post('/regInternal', {name, userType, temperature, hourEnter, hourLeft})
@@ -99,7 +99,6 @@ function CadastroInternal({clients,setClientsMain, onClose, theId, setRefresh}){
         setRefresh(true)
         
     } catch (e) {
-      console.log("YOU: ")
       console.log("error: " + e)
       }
 
@@ -114,7 +113,7 @@ function CadastroInternal({clients,setClientsMain, onClose, theId, setRefresh}){
       setHourLeft(theId.hourLeft)
       setName(theId.name)
 
-      console.log("useEffect: ", theId)
+    //  console.log("useEffect: ", theId)
     }
     }, [theId])
 
