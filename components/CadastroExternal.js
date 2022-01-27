@@ -5,13 +5,6 @@ function CadastroExternal({clients,setClientsMain, onClose, theId, setRefresh}){
     
   const [name, setName] = useState("")
 
-  const [email, setEmail] = useState("")
-
-  const [hourEnter, setHourEnter] = useState('07:00')
-  const [hourEnterFlag, setHourEnterFlag] = useState(false)
-  const [hourLeft, setHourLeft] = useState('00:00')
-  const [hourLeftFlag, setHourLeftFlag] = useState(false)
-
   const [firstNumber, setfirstNumber] = useState('')
   const [temperature, setTemperature] = useState('')
 
@@ -42,19 +35,15 @@ function CadastroExternal({clients,setClientsMain, onClose, theId, setRefresh}){
       try {
         let iId = theId._id;
 
-        await api.put(`/regExternal/${iId}`, {name, email, firstNumber, temperature, hourEnter, hourLeft})
+        await api.put(`/regExternal/${iId}`, {name, firstNumber, temperature})
 
         setClientsMain(clients.map(client => client._id === iId ? 
-          {name, email, firstNumber, temperature, hourEnter, hourLeft, _id: iId} : client))
+          {name, firstNumber, temperature, _id: iId} : client))
     
         setName('')
-        setEmail('')
+
         setTemperature('')
         setfirstNumber('')
-        setHourEnter('07:00')
-        setHourLeft('13:00')
-        setHourEnterFlag(false)
-        setHourLeftFlag(false)
 
         onClose()
         setRefresh(true)
@@ -80,17 +69,13 @@ function CadastroExternal({clients,setClientsMain, onClose, theId, setRefresh}){
         )
 */
 
-        const {data} = await api.post('/regExternal', {name, email, firstNumber, temperature, hourEnter, hourLeft})
+        const {data} = await api.post('/regExternal', {name, firstNumber, temperature})
 
         setClientsMain(clients.concat(data.data))
 
         setName('')
-        setEmail('')
         setTemperature('')
         setfirstNumber('')
-        setHourEnter('07:00')
-        setHourEnterFlag(false)
-        setHourLeftFlag(false)
 
         onClose()
         setRefresh(true)
@@ -105,20 +90,12 @@ function CadastroExternal({clients,setClientsMain, onClose, theId, setRefresh}){
   useEffect(() => {
     if(theId){
       setName(theId.name)
-      setEmail(theId.email)
       setfirstNumber(theId.phoneFirst)
       setTemperature(theId.temperature)
-      setHourEnter(theId.hourEnter)
-      setHourLeft(theId.hourLeft)
 
      // console.log("ATT: " + theId.phoneFirst + "; AFTER: " + theId.name)
     }
     }, [theId])
-
-
-  const handleChangeEmail = (text) => {
-    setEmail(text)
-  }
 
   const handleChangefirstNumber = (text) => {
     setfirstNumber(text)
@@ -130,26 +107,6 @@ function CadastroExternal({clients,setClientsMain, onClose, theId, setRefresh}){
 
   const handleChangeName = (text) => {
     setName(text)
-  }
-
-  const handleChangeHourEnter = (text) => {
-      setHourEnterFlag(true)
-
-      var hour = ((text.getHours() + "").length == 1? "0" + ((text.getHours() + 3 ) + "") : text.getHours() + 3)
-      var minute = ((text.getMinutes() + "").length <= 1? "0" + (text.getMinutes() + "") : text.getMinutes())
-
-      setHourEnter((hour.length == 3? hour.substring(1, 3): hour) + ":" + minute)
-      
-  }
-
-  const handleChangeHourLeft = (text) => {
-    setHourLeftFlag(true)
-
-    //console.log((text.getHours() + "").length + ", " + (text.getHours() + ""))
-    let hour = ((text.getHours() + "").length <= 1? "0" + ((text.getHours() + 3 ) + "") : text.getHours() + 3)
-    let minute = ((text.getMinutes() + "").length <= 1? "0" + (text.getMinutes() + "") : text.getMinutes())
-    
-    setHourLeft((hour.length == 3? hour.substring(1, 3): hour) + ":" + minute)
   }
 
   return(

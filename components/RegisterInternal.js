@@ -33,6 +33,7 @@ function RegisterInternal(){
 	const [openDay, setOpenDay] = useState(false);
 	const [openName, setOpenName] = useState(false);
 	const [idEdit, setIdEdit] = useState(null);
+	const [link, setLink] = useState(null);
 
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(false);
@@ -120,7 +121,16 @@ function RegisterInternal(){
 				<div className="flex items-center">
 					<div className="flex-shrink-0 w-10 h-10">
 						<img className="w-full h-full rounded-full"
-							src="https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"
+
+							{...api.get('/user').then(data => {
+								console.log(data)
+						  		//console.log("List: ", data.data)
+							})}
+
+							src={link == null ? 
+								"https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"
+								: link
+							}
 							alt="" />
 					</div>
 					<div className="ml-3">
@@ -181,7 +191,10 @@ function RegisterInternal(){
 				<div className="flex items-center">
 					<div className="flex-shrink-0 w-10 h-10">
 						<img className="w-full h-full rounded-full"
-							src="https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"
+							src={client.link == null ? 
+								"https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"
+								: client.link
+							}
 							alt="" />
 					</div>
 						<div className="ml-3">

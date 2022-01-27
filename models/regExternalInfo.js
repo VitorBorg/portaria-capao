@@ -2,11 +2,8 @@ import mongoose from 'mongoose';
     
 const regExternalSchema = new mongoose.Schema({
     name: String,
-    email: String,
     phoneFirst: String,
     temperature: String,
-    hourEnter: String,
-    hourLeft: String,
     createdAt: {
         type: Date,
         default: new Date().toLocaleString('en-US', {

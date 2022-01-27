@@ -8,7 +8,6 @@ import React, {useEffect, useState} from "react";
 import api from '../pages/services/api'
 
 import CadastroNumberPhones from "./CadastroExternal";
-import CadastroExternalLeft from "./CadastroExternalLeft";
 import FilterDay from "./FilterDay";
 import FilterName from "./FilterName";
 
@@ -30,7 +29,6 @@ function RegisterExternal(){
 
 	const [open, setOpen] = useState(false);
 	const [openDropDown, setOpenDropDown] = useState(false);
-	const [openLeft, setOpenLeft] = useState(false);
 	const [openDay, setOpenDay] = useState(false);
 	const [openName, setOpenName] = useState(false);
 	const [idEdit, setIdEdit] = useState(null);
@@ -336,35 +334,6 @@ function RegisterExternal(){
 						 	</div>
 						 )
 					 }
-
-
-				
-{/* ///////////////////////////////////   BOTAO PARA SETAR HORARIO DE SAIDA */}
-
-{
-						 openLeft && (
-							 <div 
-							 className="modal">
-								<div className="overlay"></div>
-						 		<div className="modal-content">
-									 <CadastroExternalLeft 
-									 clients={clientsMain} 
-									 setClientsMain={setClientsMain} 
-									 onClose={() => setOpenLeft(!openLeft)}
-									 theId={idEdit}		 
-									 setRefresh={setRefresh}
-									 />
-								</div>
-						 	</div>
-						 )
-					 }
-
-
-
-
-
-
-
 
 				</div>
 			</div>

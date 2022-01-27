@@ -4,15 +4,10 @@ import api from '../pages/services/api'
 function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh}){
     
   const [name, setName] = useState("")
-  //const [id, setId] = useState(null)
 
-  const [email, setEmail] = useState("")
-  //const [hourEnter, setHourEnter] = useState('')
-  //const [hourLeft, setHourLeft] = useState('')
-  const [firstNumber, setfirstNumber] = useState('')
+  const [link, setLink] = useState("")
   const [secondNumber, setsecondNumber] = useState('')
-
-  const [errors, setErrors] = useState({name: null, firstNumber: null, secondNumber: null})
+  const [errors, setErrors] = useState({name: null, link: null, secondNumber: null})
 
   //console.log("before errors: " + errors)
   const isValidFormData = () => {
@@ -38,13 +33,12 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh})
         if(secondNumber == "")
            secondNumber = "Vereador"
 
-        await api.put(`/user/${iId}`, {name, email, firstNumber, secondNumber})
-        setClientsMain(clients.map(client => client._id === iId ? {name, email, firstNumber, secondNumber, _id: iId} : client))
+        await api.put(`/user/${iId}`, {name, link, secondNumber})
+        setClientsMain(clients.map(client => client._id === iId ? {name, link, secondNumber, _id: iId} : client))
     
         setName('')
-        setEmail('')
         setsecondNumber('')
-        setfirstNumber('')
+        setLink('')
 
         onClose()
         setRefresh(true)
@@ -71,17 +65,15 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh})
 
         const {data} = await api.post('/user', {
           name,
-          email,
-          firstNumber,
+          link,
           secondNumber
         })
 
       setClientsMain(clients.concat(data.data))
 
       setName('')
-      setEmail('')
       setsecondNumber('')
-      setfirstNumber('')
+      setLink('')
 
       onClose()
       setRefresh(true)
@@ -96,20 +88,13 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh})
   useEffect(() => {
     if(theId){
       setName(theId.name)
-      setEmail(theId.email)
       setsecondNumber(theId.phoneSecond)
-      setfirstNumber(theId.phoneFirst)
+      setLink(theId.link)
   
     }
     }, [theId])
-
-
-  const handleChangeEmail = (text) => {
-    setEmail(text)
-  }
-
-  const handleChangefirstNumber = (text) => {
-    setfirstNumber(text)
+  const handleChangeLink = (text) => {
+    setLink(text)
   }
 
   const handleChangeSecondNumber = (text) => {
@@ -169,14 +154,14 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh})
           <div className="flex flex-col sm:flex-row items-center mb-5 sm:space-x-5">
 
             <div className="w-full sm:w-1/2">
-              <p className="mb-2 font-semibold text-gray-700">Telefone Principal</p>
-              <input type="tel" 
-              id="telPrincipal" 
-              name="telPrincipal"
+              <p className="mb-2 font-semibold text-gray-700">Link para foto</p>
+              <input type="text" 
+              id="link" 
+              name="link"
               className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-                value={firstNumber} required
+                value={link}
                 placeholder="Campo obrigatório"
-                onChange={e => handleChangefirstNumber(e.target.value)}
+                onChange={e => handleChangeLink(e.target.value)}
                 />
             </div>
           </div>

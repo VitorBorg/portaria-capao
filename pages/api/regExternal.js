@@ -21,17 +21,14 @@ export default async function handler(req, res) {
 
         case 'POST':
             try {
-                const {name, email, firstNumber,temperature, hourEnter, hourLeft} = req.body
+                const {name, firstNumber, temperature} = req.body
 
                 if(!name && !email) throw 'invalid data'
 
                 const phone = await Phone.create({
                     name: name, 
-                    email: email, 
                     temperature: temperature,
-                    phoneFirst: firstNumber,
-                    hourEnter: hourEnter,
-                    hourLeft: hourLeft
+                    phoneFirst: firstNumber
                 })
 
                 res.status(201).json({success: true, data: phone})

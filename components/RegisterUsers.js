@@ -5,6 +5,7 @@ import {
 import React, {useEffect, useState} from "react";
 import api from '../pages/services/api'
 import CadastroNumberPhones from "./CadastroModalUsers";
+import Card from "./Card";
 import Pagination from "./Pagination";
 
 
@@ -93,14 +94,15 @@ function RegisterUsers(){
 		}
 	}
 	
-
-	const listData = currentPosts.map(client => (
+	const listNew = currentPosts.map(client => (
 		<tr key={client._id}>
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 				<div className="flex items-center">
-					<div className="flex-shrink-0 w-10 h-10">
+					<div className="flex-shrink-0 w-20 h-15">
 						<img className="w-full h-full rounded-full"
-							src="https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"
+							src={client.link == '' ||  client.link == null?'https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png'
+								: client.link
+							}
 							alt="" />
 					</div>
 						<div className="ml-3">
@@ -118,8 +120,21 @@ function RegisterUsers(){
 			</td>
 
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+			</td>
+	</tr>
+ 
+	))
 
-				<div className="
+	const listData = currentPosts.map(client => (
+		<Card 
+			name={client.name}
+			type={client.phoneSecond}
+			img={<img className="w-65 h-40 rounded-full"
+							src={client.link == '' ||  client.link == null?'https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png'
+								: client.link
+							}
+							alt="" />}
+			buttons={<div className="
 				flex">
 					<button className="bg-green-400 px-4 py-2 rounded-full text-white font-semibold cursor-pointer"
 					onClick={() => (setIdEdit(client), setOpen(!open))}
@@ -127,12 +142,9 @@ function RegisterUsers(){
 					<button className="bg-red-400 px-4 py-2 rounded-full text-white font-semibold cursor-pointer ml-2"
 					onClick={() => handleDeleteClient(client._id)}
 					>Excluir</button>
-				</div>
-			</td>
-	</tr>
- 
-
-
+				</div>}
+			/>
+			
 	))
 
 	
@@ -142,7 +154,10 @@ function RegisterUsers(){
 				<div className="flex items-center">
 					<div className="flex-shrink-0 w-10 h-10">
 						<img className="w-full h-full rounded-full"
-							src="https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"
+							src={client.link == null ? 
+								"https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"
+								: client.link
+							}
 							alt="" />
 					</div>
 						<div className="ml-3">
@@ -176,6 +191,7 @@ function RegisterUsers(){
 
     return(
         <div className="container">
+
             <div className="pt-10 w-content">
             
     <div className="bg-white p-8 rounded-md w-full">
@@ -234,43 +250,16 @@ function RegisterUsers(){
 			</div>
 		</div>
 		<div>
-			<div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-				<div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
-				
-				<div>
-
-					<table className="min-w-full leading-normal">
-						<thead>
-							<tr>
-								<th
-									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-									Nome da instituição
-								</th>
-								<th
-									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-									Tipo de usuário
-								</th>
-								<th
-									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-									Opções
-								</th>
-							</tr>
-						</thead>
-
-						<tbody>
-
-						{loading == false ?search == ""? listData : listDataSearch : <h1>Carregando</h1>
-						}
-
-						</tbody>
-
-					</table>
-				</div>
+			<div  className="bg-white">
+			<link rel="stylesheet" href="https://cdn.tailgrids.com/tailgrids-fallback.css" />
+				<div className="flex shadow rounded-lg overflow-hidden pt-5">	
+					<div>
+							{loading == false ?search == ""? listData : listDataSearch : <h1>Carregando</h1>}
+					</div>
 
 					<div>
 						<Pagination postPerPage={postPerPage} totalPosts={posts.length} paginate={paginate}/>
 					</div>
-
 				</div>
 			</div>
 		</div>
