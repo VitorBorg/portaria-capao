@@ -3,7 +3,7 @@ import pdfMaker from 'pdfmake/build/pdfmake'
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 import api from "../../pages/services/api";
 
-function pdfFile (date, info, users, external){
+function pdfFile (date, info, external){
   pdfMaker.vfs = pdfFonts.pdfMake.vfs
 
   let month = "null";
@@ -60,7 +60,6 @@ function pdfFile (date, info, users, external){
 const dadosExternal = external.map((client) => {
   return [
           {text: client.name, fontSize: 9, margin: [0,2,0,2]},
-          {text: client.email, fontSize: 9, margin: [0,2,0,2]},
           {text: client.phoneFirst, fontSize: 9, margin: [0,2,0,2]},
           {text: client.temperature, fontSize: 9, margin: [0,2,0,2]},
           {text: client.hourEnter, fontSize: 9, margin: [0,2,0,2]},
@@ -73,11 +72,10 @@ const detailsExternal = [
   {
     table: {
       headerRows: 1,
-      widths: [65,65,65,65,65,65,65],
+      widths: [65,65,65,65,65,65],
       body: [
               [
                 {text:'Nome', style:'tableHeader', fontSize:10},
-                {text:'Email', style:'tableHeader', fontSize:10},
                 {text:'Telefone', style:'tableHeader', fontSize:10},
                 {text:'Temperatura', style:'tableHeader', fontSize:10},
                 {text:'Entrada', style:'tableHeader', fontSize:10},
@@ -85,35 +83,6 @@ const detailsExternal = [
                 {text:'Data', style:'tableHeader', fontSize:10}
               ],
             ...dadosExternal
-            ]
-      },
-  }
-];
-
-
-//USUARIOS
-const dadosUsers = users.map((client) => {
-  return [
-          {text: client.name, fontSize: 9, margin: [0,2,0,2]},
-          {text: client.email, fontSize: 9, margin: [0,2,0,2]},
-          {text: client.phoneFirst, fontSize: 9, margin: [0,2,0,2]},
-          {text: client.phoneSecond, fontSize: 9, margin: [0,2,0,2]}
-  ]
-})
-
-const detailsUsers = [
-  {
-    table: {
-      headerRows: 1,
-      widths: [65,65,65,65,65],
-      body: [
-              [
-                {text:'Nome', style:'tableHeader', fontSize:10},
-                {text:'Email', style:'tableHeader', fontSize:10},
-                {text:'Telefone', style:'tableHeader', fontSize:10},
-                {text:'Tipo de usuário', style:'tableHeader', fontSize:10}
-              ],
-            ...dadosUsers
             ]
       },
   }
@@ -175,12 +144,7 @@ const detailsUsers = [
               {text: '', style: 'subheader'},
               '',
             detailsExternal,
-          	{text: 'Informações de contatos de vereadores, assessores e funcionários', pageBreak: 'before', style: 'subheader'},
-              'Informações de contato das pessoas cadastradas no sistema (corresponde a tabela Registro Interno, abaixo desta).',
-              {text: '', style: 'subheader'},
-              '',
-            detailsUsers,
-            {text: 'Registro Interno', style: 'subheader'},
+            {text: 'Registro de Empregados', pageBreak: 'before', style: 'subheader'},
             'Tabela que registra a entrada e saída de vereadores, assessores e funcionários na Câmara de Vereadores de Capão do Leão.',
             {text: '', style: 'subheader'},
             '',
@@ -220,15 +184,15 @@ const detailsUsers = [
 
 
 // Create Document Component
-function PdfCreate ({dataExternal, dataInternal, dataUsers, finished, date, detl, btnDelete}) {
+function PdfCreate ({dataExternal, dataInternal, finished, date, detl, btnDelete}) {
 
   const [processingDone, setProcessingDone] = useState(false)
 
   const creating = () => {
-    if(dataExternal.length > 0 && dataInternal.length > 0 && dataUsers.length > 0){
+    if(dataExternal.length > 0 && dataInternal.length > 0){
       detl('Dados encontrados... Processando...')
 
-      pdfFile(date, dataInternal, dataUsers, dataExternal);
+      pdfFile(date, dataInternal, dataExternal);
       
       btnDelete(
 
