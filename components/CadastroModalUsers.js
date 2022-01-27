@@ -12,17 +12,13 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh})
   const [firstNumber, setfirstNumber] = useState('')
   const [secondNumber, setsecondNumber] = useState('')
 
-  const [errors, setErrors] = useState({name: null, email: null, firstNumber: null, secondNumber: null})
+  const [errors, setErrors] = useState({name: null, firstNumber: null, secondNumber: null})
 
   //console.log("before errors: " + errors)
   const isValidFormData = () => {
 
     if(name == "" ){
       setErrors({name: 'Selecione uma pessoa!'})
-      return false
-    }
-    if(email == "") {
-      setErrors({email: 'Indique sua temperatura!'})
       return false
     }
     setErrors({})
@@ -171,18 +167,6 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh})
           </div>
 
           <div className="flex flex-col sm:flex-row items-center mb-5 sm:space-x-5">
-          <div className="w-full sm:w-1/2 mt-2 sm:mt-0">
-              <p className="mb-2 font-semibold text-gray-700">Email</p>
-              <input
-                type="email"
-                name="email"
-                className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-                id="email"
-                placeholder="Campo opcional"
-                value={email}
-                onChange={e => handleChangeEmail(e.target.value)}
-              />
-            </div>
 
             <div className="w-full sm:w-1/2">
               <p className="mb-2 font-semibold text-gray-700">Telefone Principal</p>

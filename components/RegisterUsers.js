@@ -116,12 +116,6 @@ function RegisterUsers(){
 				{client.phoneSecond}
 				</p>
 			</td>
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.phoneFirst}</p>
-			</td>
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.email}</p>
-			</td>
 
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 
@@ -164,13 +158,6 @@ function RegisterUsers(){
 				{showFunctionName(client.phoneSecond)}
 				</p>
 			</td>
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.phoneFirst}</p>
-			</td>
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.email}</p>
-			</td>
-
 			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 
 				<div className="
@@ -262,14 +249,6 @@ function RegisterUsers(){
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
 									Tipo de usuário
-								</th>
-								<th
-									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-									Telefone Primário
-								</th>
-								<th
-									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-									Email
 								</th>
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">

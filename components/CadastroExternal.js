@@ -15,7 +15,7 @@ function CadastroExternal({clients,setClientsMain, onClose, theId, setRefresh}){
   const [firstNumber, setfirstNumber] = useState('')
   const [temperature, setTemperature] = useState('')
 
-  const [errors, setErrors] = useState({name: null, email: null, temperature: null})
+  const [errors, setErrors] = useState({name: null, temperature: null})
 
   //console.log("before errors: " + errors)
   const isValidFormData = () => {
@@ -182,18 +182,6 @@ function CadastroExternal({clients,setClientsMain, onClose, theId, setRefresh}){
               </input>
             </div>
             
-            <div className="w-full sm:w-1/2 mt-2 sm:mt-0">
-              <p className="mb-2 font-semibold text-gray-700">Email</p>
-              <input
-                type="email"
-                name="email"
-                className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-                id="email"
-                placeholder="Campo opcional"
-                value={email}
-                onChange={e => handleChangeEmail(e.target.value)}
-              />
-            </div>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center mb-5 sm:space-x-5">
@@ -222,39 +210,6 @@ function CadastroExternal({clients,setClientsMain, onClose, theId, setRefresh}){
             </div>    
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center mb-5 sm:space-x-5">
-            <div className="w-full sm:w-1/2">
-              <p className="mb-2 font-semibold text-gray-700">Horário de entrada</p>
-              <input type="time" 
-              id="hourEnter" 
-              name="hourEnter"
-              value={
-                (!hourEnterFlag && theId? hourEnter: console.log(''))
-                }
-              className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-                min="06:00" max="22:00" required
-                onChange={e => handleChangeHourEnter(e.target.valueAsDate)}
-                />
-            </div>
-            
-
-            {theId && theId.hourLeft != "00:00" &&  (
-            
-            <div className="w-full sm:w-1/2 mt-2 sm:mt-0">
-              <p className="mb-2 font-semibold text-gray-700">Horário de Saída</p>
-              <input type="time" 
-              id="hourLeft" 
-              name="hourLeft"
-              value={
-                (!hourLeftFlag && theId.hourLeft? hourLeft: console.log(""))
-                }
-              className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-                min="06:00" max="22:00" required
-                onChange={e => handleChangeHourLeft(e.target.valueAsDate)}
-                />
-            </div>
-            )}
-          </div>
 
           <hr />
          

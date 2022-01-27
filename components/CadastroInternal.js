@@ -16,7 +16,7 @@ function CadastroInternal({clients,setClientsMain, onClose, theId, setRefresh}){
   const [userType, setUserType] = useState('null')
   const [temperature, setTemperature] = useState('')
 
-  const [errors, setErrors] = useState({name: null, email: null, temperature: null})
+  const [errors, setErrors] = useState({name: null, temperature: null})
 
   //console.log("before errors: " + errors)
   const isValidFormData = () => {
