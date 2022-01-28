@@ -125,7 +125,8 @@ function RegisterUsers(){
  
 	))
 
-	const listData = currentPosts.map(client => (
+	const listData = (currentPosts.map(client => (
+	<div  key={client._id}>
 		<Card 
 			name={client.name}
 			type={client.phoneSecond}
@@ -144,8 +145,9 @@ function RegisterUsers(){
 					>Excluir</button>
 				</div>}
 			/>
+			</div>	
 			
-	))
+	)))
 
 	
 	const listDataSearch = clientsSearch.map(client => (
@@ -191,7 +193,6 @@ function RegisterUsers(){
 
     return(
         <div className="container">
-
             <div className="pt-10 w-content">
             
     <div className="bg-white p-8 rounded-md w-full">
@@ -250,12 +251,12 @@ function RegisterUsers(){
 			</div>
 		</div>
 		<div>
-			<div  className="bg-white">
+			<div  className="bg-white ">
 			<link rel="stylesheet" href="https://cdn.tailgrids.com/tailgrids-fallback.css" />
-				<div className="flex shadow rounded-lg overflow-hidden pt-5">	
-					<div>
+				<div className="rounded-lg overflow-hidden pt-5">	
+					<section className="flex space-x-5 pt-5">
 							{loading == false ?search == ""? listData : listDataSearch : <h1>Carregando</h1>}
-					</div>
+					</section>
 
 					<div>
 						<Pagination postPerPage={postPerPage} totalPosts={posts.length} paginate={paginate}/>

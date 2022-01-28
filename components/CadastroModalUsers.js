@@ -158,7 +158,7 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh})
               <input type="text" 
               id="link" 
               name="link"
-              className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
+              className="w-content p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
                 value={link}
                 placeholder="Campo obrigatório"
                 onChange={e => handleChangeLink(e.target.value)}
