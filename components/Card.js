@@ -1,35 +1,29 @@
 function Card({name, type, buttons, img}){
     return (    
-    <div>
+    <div className=" pt-4">
         <div
         className="
         bg-white
         rounded-xl
-        z-10
         overflow-hidden
         border border-green-900 border-opacity-50
-        shadow-pricing
-        py-10
-        px-8
-        mb-10
+        py-2
+        px-4
         "
         >
-        <span className="text-green-900 font-semibold text-lg mb-4">
-            <h2 className="font-bold text-gray-800 mb-5 text-[42px]">
-                {name}
-            </h2>
-        </span>
         {img}
-        <p
+        <div className="text-green-900 font-semibold text-[18px]">
+                {name}
+        </div>
+        <div
             className="
+            text-[12px]
             text-base text-body-color
-            pb-8
-            mb-8
-            border-b border-[#F2F2F2]
+            mb-1
             "
             >
             {type}
-        </p>
+        </div>
         {/*
         <a
             onClick={() => setOpenMonth(!openMonth)}

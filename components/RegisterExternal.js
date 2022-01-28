@@ -116,96 +116,55 @@ function RegisterExternal(){
 		setSearch(text)
 	}
 
-	const listData = currentPosts.map(client => (
-		<tr key={client._id}>
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<div className="flex items-center">
-					<div className="flex-shrink-0 w-10 h-10">
-						<img className="w-full h-full rounded-full"
-							src="https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"
-							alt="" />
-					</div>
-					<div className="ml-3">
-						<p className="text-gray-900 whitespace-no-wrap">
-						{client.name}
-							
-						</p>
-					</div>
-				</div>
-			</td>
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.temperature}</p>
-			</td>
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.phoneFirst}</p>
-			</td>
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.createdAt != null? client.createdAt.substring(0,10).split('-').reverse().join('-'): 'processando...'}</p>
-			</td>
-			
-
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-
-				<div className="
-				flex">
-					<button className="bg-green-400 px-4 py-2 rounded-full text-white font-semibold cursor-pointer"
-					onClick={() => (setIdEdit(client), setOpen(!open))}
-					>Editar</button>
-					<button className="bg-red-400 px-4 py-2 rounded-full text-white font-semibold cursor-pointer ml-2"
-					onClick={() => handleDeleteClient(client._id)}
-					>Excluir</button>
-				</div>
-			</td>
-	</tr>
- 
-
-
-	))
-
-	
-	const listDataSearch = clientsSearch.map(client => (
-		<tr key={client._id}>
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<div className="flex items-center">
-					<div className="flex-shrink-0 w-10 h-10">
-						<img className="w-full h-full rounded-full"
-							src="https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"
-							alt="" />
-					</div>
-						<div className="ml-3">
-							<p className="text-gray-900 whitespace-no-wrap">
-							{client.name}
-							
-							</p>
+	function gridList (arr) {
+		return(
+			arr.map(client => (
+				<tr key={client._id}>
+					<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+						<div className="flex items-center">
+							<div className="flex-shrink-0 w-10 h-10">
+								<img className="w-full h-full rounded-full"
+									src="https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"
+									alt="" />
+							</div>
+							<div className="ml-3">
+								<p className="text-gray-900 whitespace-no-wrap">
+								{client.name}
+									
+								</p>
+							</div>
 						</div>
-					</div>
-			</td>
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.temperature}</p>
-			</td>
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.phoneFirst}</p>
-			</td>
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">{client.createdAt != null? client.createdAt.substring(0,10).split('-').reverse().join('-'): 'processando...'}</p>
-			</td>
-
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-
-				<div className="
-				flex">
-					<button className="bg-green-400 px-4 py-2 rounded-full text-white font-semibold cursor-pointer"
-					onClick={() => (setIdEdit(client), setOpen(!open))}
-					>Editar</button>
-					<button className="bg-red-400 px-4 py-2 rounded-full text-white font-semibold cursor-pointer ml-2"
-					onClick={() => handleDeleteClient(client._id)}
-					>Excluir</button>
-				</div>
-			</td>
-	</tr>
-
-	))
-
+					</td>
+					<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+						<p className="text-gray-900 whitespace-no-wrap">{client.temperature}</p>
+					</td>
+					<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+						<p className="text-gray-900 whitespace-no-wrap">{client.phoneFirst}</p>
+					</td>
+					<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+						<p className="text-gray-900 whitespace-no-wrap">{client.createdAt != null? client.createdAt.substring(0,10).split('-').reverse().join('-'): 'processando...'}</p>
+					</td>
+					
+		
+					<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+		
+						<div className="
+						flex">
+							<button className="bg-green-400 px-4 py-2 rounded-full text-white font-semibold cursor-pointer"
+							onClick={() => (setIdEdit(client), setOpen(!open))}
+							>Editar</button>
+							<button className="bg-red-400 px-4 py-2 rounded-full text-white font-semibold cursor-pointer ml-2"
+							onClick={() => handleDeleteClient(client._id)}
+							>Excluir</button>
+						</div>
+					</td>
+			</tr>
+		 
+		
+		
+			))
+		)
+	}
 	const dropDown = (
 		<div className="py-1" role="none">
 
@@ -373,7 +332,7 @@ function RegisterExternal(){
 
 						<tbody>
 
-						{loading == false ?search == ""? listData : listDataSearch : <h1>Carregando</h1>
+						{loading == false ?search == ""? gridList(currentPosts) : gridList(clientsSearch) : <h1>Carregando</h1>
 						}
 
 						</tbody>

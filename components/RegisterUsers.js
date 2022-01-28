@@ -21,7 +21,7 @@ function RegisterUsers(){
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [postPerPage] = useState(15);
+	const [postPerPage] = useState(20);
 
 	const [search, setSearch] = useState("");
 	
@@ -94,102 +94,33 @@ function RegisterUsers(){
 		}
 	}
 	
-	const listNew = currentPosts.map(client => (
-		<tr key={client._id}>
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<div className="flex items-center">
-					<div className="flex-shrink-0 w-20 h-15">
-						<img className="w-full h-full rounded-full"
-							src={client.link == '' ||  client.link == null?'https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png'
-								: client.link
-							}
-							alt="" />
-					</div>
-						<div className="ml-3">
-							<p className="text-gray-900 whitespace-no-wrap">
-							{client.name}
-							
-							</p>
-						</div>
-					</div>
-			</td>
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">
-				{client.phoneSecond}
-				</p>
-			</td>
 
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-			</td>
-	</tr>
- 
-	))
-
-	const listData = (currentPosts.map(client => (
-	<div  key={client._id}>
-		<Card 
-			name={client.name}
-			type={client.phoneSecond}
-			img={<img className="w-65 h-40 rounded-full"
-							src={client.link == '' ||  client.link == null?'https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png'
-								: client.link
-							}
-							alt="" />}
-			buttons={<div className="
-				flex">
-					<button className="bg-green-400 px-4 py-2 rounded-full text-white font-semibold cursor-pointer"
-					onClick={() => (setIdEdit(client), setOpen(!open))}
-					>Editar</button>
-					<button className="bg-red-400 px-4 py-2 rounded-full text-white font-semibold cursor-pointer ml-2"
-					onClick={() => handleDeleteClient(client._id)}
-					>Excluir</button>
-				</div>}
-			/>
-			</div>	
-			
-	)))
-
-	
-	const listDataSearch = clientsSearch.map(client => (
-		<tr key={client._id}>
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<div className="flex items-center">
-					<div className="flex-shrink-0 w-10 h-10">
-						<img className="w-full h-full rounded-full"
-							src={client.link == null ? 
-								"https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"
-								: client.link
-							}
-							alt="" />
-					</div>
-						<div className="ml-3">
-							<p className="text-gray-900 whitespace-no-wrap">
-							{client.name}
-							
-							</p>
-						</div>
-					</div>
-			</td>
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-				<p className="text-gray-900 whitespace-no-wrap">
-				{showFunctionName(client.phoneSecond)}
-				</p>
-			</td>
-			<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-
-				<div className="
-				flex">
-					<button className="bg-green-400 px-4 py-2 rounded-full text-white font-semibold cursor-pointer"
-					onClick={() => (setIdEdit(client), setOpen(!open))}
-					>Editar</button>
-					<button className="bg-red-400 px-4 py-2 rounded-full text-white font-semibold cursor-pointer ml-2"
-					onClick={() => handleDeleteClient(client._id)}
-					>Excluir</button>
-				</div>
-			</td>
-	</tr>
-
-	))
+	function gridList (arr) {
+		return(
+		(arr.map(client => (
+			<div  key={client._id}>
+				<Card 
+					name={client.name}
+					type={client.phoneSecond}
+					img={<img className="object-scale-down w-32 h-32"
+									src={client.link == '' ||  client.link == null?'https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png'
+										: client.link
+									}
+									alt="" />}
+					buttons={<div>
+							<button className="bg-green-400 px-2 py-1 rounded-lg text-white font-semibold cursor-pointer text-[14px]"
+							onClick={() => (setIdEdit(client), setOpen(!open))}
+							>Editar</button>
+							<button className="bg-red-400 px-2 py-1 rounded-lg text-white font-semibold cursor-pointer ml-2 text-[14px]"
+							onClick={() => handleDeleteClient(client._id)}
+							>Excluir</button>
+						</div>}
+					/>
+					</div>	
+					
+			)))
+		)
+	}
 
     return(
         <div className="container">
@@ -251,11 +182,11 @@ function RegisterUsers(){
 			</div>
 		</div>
 		<div>
-			<div  className="bg-white ">
+			<div>
 			<link rel="stylesheet" href="https://cdn.tailgrids.com/tailgrids-fallback.css" />
-				<div className="rounded-lg overflow-hidden pt-5">	
-					<section className="flex space-x-5 pt-5">
-							{loading == false ?search == ""? listData : listDataSearch : <h1>Carregando</h1>}
+				<div className="rounded-lg overflow-hidden">	
+					<section className="grid grid-cols-6 2xl:grid-cols-7 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-1 space-x-3 pt-4">
+							{loading == false ? search == ""? gridList(currentPosts) : gridList(clientsSearch) : <h1>Carregando</h1>}
 					</section>
 
 					<div>
