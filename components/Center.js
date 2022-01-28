@@ -1,6 +1,36 @@
-
+import React, {useEffect, useState} from "react";
+import api from '../pages/services/api'
 
 function Center () {
+
+   const [regExternalDatabase, setRegExternalDatabase] = useState("")
+   const [regInternalDatabase, setRegInternalDatabase] = useState("")
+
+   const [userDatabase, setUserDatabase] = useState("")
+   
+   const [phonesDatabase, setPhonesDatabase] = useState("")
+
+   useEffect(() => {
+
+		api.get('/regExternal').then(({data}) => {
+			setRegExternalDatabase(data.data.length)
+		})
+
+      api.get('/regInternal').then(({data}) => {
+			setRegInternalDatabase(data.data.length)
+		})
+
+      api.get('/user').then(({data}) => {
+			setUserDatabase(data.data.length)
+		})
+
+      api.get('/numberPhones').then(({data}) => {
+			setPhonesDatabase(data.data.length)
+		})
+
+
+	}, [])
+
     return (
        
     <div className="bg-white">
@@ -66,7 +96,7 @@ function Center () {
                Informações
                </span>
                <h2 className="font-bold text-gray-800 mb-5 text-[42px]">
-                356 
+                {regExternalDatabase + regInternalDatabase} 
                 <span className="text-base text-body-color  font-semibold text-lg block mb-4">
                 /registros estão no banco de dados
                   </span>
@@ -360,7 +390,7 @@ function Center () {
                Informações
                </span>
                <h2 className="font-bold text-gray-800 mb-5 text-[42px]">
-                23 
+                {userDatabase}
                 <span className="text-base text-body-color  font-semibold text-lg block mb-4">
                 /usuários cadastrados no sistema
                   </span>
@@ -654,7 +684,7 @@ function Center () {
                Informações
                </span>
                <h2 className="font-bold text-gray-800 mb-5 text-[42px]">
-                62 
+                {phonesDatabase} 
                 <span className="text-base text-body-color  font-semibold text-lg block mb-4">
                 /números úteis cadastrados no banco
                   </span>
@@ -957,7 +987,7 @@ function Center () {
                   </span>
                </h2>
                <span className="text-base text-body-color">
-                 O sistema foi feito com node.js utilizando React para o front-end, Next.js para o back-end, e para o banco usa-se o gerenciador MONGO-DB. <br/> O email cadastrado no mongo é o email da portaria.
+                 O sistema foi feito com node.js utilizando React para o front-end e Tailwind para o estilo, Node.js + Next.js para o back-end, mongoose para schema model, e para o banco usa-se o gerenciador MONGO-DB. <br/> O email cadastrado no mongo é o email da portaria.
                </span>
              
                <div>
@@ -1258,7 +1288,7 @@ function Center () {
                   </span>
                </h2>
                <span className="text-base text-body-color">
-                 Para fazer o backup deve-se ir na página "Exportações" e escolher uma das opções. O sistema pegará os registros (no período de tempo definido) e fará um arquivo .pdf. Feito todo o processo esses arquivos gerados devem ser colocados em nuvem: na conta capaocamarabackup@gmail.com.
+                 Para fazer o backup deve-se ir na página "Exportações" e selecionar o backup do mês. O sistema pegará os registros (do mês selecionado) e fará um arquivo .pdf. Feito todo o processo esses arquivos gerados devem ser colocados em nuvem: na conta capaocamarabackup@gmail.com.
                </span>
              
                <div>
@@ -1863,7 +1893,7 @@ function Center () {
                <span className="text-base text-body-color">
                  <ul>
                     <li>
-                       Acesse "cloud.mongodb.com", acesse pelo google com o email da portaria.
+                       Acesse "cloud.mongodb.com", acesse pelo google com o email da portaria. (capaoportaria@gmail.com)
                     </li>
                       Terá apenas um banco de dados, e o nome dele será "CapaoPortaria". O login e senha deles estão no arquivo da TI de senhas.
                  </ul>
