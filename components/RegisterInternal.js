@@ -154,7 +154,7 @@ function RegisterInternal(){
 						<p className="text-gray-900 whitespace-no-wrap">{client.temperature}</p>
 					</td>
 					<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-						<p className="text-gray-900 whitespace-no-wrap">{client.createdAt != null? client.createdAt.substring(0,10).split('-').reverse().join('-'): 'processando...'}</p>
+						<p className="text-gray-900 whitespace-no-wrap">{client.createdAt != null? client.createdAt.substring(0,10).split('-').reverse().join('/'): 'processando...'}</p>
 					</td>
 					<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 						<p className="text-gray-900 whitespace-no-wrap">{client.hourEnter}</p>
@@ -176,10 +176,10 @@ function RegisterInternal(){
 		
 						<div className="
 						flex">
-							<button className="bg-green-400 px-4 py-2 rounded-full text-white font-semibold cursor-pointer"
+							<button className="bgGREEN px-4 py-2 rounded-full text-white font-semibold cursor-pointer"
 							onClick={() => (setIdEdit(client), setOpen(!open))}
 							>Editar</button>
-							<button className="bg-red-400 px-4 py-2 rounded-full text-white font-semibold cursor-pointer ml-2"
+							<button className="bgRED px-4 py-2 rounded-full text-white font-semibold cursor-pointer ml-2"
 							onClick={() => handleDeleteClient(client._id)}
 							>Excluir</button>
 						</div>
@@ -249,7 +249,7 @@ function RegisterInternal(){
           </div>
 		  		<div className="lg:ml-40 ml-10 mr-12 pr-8 space-x-8">	
 
-					<button className="bg-green-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer
+					<button className="bgGREEN px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer
 					"
 					 onClick={() => (setIdEdit(null),setOpen(!open))}
 					 > <PlusIcon className="h-5 w-5" />

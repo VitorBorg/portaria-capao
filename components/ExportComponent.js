@@ -43,7 +43,7 @@ function ExportComponent () {
                <p className="text-base text-body-color mb-5">
                  Os dados só estarão seguros depois que forem exportados (em pdf) e colocados em nuvem. DADOS NO BANCO NÃO ESTÃO SEGUROS DE PERDAS!
                </p>
-               <a href="/" className=" border rounded md py-4 px-8 text-center bg-green-600 text-white hover:bg-green-400">Saber mais sobre backup</a>
+               <a href="/" className=" border rounded md py-4 px-8 text-center bgGREEN text-white hover:bg-green-900">Saber mais sobre backup</a>
             </div>
          </div>
       </div>
@@ -96,7 +96,7 @@ function ExportComponent () {
                   rounded-md
                   text-center
                   p-4
-                  hover:text-white hover:bg-green-400
+                  hover:text-white hover:bg-green-900
                   transition
                   "
                   >

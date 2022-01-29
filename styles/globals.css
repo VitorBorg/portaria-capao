@@ -32,3 +32,15 @@ body.active-modal {
     background: white;
     border-top-left-radius: 30;
 }
+
+.bgRED {
+    background-color: #BB5555;
+}
+
+.bgGREEN {
+    background-color: #239B65;
+}
+
+.bgBLUE {
+    background-color: #235D9B;
+}

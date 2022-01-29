@@ -108,10 +108,10 @@ function RegisterUsers(){
 									}
 									alt="" />}
 					buttons={<div>
-							<button className="bg-green-400 px-2 py-1 rounded-lg text-white font-semibold cursor-pointer text-[14px]"
+							<button className="bgGREEN px-2 py-1 rounded-lg text-white font-semibold cursor-pointer text-[14px]"
 							onClick={() => (setIdEdit(client), setOpen(!open))}
 							>Editar</button>
-							<button className="bg-red-400 px-2 py-1 rounded-lg text-white font-semibold cursor-pointer ml-2 text-[14px]"
+							<button className="bgRED px-2 py-1 rounded-lg text-white font-semibold cursor-pointer ml-2 text-[14px]"
 							onClick={() => handleDeleteClient(client._id)}
 							>Excluir</button>
 						</div>}
@@ -152,7 +152,7 @@ function RegisterUsers(){
           </div>
 		  <div className="lg:ml-40 ml-10 mr-8 pr-8 space-x-8">	
 
-					<button className="bg-green-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer
+					<button className="bgGREEN px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer
 					"
 					 onClick={() => (setIdEdit(null),setOpen(!open))}
 					 > <PlusIcon className="h-5 w-5" />

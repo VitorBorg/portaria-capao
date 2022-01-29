@@ -15,7 +15,7 @@ const Pagination = ({postPerPage, totalPosts, paginate}) => {
                 <li key={number} className="page-item">
                     <div className="inline-flex mt-2 xs:mt-0">
                         <a onClick={() => paginate(number)}
-                             className="text-sm text-indigo-50 transition duration-150 hover:bg-green-500 bg-green-600 font-semibold py-2 px-4 rounded-l">
+                             className="text-sm text-indigo-50 transition duration-150 cursor-pointer hover:bg-green-900 bgGREEN font-semibold py-2 px-4 rounded-l">
                             {number}
                         </a>
                         &nbsp; &nbsp;

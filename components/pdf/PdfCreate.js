@@ -62,9 +62,7 @@ const dadosExternal = external.map((client) => {
           {text: client.name, fontSize: 9, margin: [0,2,0,2]},
           {text: client.phoneFirst, fontSize: 9, margin: [0,2,0,2]},
           {text: client.temperature, fontSize: 9, margin: [0,2,0,2]},
-          {text: client.hourEnter, fontSize: 9, margin: [0,2,0,2]},
-          {text: client.hourLeft, fontSize: 9, margin: [0,2,0,2]},
-          {text: client.createdAt.substring(0,10).split('-').reverse().join('-'), fontSize: 9, margin: [0,2,0,2]}
+          {text: client.createdAt.substring(0,10).split('-').reverse().join('/'), fontSize: 9, margin: [0,2,0,2]}
   ]
 })
 
@@ -72,14 +70,12 @@ const detailsExternal = [
   {
     table: {
       headerRows: 1,
-      widths: [65,65,65,65,65,65],
+      widths: [65,65,65,65],
       body: [
               [
                 {text:'Nome', style:'tableHeader', fontSize:10},
                 {text:'Telefone', style:'tableHeader', fontSize:10},
                 {text:'Temperatura', style:'tableHeader', fontSize:10},
-                {text:'Entrada', style:'tableHeader', fontSize:10},
-                {text:'Saída', style:'tableHeader', fontSize:10},
                 {text:'Data', style:'tableHeader', fontSize:10}
               ],
             ...dadosExternal
@@ -97,7 +93,7 @@ const detailsExternal = [
             {text: client.temperature, fontSize: 9, margin: [0,2,0,2]},
             {text: client.hourEnter, fontSize: 9, margin: [0,2,0,2]},
             {text: client.hourLeft, fontSize: 9, margin: [0,2,0,2]},
-            {text: client.createdAt.substring(0,10).split('-').reverse().join('-'), fontSize: 9, margin: [0,2,0,2]}
+            {text: client.createdAt.substring(0,10).split('-').reverse().join('/'), fontSize: 9, margin: [0,2,0,2]}
     ]
   })
 

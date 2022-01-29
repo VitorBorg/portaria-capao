@@ -112,10 +112,10 @@ function RegisterNumber(){
 		
 						<div className="
 						flex">
-							<button className="bg-green-400 px-4 py-2 rounded-full text-white font-semibold cursor-pointer"
+							<button className="bgGREEN px-4 py-2 rounded-full text-white font-semibold cursor-pointer"
 							onClick={() => (setIdEdit(client), setOpen(!open))}
 							>Editar</button>
-							<button className="bg-red-400 px-4 py-2 rounded-full text-white font-semibold cursor-pointer ml-2"
+							<button className="bgRED px-4 py-2 rounded-full text-white font-semibold cursor-pointer ml-2"
 							onClick={() => handleDeleteClient(client._id)}
 							>Excluir</button>
 						</div>
@@ -158,7 +158,7 @@ function RegisterNumber(){
           </div>
 		  		<div className="lg:ml-40 ml-10 mr-7 pr-3 space-x-8">	
 
-					<button className="bg-green-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer
+					<button className="bgGREEN px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer
 					"
 					 onClick={() => (setIdEdit(null),setOpen(!open))}
 					 > <PlusIcon className="h-5 w-5" />

@@ -160,7 +160,7 @@ function strcmp(a, b) {
           className="flex flex-row items-center justify-between p-5 bg-white border-t border-gray-200 rounded-bl-lg rounded-br-lg"
         >
           <div className="pr-3">
-            <button className="px-4 py-2 text-white font-semibold bg-red-400 rounded
+            <button className="px-4 py-2 text-white font-semibold bgRED rounded
             "
             onClick={onClose}>
               Cancelar
@@ -168,7 +168,7 @@ function strcmp(a, b) {
             </button>
           </div>
 
-          <button className="px-4 py-2 text-white font-semibold bg-blue-500 rounded"
+          <button className="px-4 py-2 text-white font-semibold bgBLUE rounded"
           type='submit'
           >{theId? 'Atualizar' : 'Cadastrar'}
           </button>
