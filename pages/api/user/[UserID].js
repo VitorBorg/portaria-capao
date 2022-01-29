@@ -10,16 +10,16 @@ export default async function handler(req, res) {
     switch(method) {
         case 'PUT':
             try{
-                const {name, email, firstNumber, secondNumber} = req.body
+                const {name, link, secondNumber} = req.body
 
-                if(!name && !firstNumber) throw 'invalid data'
+                if(!name) throw 'invalid data'
 
                 await Phone.updateOne({_id: UserID}, {
                     name: name, 
-                    email: email, 
-                    phoneFirst: firstNumber,
+                    link: link, 
                     phoneSecond: secondNumber
-                })
+                    })
+
                 res.status(202).json({success: true})
             }catch(e){
                 console.log(e)

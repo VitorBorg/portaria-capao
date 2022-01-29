@@ -22,6 +22,10 @@ function strcmp(a, b)
 
 function RegisterInternal(){
 
+	const [databaseUserClients, setDatabaseUserClients] = useState([])
+	const [profileImage, setProfileImage] = useState("")
+	//const [link, setLink] = useState("");
+
 	const [databaseClients, setDatabaseClients] = useState([])
 	const [clientsMain, setClientsMain] = useState([])
 	const [clientsSearch, setClientsSearch] = useState([])
@@ -33,7 +37,6 @@ function RegisterInternal(){
 	const [openDay, setOpenDay] = useState(false);
 	const [openName, setOpenName] = useState(false);
 	const [idEdit, setIdEdit] = useState(null);
-	const [link, setLink] = useState(null);
 
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(false);
@@ -49,6 +52,10 @@ function RegisterInternal(){
 		api.get('/regInternal').then(({data}) => {
 			setDatabaseClients(data.data)
 		})
+
+		api.get('/user').then(({data}) => {
+			setDatabaseUserClients(data.data)
+		})
 	}, [, refresh])
 
 	//Getting data from database
@@ -56,14 +63,6 @@ function RegisterInternal(){
 			setClientsMain(databaseClients.filter(client => 
 				strcmp(client.createdAt.substring(0,10), moment().format("YYYY-MM-DD")) == 0))
 		}, [databaseClients])
-
-		/*
-	useEffect(() => {
-		api.get('/regInternal').then(({data}) => {
-			setDatabaseClients(data.data)
-		})
-	}, [refresh])
-	*/
 
 
 	/////////////////////Search implementation
@@ -94,6 +93,7 @@ function RegisterInternal(){
 		fetchPosts();
 	}, [clientsMain])
 
+
 	const indexOfLastPost = currentPage * postPerPage;
 	const indexOfFirstPost = indexOfLastPost - postPerPage;
 	const currentPosts = posts.slice(0).reverse().slice(indexOfFirstPost, indexOfLastPost);
@@ -115,6 +115,12 @@ function RegisterInternal(){
 		setSearch(text)
 	}
 
+	const test = (text) => {
+		setLink("ae")
+	}
+
+	var linkURL = "";
+
 	function gridList (arr) {
 		return(
 			arr.map(client => (
@@ -124,15 +130,13 @@ function RegisterInternal(){
 							<div className="flex-shrink-0 w-10 h-10">
 								<img className="w-full h-full rounded-full"
 		
-									{...api.get('/user').then(data => {
-										console.log(data)
-										  //console.log("List: ", data.data)
-									})}
-		
-									src={link == null ? 
-										"https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"
-										: link
-									}
+
+									src={databaseUserClients.length > 0 ?
+										((linkURL = (databaseUserClients.filter(user => user.name == client.name))[0].link),
+										linkURL == '' ||  linkURL == null
+										?'https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png'
+										: linkURL) : 'https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png'
+								}
 									alt="" />
 							</div>
 							<div className="ml-3">
