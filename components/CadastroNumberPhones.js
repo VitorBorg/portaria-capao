@@ -15,11 +15,11 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId, setRefres
   const isValidFormData = () => {
 
     if(name == "" ){
-      setErrors({name: 'Selecione uma pessoa!'})
+      setErrors({name: 'Identifique uma pessoa!'})
       return false
     }
-    if(email == "") {
-      setErrors({email: 'Indique sua temperatura!'})
+    if(firstNumber == "") {
+      setErrors({email: 'Indique um contato principal!'})
       return false
     }
     setErrors({})
@@ -30,8 +30,6 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId, setRefres
   const handleSubmitCreateClient = async (e) => {
     if(theId){
       e.preventDefault()
-
-        //if(!theId.name && !theId.email) return
     
       try {
         let iId = theId._id;
@@ -43,25 +41,20 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId, setRefres
         setEmail('')
         setsecondNumber('')
         setfirstNumber('')
-
+      
         onClose()
         setRefresh(true)
+        console.log("SET")
     
       } catch (e) {
         console.log(e)
       }
     } else{
-      console.log("add")
       e.preventDefault()
 
       if(!isValidFormData()) return
 
       try {
-
-        console.log('data: ', name)
-        console.log('data: ', email)
-        console.log('data: ', firstNumber)
-        console.log('data: ', secondNumber)
 
 
         const {data} = await api.post('/numberPhones', {
@@ -70,8 +63,6 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId, setRefres
           firstNumber,
           secondNumber
         })
-        
-      console.log('GO FOR IT')
 
       setClientsMain(clients.concat(data.data))
 
@@ -80,7 +71,7 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId, setRefres
       setsecondNumber('')
       setfirstNumber('')
 
-      onClose();
+      onClose()
       setRefresh(true)
         
     } catch (e) {
@@ -141,16 +132,16 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId, setRefres
                 placeholder="Campo obrigatório"
                 className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
                 id="name"
-                value={name}
+                value={name} required
                 onChange={e => handleChangeName(e.target.value)}
               >
               </input>
             </div>
             
             <div className="w-full sm:w-1/2 mt-2 sm:mt-0">
-              <p className="mb-2 font-semibold text-gray-700">Email</p>
+              <p className="mb-2 font-semibold text-gray-700">Contato secundário</p>
               <input
-                type="email"
+                type="text"
                 name="email"
                 className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
                 id="email"
@@ -163,7 +154,7 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId, setRefres
 
           <div className="flex flex-col sm:flex-row items-center mb-5 sm:space-x-5">
             <div className="w-full sm:w-1/2">
-              <p className="mb-2 font-semibold text-gray-700">Telefone Principal</p>
+              <p className="mb-2 font-semibold text-gray-700">Telefone</p>
               <input type="tel" 
               id="telPrincipal" 
               name="telPrincipal"
@@ -176,12 +167,12 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId, setRefres
             </div>
             
             <div className="w-full sm:w-1/2 mt-2 sm:mt-0">
-              <p className="mb-2 font-semibold text-gray-700">Telefone Secundário</p>
-              <input type="tel" 
+              <p className="mb-2 font-semibold text-gray-700">Endereço</p>
+              <input type="text" 
               id="telSecundary" 
               name="telSecundary"
               className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-                min="06:00" max="22:00" required
+                min="06:00" max="22:00"
                 placeholder="Campo opcional"
                 value={secondNumber}
                 onChange={e => handleChangeSecondNumber(e.target.value)}

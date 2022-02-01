@@ -24,7 +24,6 @@ function RegisterInternal(){
 
 	const [databaseUserClients, setDatabaseUserClients] = useState([])
 	const [profileImage, setProfileImage] = useState("")
-	//const [link, setLink] = useState("");
 
 	const [databaseClients, setDatabaseClients] = useState([])
 	const [clientsMain, setClientsMain] = useState([])
@@ -125,10 +124,10 @@ function RegisterInternal(){
 		return(
 			arr.map(client => (
 				<tr key={client._id}>
-					<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+					<td className="px-3 border-b border-gray-200 bg-white text-sm">
 						<div className="flex items-center">
-							<div className="flex-shrink-0 w-10 h-10">
-								<img className="w-full h-full rounded-full"
+							<div className="">
+								<img className="object-scale-down w-10 h-10 rounded-full"
 		
 
 									src={databaseUserClients.length > 0 ?

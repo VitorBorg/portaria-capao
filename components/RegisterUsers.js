@@ -8,12 +8,20 @@ import CadastroNumberPhones from "./CadastroModalUsers";
 import Card from "./Card";
 import Pagination from "./Pagination";
 
+function strcmp(a, b)
+{   
+    return (a<b?-1:(a>b?1:0));  
+}
 
 function RegisterUsers(){
 
 	const [clientsMain, setClientsMain] = useState([])
 	const [clientsSearch, setClientsSearch] = useState([])
 	const [refresh, setRefresh] = useState(false)
+
+	//to delete
+	const [hasRegister, setHasRegister] = useState(false)
+	const [tryDelete, setTryDelete] = useState(false)
 
 	const [open, setOpen] = useState(false);
 	const [idEdit, setIdEdit] = useState(null);
@@ -31,6 +39,11 @@ function RegisterUsers(){
 		api.get('/user').then(({data}) => {
 			setClientsMain(data.data)
 		})
+
+		api.get('/regInternal').then(({data}) => {
+			setHasRegister(data.data.length > 0)
+		})
+
 		setRefresh(false)
 	}, [])
 
@@ -59,6 +72,7 @@ function RegisterUsers(){
 
 		fetchPosts();
 	}, [clientsMain])
+	
 
 	const indexOfLastPost = currentPage * postPerPage;
 	const indexOfFirstPost = indexOfLastPost - postPerPage;
@@ -69,8 +83,15 @@ function RegisterUsers(){
 	///////////////// Delete user implementation
 	const handleDeleteClient = async (_id) => {
 		try {
-			await api.delete(`/user/${_id}`)
-			setClientsMain(clientsMain.filter(client => client._id !== _id))
+
+			if(!hasRegister){
+				await api.delete(`/user/${_id}`)
+				setClientsMain(clientsMain.filter(client => client._id !== _id))
+			} else		
+				setTryDelete(true)
+			
+				
+
 		}
 		catch(e){
 			console.log(e)
@@ -112,7 +133,7 @@ function RegisterUsers(){
 							onClick={() => (setIdEdit(client), setOpen(!open))}
 							>Editar</button>
 							<button className="bgRED px-2 py-1 rounded-lg text-white font-semibold cursor-pointer ml-2 text-[14px]"
-							onClick={() => handleDeleteClient(client._id)}
+							onClick={() => handleDeleteClient(client._id, client.name)}
 							>Excluir</button>
 						</div>}
 					/>
@@ -124,6 +145,11 @@ function RegisterUsers(){
 
     return(
         <div className="container">
+
+
+
+
+			
             <div className="pt-10 w-content">
             
     <div className="bg-white p-8 rounded-md w-full">
@@ -179,8 +205,20 @@ function RegisterUsers(){
                     
 
 				</div>
-			</div>
+			</div>	
 		</div>
+
+
+{ console.log("has? " + tryDelete),tryDelete
+?	(<div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+  <strong className="font-bold">Erro!</strong>
+  <span className="block sm:inline">{" Você só pode excluir um usuário quando não houver registros no sistema!"}</span>
+  <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+		</span>
+		</div>)
+		: null}
+
+
 		<div>
 			<div>
 			<link rel="stylesheet" href="https://cdn.tailgrids.com/tailgrids-fallback.css" />

@@ -15,7 +15,6 @@ function RegisterNumber(){
 	const [refresh, setRefresh] = useState(false)
 
 	const [open, setOpen] = useState(false);
-	//const [edit, setEdit] = useState(false);
 	const [idEdit, setIdEdit] = useState(null);
 
 	const [posts, setPosts] = useState([]);
@@ -31,13 +30,11 @@ function RegisterNumber(){
 		api.get('/numberPhones').then(({data}) => {
 			setClientsMain(data.data)
 		})
-	}, [])
 
-	useEffect(() => {
-		api.get('/numberPhones').then(({data}) => {
-			setClientsMain(data.data)
-		})
-	}, [refresh])
+		console.log("REFRESH")
+	})
+	//refresh as reference was not updating 
+	//but now it looks much worse
 
 	/////////////////////Search implementation
 	useEffect(() => {
@@ -66,7 +63,7 @@ function RegisterNumber(){
 	const handleDeleteClient = async (_id) => {
 		try {
 			await api.delete(`/numberPhones/${_id}`)
-			setClientsMain(clientsMain.filter(client => client._id !== _id))
+			setClientsMain(clientsMain.filter(client => client._id !== _id))	
 		}
 		catch(e){
 			console.log(e)
@@ -201,15 +198,15 @@ function RegisterNumber(){
 								</th>
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-									Telefone primário
+									Telefone
 								</th>
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-									Telefone secundário
+									Endereço
 								</th>
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-									Email
+									Contato secundário
 								</th>
 								<th
 									className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
