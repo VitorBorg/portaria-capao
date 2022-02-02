@@ -179,7 +179,13 @@ function strcmp(a, b) {
               id="telSecundary" 
               name="telSecundary"
               className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-                value={theId.name + ", " + theId.userType}
+                value={
+                 ((
+                   (clientsList.length > 0 ?
+                   clientsList.filter(user => user._id == theId.name)[0].name + ", " + theId.userType :
+                   "Processando...")
+                   )
+                 )}
                 readOnly="readOnly"
                 />
       </div>
@@ -203,7 +209,7 @@ function strcmp(a, b) {
         
         <option value="null">Campo Obrigatório</option>
         {clientsSearch.map(client => (
-          <option key={client._id} value={client.name}>{client.name}</option>
+          <option key={client._id} value={client._id}>{client.name}</option>
           ))}
         </select>
       </div>

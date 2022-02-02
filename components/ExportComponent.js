@@ -40,10 +40,12 @@ function ExportComponent () {
                   >
                   Página para exportar os dados
                </h2>
-               <p className="text-base text-body-color mb-5">
+               <p className="text-sm text-body-color mb-5">
                  Os dados só estarão seguros depois que forem exportados (em pdf) e colocados em nuvem. DADOS NO BANCO NÃO ESTÃO SEGUROS DE PERDAS!
                </p>
-               <a href="/" className=" border rounded md py-4 px-8 text-center bgGREEN text-white hover:bg-green-900">Saber mais sobre backup</a>
+               <div className="mt-10">
+               <a href="/" className="border rounded md py-4 px-8 text-center bgGREEN text-white hover:bg-green-900">Saber mais sobre backup</a>
+               </div>
             </div>
          </div>
       </div>
@@ -64,6 +66,7 @@ function ExportComponent () {
                lg:py-10 lg:px-6
                xl:p-12
                mb-10
+               mt-10
                "
                >
                <span className="text-green-900 font-semibold text-lg block mb-4">
@@ -75,13 +78,15 @@ function ExportComponent () {
                <p
                   className="
                   text-base text-body-color
-                  pb-8
-                  mb-8
+                  pb-5
+                  mb-3
                   border-b border-[#F2F2F2]
                   "
                   >
                   Este backup deve ser feito todo último dia útil do mês. Ele exportará os registros e essa exportação é a que deve ir para a nuvem.
                </p>
+
+               
                <a
                   onClick={() => setOpenMonth(!openMonth)}
                   className="
@@ -102,6 +107,9 @@ function ExportComponent () {
                   >
                Fazer backup
                </a>
+               <p className=" mb-5 mt-5 text-orange-800 text-xs">
+                  O sistema só conseguira fazer backup se houver pelo menos um registro de empregados e pelo menus um registro de visitantes. Se isso não for satisfeito ele ficará apenas buscando dados sem parar.
+               </p>
                <div>
                   <span className="absolute right-0 top-7 z-[-1]">
                      <svg

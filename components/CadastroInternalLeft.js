@@ -68,6 +68,8 @@ function CadastroInternalLeft({clients,setClientsMain, onClose, theId, setRefres
       } catch (e) {
         console.log(e)
       } 
+
+      setRefresh(true)
   }
 
   useEffect(() => {

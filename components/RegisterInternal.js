@@ -119,28 +119,38 @@ function RegisterInternal(){
 	}
 
 	var linkURL = "";
+	var nameProfile = "";
+	var user = null;
 
 	function gridList (arr) {
 		return(
 			arr.map(client => (
 				<tr key={client._id}>
 					<td className="px-3 border-b border-gray-200 bg-white text-sm">
+
+					{databaseUserClients.length > 0 
+										?
+										(
+										(user = (databaseUserClients.filter(user => user._id == client.name))[0],
+										linkURL = user.link,
+										nameProfile = user.name,
+										console.log("data: " + user)
+										))
+										: linkURL = 'https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png'
+					}
+
 						<div className="flex items-center">
 							<div className="">
 								<img className="object-scale-down w-10 h-10 rounded-full"
-		
-
-									src={databaseUserClients.length > 0 ?
-										((linkURL = (databaseUserClients.filter(user => user.name == client.name))[0].link),
-										linkURL == '' ||  linkURL == null
-										?'https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png'
-										: linkURL) : 'https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png'
-								}
+									src={
+									(linkURL == '' ||  linkURL == null
+									?'https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png'
+									: linkURL)}
 									alt="" />
 							</div>
 							<div className="ml-3">
 								<p className="text-gray-900 whitespace-no-wrap">
-								{client.name}
+								{nameProfile}
 									
 								</p>
 							</div>
