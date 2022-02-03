@@ -30,11 +30,7 @@ function RegisterNumber(){
 		api.get('/numberPhones').then(({data}) => {
 			setClientsMain(data.data)
 		})
-
-		console.log("REFRESH")
-	})
-	//refresh as reference was not updating 
-	//but now it looks much worse
+	}, [,refresh])
 
 	/////////////////////Search implementation
 	useEffect(() => {
