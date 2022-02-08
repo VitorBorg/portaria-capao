@@ -214,7 +214,7 @@ function PdfCreate ({dataExternal, dataInternal, finished, date, detl, btnDelete
                       api.delete(`/regInternal/${client._id}`)
                     }),
 
-                    processingDone(true)
+                    setProcessingDone(true)
                   )}>
                     Excluir estes arquivos do banco
               </button>
