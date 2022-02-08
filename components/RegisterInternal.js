@@ -68,7 +68,12 @@ function RegisterInternal(){
 	useEffect(() => {
 		//filtro de nome no dia atual
 		if(search != "")
-			setClientsSearch(clientsMain.filter(client => client.name.toLowerCase().includes(search.toLowerCase())))
+			{
+		console.log("ENTER")
+			setClientsSearch(clientsMain.filter(client => 
+				(databaseUserClients.filter(userClient => userClient._id == client.name)[0].name.toLowerCase().includes(search.toLowerCase())))
+			)
+		}
 		//filtro de dia
 			else if(searchDay != ""){
 			setClientsMain(databaseClients.filter(client => 
@@ -76,7 +81,9 @@ function RegisterInternal(){
 		}
 		//filtro de nome em todos os dias
 		else if(searchName != ""){
-			setClientsMain(databaseClients.filter(client => client.name.toLowerCase().includes(searchName.toLowerCase())))
+			setClientsMain(databaseClients.filter(client =>
+				(databaseUserClients.filter(userClient => userClient._id == client.name)[0].name.toLowerCase().includes(searchName.toLowerCase()))
+				 ))
 			}
 	}, [search, searchDay, searchName])
 
