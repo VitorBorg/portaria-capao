@@ -108,6 +108,20 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId, setRefres
     setName(text)
   }
 
+  useEffect(() => {
+    const listener = event => {
+      if ((event.code === "Enter" || event.code === "NumpadEnter")) {
+        console.log("Enter key was pressed. Run your function.");
+        handleSubmitCreateClient(event);
+        event.preventDefault();
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  }, [name,email,firstNumber,secondNumber,]);
+
   return(
         <div>
             <div className="flex justify-center h-screen items-center antialiased">

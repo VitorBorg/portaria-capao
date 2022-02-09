@@ -1,6 +1,12 @@
 import React, {useEffect, useState} from "react";
 import api from '../pages/services/api'
 
+function strcmp(a, b)
+{   
+    return (a<b?-1:(a>b?1:0));  
+}
+
+
 function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh}){
     
   const [name, setName] = useState("")
@@ -104,6 +110,21 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh})
   const handleChangeName = (text) => {
     setName(text)
   }
+
+  useEffect(() => {
+    const listener = event => {
+      if (strcmp(link, "") != 0 && (event.code === "Enter" || event.code === "NumpadEnter")) {
+        console.log("Enter key was pressed. Run your function.");
+        handleSubmitCreateClient(event);
+        event.preventDefault();
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  }, [name,link,secondNumber,]);
+
   return(
         <div>
             <div className="flex justify-center h-screen items-center antialiased">
