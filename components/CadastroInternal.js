@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from "react";
 import api from '../pages/services/api'
+import moment from "moment";
 
 function CadastroInternal({clients,setClientsMain, onClose, theId, setRefresh}){
     
   const [clientsList, setClientsList] = useState([])
 	const [clientsSearch, setClientsSearch] = useState([])
+
+	const [databaseClients, setDatabaseClients] = useState([])
 
   const [name, setName] = useState("")
 
@@ -17,6 +20,7 @@ function CadastroInternal({clients,setClientsMain, onClose, theId, setRefresh}){
   const [temperature, setTemperature] = useState('')
 
   const [errors, setErrors] = useState({name: null, temperature: null})
+  const [duplicateError, setDuplicateError] = useState("")
 
   //console.log("before errors: " + errors)
   const isValidFormData = () => {
@@ -69,20 +73,7 @@ function CadastroInternal({clients,setClientsMain, onClose, theId, setRefresh}){
     } else{
       e.preventDefault()
 
-      //if(!isValidFormData()) return
-
       try {
-
-       /* console.log("entering")
-        console.log(
-          "name: ", name,
-          "usertype: ", userType,
-          "temperature: ", temperature,
-          "hourEnter: ", hourEnter,
-          "hourLeft: ", hourLeft
-        )*/
-
-
         const {data} = await api.post('/regInternal', {name, userType, temperature, hourEnter, hourLeft})
 
         setClientsMain(clients.concat(data.data))
@@ -117,6 +108,15 @@ function CadastroInternal({clients,setClientsMain, onClose, theId, setRefresh}){
     }
     }, [theId])
 
+  //ALERT DUPLICATE
+  useEffect(() => {
+    if(strcmp(name, "") != 0){
+    databaseClients.filter(client => 
+      (strcmp(client.name, name) == 0 ? setDuplicateError('Usuário duplicado'): null))
+    }
+    
+    }, [name])
+
 
 /////////  GET LIST TO CADASTRO
 function strcmp(a, b) {
@@ -130,7 +130,14 @@ function strcmp(a, b) {
 		api.get('/user').then(({data}) => {
 			setClientsList(data.data)
       //console.log("List: ", data.data)
-		})
+    })
+
+    api.get('/regInternal').then(({data}) => {
+      setDatabaseClients(data.data.filter(userNumber => (
+        strcmp(userNumber.createdAt.substring(0,10), moment().format("YYYY-MM-DD")) == 0))   
+      )
+    })
+
 	}, [])
 
 	/////////////////////Search implementation
@@ -148,6 +155,7 @@ function strcmp(a, b) {
   }
 
   const handleChangeName = (text) => {
+    setDuplicateError("")
     setName(text)
   }
 
@@ -196,6 +204,7 @@ function strcmp(a, b) {
   (userType == "null" || theId)? (listDataShowEdit) : (
   <div>
       <div className="">
+
         <p className="mb-2 font-semibold text-gray-700">Nome</p>
         <select
           type="text"
@@ -215,8 +224,23 @@ function strcmp(a, b) {
       </div>
   </div>
   )
-  
 
+/*
+  useEffect(() => {
+    const listener = event => {
+      if (event.code === "Enter" || event.code === "NumpadEnter") {
+        console.log("Enter key was pressed. Run your function.");
+        event.preventDefault();
+        // callMyFunction();
+        handleSubmitCreateClient()
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  }, []);
+  */
 
   return(
     <div>
@@ -224,14 +248,23 @@ function strcmp(a, b) {
       <div className="flex flex-col rounded-lg border border-gray-300 shadow-xl"
       >
         <form
-        onSubmit={handleSubmitCreateClient}>
+          onSubmit={handleSubmitCreateClient}>
         <div
           className="flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
         >
           <p className="font-semibold text-gray-800">Registro de entrada Interno</p>
         </div>
+        
         <div className="flex flex-col px-6 py-5 bg-gray-50">
 
+
+        {
+          //ALERT ERROR
+          strcmp(duplicateError, "") != 0 && (<div className="bgRED mb-5 px-4 py-2 rounded-sm text-white font-semibold cursor-pointer ml-2">
+            <a>Registro de usuário duplicado!</a>
+            </div>
+          )
+        }
 
         <div className="flex flex-col sm:flex-row items-center mb-5 sm:space-x-5">
 
@@ -321,10 +354,22 @@ function strcmp(a, b) {
             
           </button>
 
-          <button className="px-4 py-2 text-white font-semibold bgBLUE rounded"
+
+
+         {
+          strcmp(duplicateError, "") == 0
+
+          ? ( <button className="px-4 py-2 text-white font-semibold bgBLUE rounded"
           type='submit'
           >{theId? 'Atualizar' : 'Cadastrar'}
-          </button>
+          </button>)
+
+          : ( <button className="px-4 py-2 text-white font-semibold bg-gray-500 rounded noClick"
+          ><a>Cadastrar</a>
+          </button>)
+        }
+
+
         </div>
         </form>
       </div>
