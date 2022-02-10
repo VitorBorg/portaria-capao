@@ -6,6 +6,16 @@ body.active-modal {
     overflow-y: hidden;
 }
 
+.widthMenu {
+    width: 229px;
+}
+
+.menuScroll {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
 .modal, .overlay {
     width: 100vw;
     height: 100vh;

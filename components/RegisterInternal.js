@@ -69,7 +69,6 @@ function RegisterInternal(){
 		//filtro de nome no dia atual
 		if(search != "")
 			{
-		console.log("ENTER")
 			setClientsSearch(clientsMain.filter(client => 
 				(databaseUserClients.filter(userClient => userClient._id == client.name)[0].name.toLowerCase().includes(search.toLowerCase())))
 			)
@@ -141,12 +140,13 @@ function RegisterInternal(){
 										(user = (databaseUserClients.filter(user => user._id == client.name))[0],
 										linkURL = user.link,
 										nameProfile = user.name,
-										console.log("data: " + user)
+										null
 										))
 										: linkURL = 'https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png'
 					}
 
 						<div className="flex items-center">
+						
 							<div className="">
 								<img className="object-scale-down w-10 h-10 rounded-full"
 									src={

@@ -20,8 +20,16 @@ function SideBar () {
     return (
         <div className="text-gray-300 font-bold pl-6 font-sans border-r border-gray-100 bg-gradient-to-br from-[#156661] to-[#1C8657] 
         overflow-y-scroll scrollbar-hide min-h-screen min-w-fit
-">
+        "
+        >
 
+
+            {/*GAMBIARRA*/}
+
+            <div className="widthMenu">
+            </div>
+
+            <div className="menuScroll ml-6">
             <div className="">
                 <div className="flex justify-left pl-11 ml-8 mt-6">
                     <img className="h-20 w-15" src="https://i.imgur.com/dbzXiww.png"/>
@@ -178,6 +186,7 @@ function SideBar () {
                     <span>Porteiro</span>
                 </div>
                 </a>
+            </div>
             </div>
         </div>
     );

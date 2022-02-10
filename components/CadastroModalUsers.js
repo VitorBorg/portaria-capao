@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import api from '../pages/services/api'
+import moment from "moment";
 
 function strcmp(a, b)
 {   
@@ -9,11 +10,15 @@ function strcmp(a, b)
 
 function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh}){
     
+  const [regsToday, setRegsToday] = useState([])
   const [name, setName] = useState("")
 
   const [link, setLink] = useState("")
   const [secondNumber, setsecondNumber] = useState('')
+
   const [errors, setErrors] = useState({name: null, link: null, secondNumber: null})
+
+  const [duplicateError, setDuplicateError] = useState("")
 
   //console.log("before errors: " + errors)
   const isValidFormData = () => {
@@ -28,7 +33,8 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh})
 
   
   const handleSubmitCreateClient = async (e) => {
-    if(theId){
+   if (strcmp(duplicateError, '') == 0) { 
+     if(theId){
       e.preventDefault()
 
         //if(!theId.name && !theId.email) return
@@ -88,7 +94,7 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh})
       console.log("error: " + e)
       }
 
-    }
+    }}
   }
 
   useEffect(() => {
@@ -108,6 +114,7 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh})
   }
 
   const handleChangeName = (text) => {
+    setDuplicateError("")
     setName(text)
   }
 
@@ -125,6 +132,33 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh})
     };
   }, [name,link,secondNumber,]);
 
+  //Getting data from database
+	useEffect(() => {
+    api.get('/user').then(({data}) => {
+			setRegsToday(data.data)
+      //console.log("List: ", data.data)
+    })
+
+	}, [])
+
+  
+  //ALERT DUPLICATE
+  useEffect(() => {
+    if(strcmp(name, "") != 0){
+    regsToday.filter(client => 
+      (strcmp(client.name.toLowerCase(), name.toLowerCase()) == 0 ? setDuplicateError('Usuário duplicado'): null))
+    }
+    
+    }, [name])
+
+    useEffect(() => {
+      if(strcmp(duplicateError, "") != 0)
+        console.log("Usuário duplicado")
+      else 
+        console.log("Usuário disponível")
+      
+      }, [duplicateError])
+
   return(
         <div>
             <div className="flex justify-center h-screen items-center antialiased">
@@ -139,6 +173,14 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh})
         </div>
         <div className="flex flex-col px-6 py-5 bg-gray-50">
 
+      {strcmp(duplicateError, '') != 0 && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-2">
+        <strong className="font-bold">Erro!</strong>
+        <span className="">{" " + duplicateError}</span>
+        <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+          </span>
+        </div>
+      )}
 
         <div className="flex flex-col sm:flex-row items-center mb-5 sm:space-x-5">
             <div className="w-full sm:w-1/2">
@@ -200,10 +242,19 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh})
             
           </button>
 
-          <button className="px-4 py-2 text-white font-semibold bgBLUE rounded"
+          {
+          strcmp(duplicateError, "") == 0
+
+          ? ( <button className="px-4 py-2 text-white font-semibold bgBLUE rounded"
           type='submit'
           >{theId? 'Atualizar' : 'Cadastrar'}
-          </button>
+          </button>)
+
+          : ( <button className="px-4 py-2 text-white font-semibold bg-gray-500 rounded noClick"
+          ><a>Cadastrar</a>
+          </button>)
+        }
+
         </div>
         </form>
       </div>

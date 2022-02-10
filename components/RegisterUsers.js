@@ -72,7 +72,6 @@ function RegisterUsers(){
 
 		fetchPosts();
 	}, [clientsMain])
-	
 
 	const indexOfLastPost = currentPage * postPerPage;
 	const indexOfFirstPost = indexOfLastPost - postPerPage;
@@ -83,7 +82,6 @@ function RegisterUsers(){
 	///////////////// Delete user implementation
 	const handleDeleteClient = async (_id) => {
 		try {
-
 			if(!hasRegister){
 				await api.delete(`/user/${_id}`)
 				setClientsMain(clientsMain.filter(client => client._id !== _id))
@@ -209,7 +207,7 @@ function RegisterUsers(){
 		</div>
 
 
-{ console.log("has? " + tryDelete),tryDelete
+{tryDelete
 ?	(<div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded ">
   <strong className="font-bold">Erro!</strong>
   <span className="">{" Você só pode excluir um usuário quando não houver registros no sistema!"}</span>
