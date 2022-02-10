@@ -151,14 +151,6 @@ function CadastroModalUser({clients,setClientsMain, onClose, theId, setRefresh})
     
     }, [name])
 
-    useEffect(() => {
-      if(strcmp(duplicateError, "") != 0)
-        console.log("Usuário duplicado")
-      else 
-        console.log("Usuário disponível")
-      
-      }, [duplicateError])
-
   return(
         <div>
             <div className="flex justify-center h-screen items-center antialiased">

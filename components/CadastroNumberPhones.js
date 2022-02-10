@@ -3,6 +3,8 @@ import api from '../pages/services/api'
 
 function CadastroNumberPhones({clients,setClientsMain, onClose, theId, setRefresh}){
     
+  
+	const [phones, setPhones] = useState([])
   const [name, setName] = useState("")
 
   const [email, setEmail] = useState("")
@@ -11,6 +13,8 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId, setRefres
   const [secondNumber, setsecondNumber] = useState('')
 
   const [errors, setErrors] = useState({name: null, email: null, firstNumber: null, secondNumber: null})
+
+  const [duplicateError, setDuplicateError] = useState("")
 
   const isValidFormData = () => {
 
@@ -26,7 +30,13 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId, setRefres
     return true
   }
 
-  
+  	//Getting data from database
+	useEffect(() => {
+		api.get('/numberPhones').then(({data}) => {
+			setPhones(data.data)
+		})
+	}, [])
+
   const handleSubmitCreateClient = async (e) => {
     if(theId){
       e.preventDefault()
@@ -105,8 +115,18 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId, setRefres
   }
 
   const handleChangeName = (text) => {
+    setDuplicateError("")
     setName(text)
   }
+
+  //ALERT DUPLICATE
+  useEffect(() => {
+    if(strcmp(name, "") != 0){
+    phones.filter(client => 
+      (strcmp(client.name.toLowerCase(), name.toLowerCase()) == 0 ? setDuplicateError('Usuário duplicado'): null))
+    }
+    
+    }, [name])
 
   useEffect(() => {
     const listener = event => {
@@ -127,6 +147,8 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId, setRefres
             <div className="flex justify-center h-screen items-center antialiased">
       <div className="flex flex-col mx-auto rounded-lg border border-gray-300 shadow-xl"
       >
+
+        
         <form
         onSubmit={handleSubmitCreateClient}>
         <div
@@ -136,6 +158,15 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId, setRefres
         </div>
         <div className="flex flex-col px-6 py-5 bg-gray-50">
 
+
+        {strcmp(duplicateError, '') != 0 && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-2">
+        <strong className="font-bold">Erro!</strong>
+        <span className="">{" " + duplicateError}</span>
+        <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+          </span>
+        </div>
+      )}
 
         <div className="flex flex-col sm:flex-row items-center mb-5 sm:space-x-5">
             <div className="w-full sm:w-1/2">
@@ -207,16 +238,32 @@ function CadastroNumberPhones({clients,setClientsMain, onClose, theId, setRefres
             
           </button>
 
-          <button className="px-4 py-2 text-white font-semibold bgBLUE rounded"
+
+          {
+          strcmp(duplicateError, "") == 0
+
+          ? ( <button className="px-4 py-2 text-white font-semibold bgBLUE rounded"
           type='submit'
           >{theId? 'Atualizar' : 'Cadastrar'}
-          </button>
+          </button>)
+
+          : ( <button className="px-4 py-2 text-white font-semibold bg-gray-500 rounded noClick"
+          ><a>Cadastrar</a>
+          </button>)
+        }
+
         </div>
         </form>
       </div>
     </div>
         </div>
     );
+}
+
+
+function strcmp(a, b)
+{   
+    return (a<b?-1:(a>b?1:0));  
 }
 
 export default CadastroNumberPhones;
