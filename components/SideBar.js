@@ -176,18 +176,26 @@ function SideBar () {
 
 
             </div>
+            </div>
 
-            <div className="fixed inset-x-0 bottom-0 span-5">
-            <a href="/login" className="cursor-pointer">
-                <div className="flex ml-3 mb-3">
-                <CogIcon className="h-4 w-4 mt-1 mr-1" />
-                    <span>Mario Silva</span>
-                    {","}&nbsp;
-                    <span>Porteiro</span>
+
+            <div className="fixed right-5 top-3 ">
+                <div className="flex">
+                    <div className="font-sans border-r border-gray-100  bg-gradient-to-br from-[#156661] to-[#1C8657] rounded opacity-75">
+                        <a href="/editLogin" className="cursor-pointer flex p-2">
+                            <div className="w-7 h-7 ml-1">
+                                <img className="w-full h-full rounded-full"
+                                        src="https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"
+                                        alt="" />
+							</div>
+                            <div className="flex mt-0.5 ml-1">
+                                <span className="ml-1 mr-2">Desconhecido</span>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-                </a>
             </div>
-            </div>
+
         </div>
     );
 };

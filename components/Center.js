@@ -45,7 +45,6 @@ function Center () {
    lg:pt-[50px]
    pb-12
    lg:pb-[90px]
-   relative
    z-20
    overflow-hidden
    "
@@ -79,7 +78,7 @@ function Center () {
                className="
                bg-white
                rounded-xl
-               relative
+               
                z-10
                overflow-hidden
                border border-green-900 border-opacity-50
@@ -373,7 +372,7 @@ function Center () {
                className="
                bg-white
                rounded-xl
-               relative
+               
                z-10
                overflow-hidden
                border border-green-900 border-opacity-50
@@ -667,7 +666,7 @@ function Center () {
                className="
                bg-white
                rounded-xl
-               relative
+               
                z-10
                overflow-hidden
                border border-green-900 border-opacity-50
@@ -964,7 +963,7 @@ function Center () {
                className="
                bg-white
                rounded-xl
-               relative
+               
                z-10
                overflow-hidden
                border border-green-900 border-opacity-50
@@ -1265,7 +1264,7 @@ function Center () {
                className="
                bg-white
                rounded-xl
-               relative
+               
                z-10
                overflow-hidden
                border border-green-900 border-opacity-50
@@ -1566,7 +1565,7 @@ function Center () {
                className="
                bg-white
                rounded-xl
-               relative
+               
                z-10
                overflow-hidden
                border border-green-900 border-opacity-50
@@ -1868,7 +1867,7 @@ function Center () {
                className="
                bg-white
                rounded-xl
-               relative
+               
                z-10
                overflow-hidden
                border border-green-900 border-opacity-50
@@ -2175,7 +2174,7 @@ function Center () {
                className="
                bg-white
                rounded-xl
-               relative
+               
                z-10
                overflow-hidden
                border border-green-900 border-opacity-50
