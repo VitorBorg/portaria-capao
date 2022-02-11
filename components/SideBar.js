@@ -4,9 +4,9 @@ import {
     CogIcon
 } from "@heroicons/react/solid";
 import React, { useEffect, useState } from "react";
+import { signOut } from "next-auth/react"
 
 function SideBar () {
-
     const [path, setPath] = useState('/')
 
     const usePathname = () => {
@@ -37,9 +37,14 @@ function SideBar () {
                 <span></span>
             </div>
             <div className="space-y-2 pt-5 mt-8 ">
-                <button className="flex items-center space-x-2 hover:text-gray-400"
+
+                <button 
+                className="flex items-center space-x-2 hover:text-gray-400"
+                onClick={() => signOut()}
                 >
-                    <span className="pl-10">Sair</span>
+                <a 
+                href="/login"
+                >Sair</a>
                 </button>
 
 

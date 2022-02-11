@@ -1,6 +1,7 @@
 import RegisterExternal from "../components/RegisterExternal";
 import SideBar from "../components/SideBar";
 import Head from 'next/head'
+import CheckLogin from '../components/CheckLogin'
 
 function registroInterno() {
     return (
@@ -11,6 +12,7 @@ function registroInterno() {
         </Head>
   
         <main className="flex">
+        <CheckLogin />
           <SideBar/>
           <RegisterExternal/>
         </main>

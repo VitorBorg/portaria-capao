@@ -1,6 +1,7 @@
 import RegisterNumber from "../components/RegisterNumbers";
 import SideBar from "../components/SideBar";
 import Head from 'next/head'
+import CheckLogin from '../components/CheckLogin'
 
 function numerosUteis() {
     return (
@@ -11,6 +12,7 @@ function numerosUteis() {
         </Head>
   
         <main className="flex">
+        <CheckLogin />
           <SideBar/>
           <RegisterNumber/>
         </main>

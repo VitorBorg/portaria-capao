@@ -1,6 +1,7 @@
 import RegisterUsers from "../components/RegisterUsers";
 import SideBar from "../components/SideBar";
 import Head from 'next/head'
+import CheckLogin from '../components/CheckLogin'
 
 function numerosInterno() {
     return (
@@ -11,6 +12,7 @@ function numerosInterno() {
         </Head>
   
         <main className="flex">
+        <CheckLogin />
           <SideBar/>
           <RegisterUsers/>
         </main>

@@ -1,7 +1,6 @@
 import CadastroNumberPhones from "../components/CadastroNumberPhones";
 
 //Cadastro -> modal de cadastro de entrada e saida
-
 //CadastroUser-> modal de cadastro de usuario
 
 
