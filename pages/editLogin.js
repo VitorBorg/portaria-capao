@@ -1,21 +1,33 @@
 import Head from 'next/head'
 import SideBar from '../components/SideBar'
 import React, {useEffect, useState} from "react";
+import { useSession } from 'next-auth/react'
 
 export default function Home() {
+  const {data: session } = useSession()
+
+  console.log(session);
+  
         
   const [name, setName] = useState("Processando...")
-  const [link, setLink] = useState("Processando...")
+  const [password, setPassword] = useState("")
 
   const [changePassword, setChangePassword] = useState(false)
 
   const [currentPassword, SetCurrentPassword] = useState('')
   const [currentPassword2, SetCurrentPassword2] = useState('')
 
-  const [newPassword, SetNewPassword] = useState('')
-  const [newPassword2, SetNewPassword2] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [newPassword2, setNewPassword2] = useState('')
 
-  const [temperature, setTemperature] = useState('')
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    if(session !== null && session !== undefined){
+      setName(session.user.name)
+      setPassword(session.user.password)
+    }
+  }, [session])
 
   const handleChangeName = (text) => {
     setName(text)
@@ -34,6 +46,22 @@ export default function Home() {
     SetCurrentPassword2(text)
   }
 
+  const handleChangeNewPassword = (text) => {
+    setNewPassword(text)
+  }
+
+  const handleChangeNewPassword2 = (text) => {
+    setNewPassword2(text)
+  }
+
+  const handleEditProfile = (text) => {
+    if(currentPassword === password){
+      //UPDATE
+    }
+    else 
+      setError("Senha inválida")
+  }
+
   return (
     <div className="">
       <Head>
@@ -46,7 +74,7 @@ export default function Home() {
         
         <div className='flex-container content-center justify-center'>
         <form className='flex-item'
-        onSubmit={() => console.log("OI")}>
+        onSubmit={handleEditProfile}>
         <div
           className="flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
         >
@@ -72,24 +100,6 @@ export default function Home() {
             
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center mb-5 sm:space-x-5">
-            <div className="w-full sm:w-1/2">
-              <p className="mb-2 font-semibold text-gray-700">Foto de login</p>
-              <input
-                type="text"
-                name="link"
-                placeholder="Campo obrigatório"
-                className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
-                id="link"
-                value={link}
-                onChange={e => handleChangeLink(e.target.value)}
-              >
-              </input>
-            </div>
-            
-          </div>
-
-
 
           <div className="mb-2 font-semibold text-gray-700">
               É necessário confirmar a senha para alterar qualquer Informação da conta!
@@ -98,8 +108,8 @@ export default function Home() {
             <div className="w-full sm:w-1/2">
               <p className="mb-2 font-semibold text-gray-700">Senha</p>
               <input type="password" 
-              id="telPrincipal" 
-              name="telPrincipal"
+              id="currentPassword" 
+              name="currentPassword"
               className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
                 value={currentPassword}
                 placeholder="Insira a sua senha atual"
@@ -110,8 +120,8 @@ export default function Home() {
             <div className="w-full sm:w-1/2">
               <p className="mb-2 font-semibold text-gray-700">Confirmar senha</p>
               <input type="password" 
-              id="telPrincipal" 
-              name="telPrincipal"
+              id="currentPassword2" 
+              name="currentPassword2"
               className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
                 value={currentPassword2}
                 placeholder="Confirme a sua senha atual"
@@ -124,20 +134,20 @@ export default function Home() {
                 (strcmp(currentPassword, currentPassword2) == 0)
                 ? 
                 (<div className='mt-7'>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-green-600" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 fill-green-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
                 </div>)
                 :
                 (<div className='mt-7'>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-red-600" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 fill-red-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
                 </div>)
             : 
                 (<div className='mt-7'>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-red-600" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 fill-red-600" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
                 </div>)
             }
@@ -150,25 +160,25 @@ export default function Home() {
 
             <div className="w-full sm:w-1/2">
               <p className="mb-2 font-semibold text-gray-700">Nova Senha</p>
-              <input type="tel" 
-              id="telPrincipal" 
-              name="telPrincipal"
+              <input type="password" 
+              id="newPassword" 
+              name="newPassword"
               className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
                 value={newPassword}
                 placeholder="Insira sua nova senha"
-                onChange={e => handleChangefirstNumber(e.target.value)}
+                onChange={e => handleChangeNewPassword(e.target.value)}
                 />
             </div>
             
             <div className="w-full sm:w-1/2">
               <p className="mb-2 font-semibold text-gray-700">Confirmar nova senha</p>
-              <input type="tel" 
-              id="telPrincipal" 
-              name="telPrincipal"
+              <input type="password" 
+              id="newPassword2" 
+              name="newPassword2"
               className="w-full p-5 bg-white border border-gray-200 rounded shadow-sm appearance-none"
                 value={newPassword2}
                 placeholder="Confirme sua nova senha"
-                onChange={e => handleChangefirstNumber(e.target.value)}
+                onChange={e => handleChangeNewPassword2(e.target.value)}
                 />
             </div>
     

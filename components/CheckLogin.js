@@ -8,15 +8,18 @@ function CheckLogin(){
     const router = useRouter()
 
     //http://localhost:3041/registroInterno
-    console.log("session", session)
+    console.log("session", session, session === null)
   
     useEffect(() => {
         handleSubmit()  
     }, [session])
 
     const handleSubmit = () => {
-        if((session == null && session != undefined))
-        router.push('/login')  
+        if(session !== undefined){
+
+            if(session === null)
+                router.push('/login')  
+        }
     }
 
   return(

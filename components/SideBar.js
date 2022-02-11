@@ -5,9 +5,21 @@ import {
 } from "@heroicons/react/solid";
 import React, { useEffect, useState } from "react";
 import { signOut } from "next-auth/react"
+import { useSession } from 'next-auth/react'
 
 function SideBar () {
     const [path, setPath] = useState('/')
+    const {data: session } = useSession()
+
+    const [name, setName] = useState("Processando...")
+    const [link, setLink] = useState("Processando...")
+
+    useEffect(() => {
+        if(session !== null && session !== undefined){
+          setName(session.user.name)
+          setLink(session.user.link)
+        }
+      }, [session])
 
     const usePathname = () => {
         setPath(window.location.pathname)
@@ -40,7 +52,7 @@ function SideBar () {
 
                 <button 
                 className="flex items-center space-x-2 hover:text-gray-400"
-                onClick={() => signOut()}
+                onClick={() => signOut({ callbackUrl: '/login' })}
                 >
                 <a 
                 href="/login"
@@ -188,13 +200,13 @@ function SideBar () {
                 <div className="flex">
                     <div className="font-sans border-r border-gray-100  bg-gradient-to-br from-[#156661] to-[#1C8657] rounded opacity-75">
                         <a href="/editLogin" className="cursor-pointer flex p-2">
-                            <div className="w-7 h-7 ml-1">
-                                <img className="w-full h-full rounded-full"
-                                        src="https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"
+                            <div className=" ml-1">
+                                <img className="w-full h-full rounded-full w-5 h-5"
+                                        src={"https://i.imgur.com/dbzXiww.png"}
                                         alt="" />
 							</div>
                             <div className="flex mt-0.5 ml-1">
-                                <span className="ml-1 mr-2">Desconhecido</span>
+                                <span className="ml-1 mr-2">{name}</span>
                             </div>
                         </a>
                     </div>

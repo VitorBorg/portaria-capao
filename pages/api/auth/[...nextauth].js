@@ -5,16 +5,12 @@ export default NextAuth ({
     providers: [
         CredentialProvider({
           name: "credentials",
-          credentials: {
-            username: { label: "Usuario", type: "text", placeholder: "nome de usuário" },
-            password: {  label: "Senha", type: "password", placeholder: "senha"}
-          },
         authorize: (credentials) => {
-            if(credentials.username === "vitor" && credentials.password === "test"){
+            if(credentials.username.toLowerCase() === "Porteiro".toLowerCase() && credentials.password === "@Portaria2245"){
                 return {
-                    id: 2,
-                    name: "vitor",
-                    password: "test"
+                    id: 5,
+                    name: credentials.username,
+                    password: credentials.password,
                 }
             }
 
@@ -44,7 +40,8 @@ export default NextAuth ({
         encryption: true,
     },
     pages : {
-        signIn: "/login"
+        signIn: "/login",
+        //signOut: "/login",
     },
     
 })

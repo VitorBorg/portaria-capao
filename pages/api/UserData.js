@@ -20,14 +20,13 @@ export default async function handler(req, res) {
 
         case 'POST':
             try {
-                const {name, password, link} = req.body
+                const {name, password} = req.body
 
                 if(!name) throw 'invalid data'
 
                 const users = await User.create({
                     name: name, 
-                    password: password, 
-                    link: link
+                    password: password
                     })
 
                 res.status(201).json({success: true, data: users})
