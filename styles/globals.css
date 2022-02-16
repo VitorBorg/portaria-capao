@@ -63,3 +63,10 @@ body.active-modal {
 .bgBLUE {
     background-color: #235D9B;
 }
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

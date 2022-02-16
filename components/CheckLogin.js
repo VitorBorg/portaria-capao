@@ -8,7 +8,7 @@ function CheckLogin(){
     const router = useRouter()
 
     //http://localhost:3041/registroInterno
-    console.log("session", session, session === null)
+    //console.log("session", session, session === null)
   
     useEffect(() => {
         handleSubmit()  

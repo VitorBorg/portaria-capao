@@ -6,7 +6,9 @@ export default NextAuth ({
         CredentialProvider({
           name: "credentials",
         authorize: (credentials) => {
-            if(credentials.username.toLowerCase() === "Porteiro".toLowerCase() && credentials.password === "@Portaria2245"){
+
+            if(credentials.username.toLowerCase() === process.env.NEXT_USER_LOGIN.toLowerCase() 
+            && credentials.password === process.env.NEXT_USER_PASSWORD){
                 return {
                     id: 5,
                     name: credentials.username,

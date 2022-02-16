@@ -9,7 +9,7 @@ function LoginVisual({providers, csrfToken}){
 	const {data: session } = useSession()
 	const router = useRouter()
 
-	console.log("i:", session)
+	//console.log("i:", session)
 
 	const [error, setError] = useState('')
 	//const router = useRouter()
@@ -45,6 +45,8 @@ function LoginVisual({providers, csrfToken}){
 
     return(
 	<div className="h-screen md:flex">
+		{console.log("credentials: ", process.env.NEXT_USER_LOGIN),
+		console.log(process.env.NEXT_USER_PASSWORD)}
 		<div
 			className="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-green-700 i justify-around items-center hidden">
 			<div>

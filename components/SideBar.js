@@ -200,13 +200,16 @@ function SideBar () {
                 <div className="flex">
                     <div className="font-sans border-r border-gray-100  bg-gradient-to-br from-[#156661] to-[#1C8657] rounded opacity-75">
                         <a href="/editLogin" className="cursor-pointer flex p-2">
-                            <div className=" ml-1">
+                            <div className="">
                                 <img className="w-full h-full rounded-full w-5 h-5"
-                                        src={"https://i.imgur.com/dbzXiww.png"}
+                                        src={process.env.NEXT_USER_IMAGE === "" || process.env.NEXT_USER_IMAGE === undefined
+                                            ? "https://i.imgur.com/dbzXiww.png"
+                                            : process.env.NEXT_USER_IMAGE
+                                        }
                                         alt="" />
 							</div>
                             <div className="flex mt-0.5 ml-1">
-                                <span className="ml-1 mr-2">{name}</span>
+                                <span className="ml-1 mr-2">{process.env.NEXT_PUBLIC_USER_LOGIN}</span>
                             </div>
                         </a>
                     </div>
