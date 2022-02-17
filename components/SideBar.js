@@ -25,6 +25,11 @@ function SideBar () {
         setPath(window.location.pathname)
     }
 
+    const endSession = (e) => {
+        signOut({ callbackUrl: '/login' })
+        e.preventDefault();
+    }
+
     useEffect(function onFirstMount() {
         usePathname()
       }, []); // empty dependencies array means "run this once on first mount"
@@ -52,7 +57,7 @@ function SideBar () {
 
                 <button 
                 className="flex items-center space-x-2 hover:text-gray-400"
-                onClick={() => signOut({ callbackUrl: '/login' })}
+                onClick={endSession}
                 >
                 <a 
                 href="/login"
@@ -202,14 +207,18 @@ function SideBar () {
                         <a href="/editLogin" className="cursor-pointer flex p-2">
                             <div className="">
                                 <img className="w-full h-full rounded-full w-5 h-5"
-                                        src={process.env.NEXT_USER_IMAGE === "" || process.env.NEXT_USER_IMAGE === undefined
+                                        src={process.env.NEXT_PUBLIC_USER_IMAGE === "" || process.env.NEXT_PUBLIC_USER_IMAGE === undefined
                                             ? "https://i.imgur.com/dbzXiww.png"
-                                            : process.env.NEXT_USER_IMAGE
+                                            : process.env.NEXT_PUBLIC_USER_IMAGE
                                         }
                                         alt="" />
 							</div>
                             <div className="flex mt-0.5 ml-1">
-                                <span className="ml-1 mr-2">{process.env.NEXT_PUBLIC_USER_LOGIN}</span>
+                                <span className="ml-1 mr-2">
+                                    {session != undefined 
+                                    ? session.user.name.charAt(0).toUpperCase() + session.user.name.slice(1)
+                                    : "processando..."}
+                                    </span>
                             </div>
                         </a>
                     </div>

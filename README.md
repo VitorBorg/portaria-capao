@@ -12,6 +12,20 @@ Programa feito para utilização na portaria, ele tem como objetivo:
 
     Na página principal do sistema há os tutoriais para uso do sistema assim como explicações de como ele foi desenvolvido.
     
+## Variáveis de ambiente
+
+```
+NEXT_PUBLIC_MONGO_URI=
+NEXTAUTH_URL=
+
+NEXT_PUBLIC_USER_LOGIN=
+NEXT_USER_PASSWORD=
+NEXT_PUBLIC_USER_IMAGE=
+
+NEXT_PUBLIC_USER_LOGIN_02=
+NEXT_USER_PASSWORD_02=
+```
+
 ## Instalação
 
 ```

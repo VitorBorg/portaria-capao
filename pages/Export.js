@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import ExportComponent from '../components/ExportComponent'
 import SideBar from '../components/SideBar'
+import CheckLogin from '../components/CheckLogin'
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       </Head>
 
       <main className="flex">
+        <CheckLogin />
         <SideBar/>
         <ExportComponent/>
       </main>

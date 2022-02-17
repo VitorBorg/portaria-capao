@@ -108,7 +108,7 @@ function ExportComponent () {
                Fazer backup
                </a>
                <p className=" mb-5 mt-5 text-orange-800 text-xs">
-                  O sistema só conseguira fazer backup se houver pelo menos um registro de empregados e pelo menus um registro de visitantes. Se isso não for satisfeito ele ficará apenas buscando dados sem parar.
+                  O sistema só conseguira fazer backup se houver pelo menos um registro de empregados e pelo menos um registro de visitantes. Se isso não for satisfeito ele ficará apenas buscando dados sem parar.
                </p>
                <div>
                   <span className="absolute right-0 top-7 z-[-1]">

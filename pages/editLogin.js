@@ -3,6 +3,8 @@ import SideBar from '../components/SideBar'
 import React, {useEffect, useState} from "react";
 import { useSession } from 'next-auth/react'
 
+import CheckLogin from '../components/CheckLogin'
+
 export default function Home() {
 
   const [shit, setShit] = useState(true)
@@ -271,6 +273,7 @@ export default function Home() {
       </Head>
 
       <main className="flex">
+        <CheckLogin />
         <SideBar/>
        
        {!shit 

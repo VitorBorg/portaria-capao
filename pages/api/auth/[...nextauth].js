@@ -7,10 +7,19 @@ export default NextAuth ({
           name: "credentials",
         authorize: (credentials) => {
 
-            if(credentials.username.toLowerCase() === process.env.NEXT_USER_LOGIN.toLowerCase() 
-            && credentials.password === process.env.NEXT_USER_PASSWORD){
+            if((credentials.username.toLowerCase() === process.env.NEXT_PUBLIC_USER_LOGIN.toLowerCase() 
+            && credentials.password === process.env.NEXT_USER_PASSWORD)){
                 return {
-                    id: 5,
+                    id: 0,
+                    name: credentials.username,
+                    password: credentials.password,
+                }
+            }
+
+            if((credentials.username.toLowerCase() === process.env.NEXT_PUBLIC_USER_LOGIN_02.toLowerCase() 
+            && credentials.password === process.env.NEXT_USER_PASSWORD_02)){
+                return {
+                    id: 1,
                     name: credentials.username,
                     password: credentials.password,
                 }
