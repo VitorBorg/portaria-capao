@@ -36,11 +36,11 @@ function ModalPDF({onClose}){
         setDatabaseClientsInternal(data.data.filter(client => 
           strcmp(client.createdAt.substring(5,7), date) == 0))
       })
-/*
+
       api.get('/user').then(({data}) => {
         setDatabaseClientsUsersData(data.data)
       })
-      */
+      
 /*
 
 
@@ -53,7 +53,6 @@ function ModalPDF({onClose}){
   }, [start])
 
 	const done = (data) => {
-    console.log("Made it!")
     setLoading(false)
     setStart(false)
     setFinished(true)
@@ -66,10 +65,12 @@ function ModalPDF({onClose}){
 
   return(
         <div>
+
         {loading && (
           <PdfCreate 
           dataExternal={databaseClientsExternal}
           dataInternal= {databaseClientsInternal}
+          dataUser = {databaseClientsUsersData}
           finished = {done}
           date = {date}
           detl={setDetail}

@@ -107,9 +107,9 @@ function LoginVisual({providers, csrfToken}){
 					className="block w-full bg-green-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
 					>Entrar</button>
 
-					<span className="text-gray-500 font-bold font-sans pt-2"
-					><a href="/">Quer criar uma nova conta? Se cadastre!</a>
-					</span>
+					{/*<span className="text-gray-500 font-bold font-sans pt-2"
+					><a href="/login">Quer criar uma nova conta? Se cadastre!</a>
+			</span>*/}
 					
 			</form>
 		</div>
