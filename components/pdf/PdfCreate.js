@@ -3,7 +3,7 @@ import pdfMaker from 'pdfmake/build/pdfmake'
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 import api from "../../pages/services/api";
 
-function pdfFile (date, info, external){
+function pdfFile (date, info, external, user){
   pdfMaker.vfs = pdfFonts.pdfMake.vfs
 
   let month = "null";
@@ -88,7 +88,9 @@ const detailsExternal = [
 ///REGISTRO INTERNO
   const dados = info.map((client) => {
     return [
-            {text: client.name, fontSize: 9, margin: [0,2,0,2]},
+            {text: 
+              ((user.filter(userData => userData._id == client.name))[0].name),
+              fontSize: 9, margin: [0,2,0,2]},
             {text: client.userType, fontSize: 9, margin: [0,2,0,2]},
             {text: client.temperature, fontSize: 9, margin: [0,2,0,2]},
             {text: client.hourEnter, fontSize: 9, margin: [0,2,0,2]},
@@ -180,15 +182,15 @@ const detailsExternal = [
 
 
 // Create Document Component
-function PdfCreate ({dataExternal, dataInternal, finished, date, detl, btnDelete}) {
+function PdfCreate ({dataExternal, dataInternal, dataUser, finished, date, detl, btnDelete}) {
 
   const [processingDone, setProcessingDone] = useState(false)
 
   const creating = () => {
-    if(dataExternal.length > 0 && dataInternal.length > 0){
+    if(dataExternal.length > 0 && dataInternal.length > 0 && dataUser.length > 0){
       detl('Dados encontrados... Processando...')
 
-      pdfFile(date, dataInternal, dataExternal);
+      pdfFile(date, dataInternal, dataExternal, dataUser);
       
       btnDelete(
 
@@ -228,7 +230,7 @@ function PdfCreate ({dataExternal, dataInternal, finished, date, detl, btnDelete
     }
     else {
       <div>
-        {detl('Procurando dados no banco...')}
+        {detl('Procurando dados no banco... Se demorar muito tempo pode ser que não haja dados no banco.')}
       </div>
     }
 		
