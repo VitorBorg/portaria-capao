@@ -3,7 +3,7 @@ import pdfMaker from 'pdfmake/build/pdfmake'
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 import api from "../../pages/services/api";
 
-function pdfFile (date, info, external, user){
+function pdfFile (date, info, external, user, backupType){
   pdfMaker.vfs = pdfFonts.pdfMake.vfs
 
   let month = "null";
@@ -186,8 +186,10 @@ function PdfCreate ({dataExternal, dataInternal, dataUser, finished, date, detl,
 
   const [processingDone, setProcessingDone] = useState(false)
 
+  console.log(dataUser)
+
   const creating = () => {
-    if(dataExternal.length > 0 && dataInternal.length > 0 && dataUser.length > 0){
+    if(dataExternal != undefined && dataInternal != undefined && dataUser != undefined){
       detl('Dados encontrados... Processando...')
 
       pdfFile(date, dataInternal, dataExternal, dataUser);

@@ -1,0 +1,53 @@
+* [33m1633a86[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m pdf id problem fix it!
+* [33m93f0b82[m Probably the last commit. Just some login fix and some more content add in the index page.
+* [33m9449940[m nao me orgulho de nada disso que eu fiz
+* [33m0f5435d[m some kind of authentication are (badly) done
+* [33me3c4bd4[m login authorization almost done
+* [33m0bcf6ca[m create edit login account page and float user
+* [33m895da2e[m number duplicate warning
+*   [33mff515f7[m Merge branch 'main' of https://github.com/VitorBorg/portaria-capao
+[32m|[m[33m\[m  
+[32m|[m * [33m4ee96eb[m Update README.md
+* [33m|[m [33m94c07c9[m Aviso de registros duplicados
+[33m|[m[33m/[m  
+* [33m576b7eb[m enter send forms now
+* [33m3c20106[m alert to duplicate registers
+* [33ma5f6780[m Internal filters fixed
+* [33maaf41b3[m fix export popup bug
+* [33m19e5717[m Do not update numbers page all the time now
+* [33ma74b4cd[m Erro de relação corrigido e aviso adicionado
+* [33mc78a2cd[m fix para nao apagar usuarios e quebrar o banco, e telefones uteis atualizado
+* [33ma3377c5[m adjustments
+* [33m2a3c720[m model alterado, imgs e thumbs funcionando
+* [33maa5e421[m[33m ([m[1;31morigin/cards[m[33m, [m[1;32mcards[m[33m)[m cards finalizados, e código melhorado
+*   [33m1f7e3bd[m Merge branch 'cards' of https://github.com/VitorBorg/portaria-capao into cards
+[34m|[m[35m\[m  
+[34m|[m * [33m43c0b0c[m acesso ao banco e dados adicionados
+* [35m|[m [33m554753f[m Fix, e card iniciados
+[35m|[m[35m/[m  
+* [33me1974d7[m cards e fixes
+* [33m5b57736[m Exportação adapatada
+* [33m05ccda7[m Adaptações e mudanças do projeto
+* [33m8d0f600[m filtros corrigidos
+* [33mfcb60d4[m Visual melhorado
+* [33m87b5582[m pdf funcionando, alguns erros corrigidos
+* [33mbae83d1[m inicio pdf component
+* [33me5b155c[m iniciando os componentes pdf
+* [33m5f921e2[m Novos filtros, dropdown menu, campos opcionais corrigidos, e home atualizado
+* [33m4c44567[m filtro por dias adicionado aos registros
+*   [33mee79ce5[m Merge branch 'main' of https://github.com/VitorBorg/portaria-capao
+[36m|[m[1;31m\[m  
+[36m|[m * [33m7557306[m Alguns ajustes visuais
+* [1;31m|[m [33m280e039[m Merge branch 'main' of https://github.com/VitorBorg/portaria-capao
+[1;32m|[m[1;31m\[m[1;31m|[m 
+[1;32m|[m * [33mf1e1bed[m pagina home adicionada
+[1;32m|[m * [33m071192d[m varios bugs corrigidos, modals melhorados e visual de exportacoes criado
+[1;32m|[m * [33m4fd473a[m Fix the update user
+* [1;33m|[m [33m74eb8e7[m change port
+[1;33m|[m[1;33m/[m  
+* [33mbcafc73[m Registros adicionados, alguns bugs corrigidos (e outros criados)
+* [33mf29e3dd[m add functionality registro externo - not ready
+* [33mc3fd299[m fix registro interno
+* [33m51fbeda[m User add
+* [33md3fbf7c[m init
+* [33m4046b5a[m Initial commit from Create Next App

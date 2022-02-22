@@ -2,16 +2,20 @@ import React, {useEffect, useState} from "react";
 import api from "../../pages/services/api";
 import PdfCreate from "./PdfCreate";
 
+
+import moment from "moment";
+
+
 function strcmp(a, b)
 {   
     return (a<b?-1:(a>b?1:0));  
 }
 
-function ModalPDF({onClose}){
+function ModalPDF({onClose, backupType}){
     
-	const [databaseClientsInternal, setDatabaseClientsInternal] = useState([])
-  const [databaseClientsExternal, setDatabaseClientsExternal] = useState([])
-  const [databaseClientsUsersData, setDatabaseClientsUsersData] = useState([])
+	const [databaseClientsInternal, setDatabaseClientsInternal] = useState(undefined)
+  const [databaseClientsExternal, setDatabaseClientsExternal] = useState(undefined)
+  const [databaseClientsUsersData, setDatabaseClientsUsersData] = useState(undefined)
 
   const [date, setDate] = useState('')
   const [loading, setLoading] = useState(false)
@@ -25,21 +29,34 @@ function ModalPDF({onClose}){
     if(start && date != ''){
       setLoading(true)
 
-
-      api.get('/regExternal').then(({data}) => {
-        setDatabaseClientsExternal(data.data.filter(client => 
-          strcmp(client.createdAt.substring(5,7), date) == 0))
+      api.get('/user').then(({data}) => {
+        setDatabaseClientsUsersData(data.data)
       })
 
+
+      if(backupType == 0){
+        api.get('/regExternal').then(({data}) => {
+          setDatabaseClientsExternal(data.data.filter(client => 
+            strcmp(client.createdAt.substring(5,7), date) == 0))
+        })
+
+
+        api.get('/regInternal').then(({data}) => {
+          setDatabaseClientsInternal(data.data.filter(client => 
+            strcmp(client.createdAt.substring(5,7), date) == 0))
+        })
+    } else {
+      api.get('/regExternal').then(({data}) => {
+        setDatabaseClientsExternal(data.data.filter(client => 
+          strcmp(client.createdAt.substring(0,10), date) == 0))
+      })
 
       api.get('/regInternal').then(({data}) => {
         setDatabaseClientsInternal(data.data.filter(client => 
           strcmp(client.createdAt.substring(5,7), date) == 0))
       })
 
-      api.get('/user').then(({data}) => {
-        setDatabaseClientsUsersData(data.data)
-      })
+    }
       
 /*
 
@@ -67,7 +84,10 @@ function ModalPDF({onClose}){
         <div>
 
         {loading && (
-          <PdfCreate 
+        (
+          backupType == 0 
+          ?
+          (<PdfCreate 
           dataExternal={databaseClientsExternal}
           dataInternal= {databaseClientsInternal}
           dataUser = {databaseClientsUsersData}
@@ -75,9 +95,21 @@ function ModalPDF({onClose}){
           date = {date}
           detl={setDetail}
           btnDelete={setBtnDelete}
-          />
-        )
-}
+          backupType={0}
+          />)
+          :
+          (<PdfCreate 
+            dataExternal={databaseClientsExternal}
+            dataInternal= {databaseClientsInternal}
+            dataUser = {databaseClientsUsersData}
+            finished = {done}
+            date = {date}
+            detl={setDetail}
+            btnDelete={setBtnDelete}
+            backupType={1}
+            />)
+        ))
+        }
 
 
             <div className="flex items-center antialiased">
@@ -123,7 +155,9 @@ function ModalPDF({onClose}){
         {finished && (<h1 className="mb-3">BACKUP FEITO COM SUCESSO</h1>)}
 
         {(!loading && !finished) && (
-              <div className="">
+          backupType == 0 
+          ?
+             ( <div className="">
                 <p className="mb-2 font-semibold text-gray-700">Mês</p>
                 <select
                   type="text"
@@ -148,7 +182,37 @@ function ModalPDF({onClose}){
                 <option value="11">Novembro</option>
                 <option value="12">Dezembro</option>
                 </select>
+              </div>)
+
+            :
+
+            ( 
+            <div>
+              <div
+                className="flex flex-row justify-between p-6 bg-white"
+              >
+              <p>Data de hoje: {moment().format("YYYY-MM-DD").split("-").reverse().join("/")}</p>
               </div>
+            
+            <div className="flex flex-col px-6 py-5 bg-gray-50">
+
+            <div className="flex flex-col sm:flex-row items-center mb-5 sm:space-x-5">
+                <div>
+                  <p className="mb-2 font-semibold text-gray-700">Dia</p>
+                  <input
+                    type="date"
+                    name="name"
+                    placeholder="Campo obrigatório"
+                    className="w-full p-5 bg-white border border-grasy-200 rounded shadow-sm appearance-none"
+                    onChange={e => handleChangeDate(e.target.value)}
+                  >
+                  </input>
+                </div>
+              </div>
+            
+            </div>
+              </div>
+            )
             )
           }
 
@@ -192,10 +256,17 @@ function ModalPDF({onClose}){
           </div>
 
     {(!loading && !finished) && (
-          <button className="px-4 py-2 text-white font-semibold bg-blue-500 rounded"
+
+      date !== "" ?
+        (<button className="px-4 py-2 text-white font-semibold bg-blue-500 rounded"
           onClick={() =>(date != "" && setStart(true))}
           >Fazer backup
-          </button>
+          </button>)
+
+        :
+        (<button className="px-4 py-2 text-white font-semibold bg-gray-500 rounded noClick"
+          >Fazer backup
+          </button>)
       )}
         </div>
         </div>
