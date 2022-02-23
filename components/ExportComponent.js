@@ -6,6 +6,7 @@ function ExportComponent () {
 
    const [openMonth, setOpenMonth] = useState(false)
    const [openDay, setOpenDay] = useState(false)
+   const [openUser, setOpenUser] = useState(false)
 
     return (
     <div className="bg-white">
@@ -68,10 +69,10 @@ function ExportComponent () {
                "
                >
                <span className="text-green-900 font-semibold text-lg block mb-4">
-               Backup do mês
+               Backup obrigatório
                </span>
                <h2 className="font-bold text-gray-800 mb-5 text-[42px]">
-                Último dia do mês
+                Backup do mês
                </h2>
                <p
                   className="
@@ -143,10 +144,10 @@ function ExportComponent () {
             "
             >
                <span className="text-green-900 font-semibold text-lg block mb-4">
-               Backup do dia
+               Backup opcional
                </span>
                <h2 className="font-bold text-gray-700 mb-5 text-[42px]">
-                 Backup opcional
+               Backup de um dia
                </h2>
                <p
                   className="
@@ -172,7 +173,7 @@ function ExportComponent () {
                   rounded-md
                   text-center
                   p-4
-                  hover:text-white hover:bg-green-400
+                  hover:text-white hover:bg-green-900
                   transition
                   "
                   >
@@ -187,6 +188,115 @@ function ExportComponent () {
                            <ModalPDF 
                            onClose={() => setOpenDay(!openDay)}
                            backupType = {1}
+                           />
+                           </div>
+                        </div>
+                        
+                     )
+                  }
+
+               <div>
+                  <span className="absolute right-0 top-7 z-[-1]">
+                     <svg
+                        width="77"
+                        height="172"
+                        viewBox="0 0 77 172"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        >
+                        <circle cx="86" cy="86" r="86" fill="url(#paint0_linear)" />
+                        <defs>
+                           <linearGradient
+                              id="paint0_linear"
+                              x1="86"
+                              y1="0"
+                              x2="86"
+                              y2="172"
+                              gradientUnits="userSpaceOnUse"
+                              >
+                              <stop stopColor="#53915a" stopOpacity="0.09" />
+                              <stop
+                                 offset="1"
+                                 stopColor="#C4C4C4"
+                                 stopOpacity="0"
+                                 />
+                           </linearGradient>
+                        </defs>
+                     </svg>
+                  </span>
+                
+               </div>          
+            </div>   
+            
+         </div>
+         }
+
+
+
+{
+         <div className="w-full md:w-1/2 lg:w-1/3 px-4">
+         <div
+            className="
+            bg-white
+            rounded-xl
+            z-10
+            overflow-hidden
+            border border-green-900 border-opacity-50
+            shadow-pricing
+            py-10
+            px-8
+            sm:p-12
+            lg:py-10 lg:px-6
+            xl:p-12
+            mb-10
+            mt-10
+            "
+            >
+               <span className="text-green-900 font-semibold text-lg block mb-4">
+               Backup opcional
+               </span>
+               <h2 className="font-bold text-gray-700 mb-5 text-[42px]">
+               Backup de um usuário
+               </h2>
+               <p
+                  className="
+                  text-base text-body-color
+                  pb-8
+                  mb-8
+                  border-b border-[#F2F2F2]
+                  "
+                  >
+                 Opção para alguma situação específica onde seja necessário obter o registro de um empregado da câmara.
+               </p>
+               <a
+                   onClick={() => setOpenUser(!openUser)}
+                  className="
+                  cursor-pointer
+                  w-full
+                  block
+                  text-base
+                  font-semibold
+                  text-green-900
+                  bg-transparent
+                  border border-[#D4DEFF]
+                  rounded-md
+                  text-center
+                  p-4
+                  hover:text-white hover:bg-green-900
+                  transition
+                  "
+                  >
+               Fazer backup
+               </a>
+
+               {openUser &&(
+                     <div 
+                     className="modal">
+                        <div className="overlay"></div>
+                        <div className="modal-content">	
+                           <ModalPDF 
+                           onClose={() => setOpenUser(!openUser)}
+                           backupType = {2}
                            />
                            </div>
                         </div>

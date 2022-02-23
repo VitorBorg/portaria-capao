@@ -3,17 +3,18 @@ import pdfMaker from 'pdfmake/build/pdfmake'
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 import api from "../../pages/services/api";
 
-function pdfFile (date, info, external, user, backupType){
+function pdfFile (date, info, external, user, backupTypePdf){
   pdfMaker.vfs = pdfFonts.pdfMake.vfs
 
   let month = "null";
 
+  if(backupTypePdf != 2)
   switch (date) {
     case '01':
       month = "Janeiro"
       break;
     case '02':
-      month = "Feveiro"
+      month = "Fevereiro"
       break;
     case '03':
       month = "Março"
@@ -45,6 +46,10 @@ function pdfFile (date, info, external, user, backupType){
     case '12':
       month = "Dezembro"
       break;
+  } else {
+    month = ""
+    
+
 }
 
   const reportTitle = [
@@ -182,17 +187,15 @@ const detailsExternal = [
 
 
 // Create Document Component
-function PdfCreate ({dataExternal, dataInternal, dataUser, finished, date, detl, btnDelete}) {
+function PdfCreate ({dataExternal, dataInternal, dataUser, finished, date, detl, btnDelete, backupTypePdf}) {
 
   const [processingDone, setProcessingDone] = useState(false)
-
-  console.log(dataUser)
 
   const creating = () => {
     if(dataExternal != undefined && dataInternal != undefined && dataUser != undefined){
       detl('Dados encontrados... Processando...')
 
-      pdfFile(date, dataInternal, dataExternal, dataUser);
+      pdfFile(date, dataInternal, dataExternal, dataUser, backupTypePdf);
       
       btnDelete(
 
@@ -207,7 +210,7 @@ function PdfCreate ({dataExternal, dataInternal, dataUser, finished, date, detl,
               </div>
 
 
-              <button className="flex flex-wrap px-4 py-2 text-white font-semibold bg-red-400 rounded
+             {backupTypePdf == 0 && (<button className="flex flex-wrap px-4 py-2 text-white font-semibold bg-red-400 rounded
                   content-center"
                   onClick={() => (
                     dataExternal.map((client) => {
@@ -221,7 +224,8 @@ function PdfCreate ({dataExternal, dataInternal, dataUser, finished, date, detl,
                     setProcessingDone(true)
                   )}>
                     Excluir estes arquivos do banco
-              </button>
+              </button>)
+            }
             </div>
           
           )
@@ -232,7 +236,7 @@ function PdfCreate ({dataExternal, dataInternal, dataUser, finished, date, detl,
     }
     else {
       <div>
-        {detl('Procurando dados no banco... Se demorar muito tempo pode ser que não haja dados no banco.')}
+        {detl('Buscando registros no banco e montando o pdf...')}
       </div>
     }
 		
