@@ -1,41 +1,40 @@
-import Phone from "../../../models/regExternalInfo"
-import dbConnect from "../../services/db"
+import Phone from "../../../models/regExternalInfo";
+import dbConnect from "../../services/db";
 
-dbConnect()
+dbConnect();
 
 export default async function handler(req, res) {
-    const {method} = req
+  const { method } = req;
 
-    switch(method) {
-        case 'GET':
-            try{
-                const phones = await Phone.find({})
-                res.status(200).json({success: true, data: phones})
-            }catch(e){
-                console.log(e)
-                res.status(500).json({success: false, e})
-            }
+  switch (method) {
+    case "GET":
+      try {
+        const phones = await Phone.find({});
+        res.status(200).json({ success: true, data: phones });
+      } catch (e) {
+        console.log(e);
+        res.status(500).json({ success: false, e });
+      }
 
-        break;
+      break;
 
-        case 'POST':
-            try {
-                const {name, email, firstNumber,temperature, hourEnter} = req.body
+    case "POST":
+      try {
+        const { name, email, firstNumber, hourEnter } = req.body;
 
-                if(!name && !email) throw 'invalid data'
+        if (!name && !email) throw "invalid data";
 
-                const phone = await Phone.create({
-                    name: name, 
-                    email: email, 
-                    phoneFirst: firstNumber,
-                    temperature: temperature,
-                    hourEnter: hourEnter
-                    })
+        const phone = await Phone.create({
+          name: name,
+          email: email,
+          phoneFirst: firstNumber,
+          hourEnter: hourEnter,
+        });
 
-                res.status(201).json({success: true, data: phone})
-            } catch (e) {
-                console.log(e)
-                res.status(500).json({success: false, e})
-            }
-    }
+        res.status(201).json({ success: true, data: phone });
+      } catch (e) {
+        console.log(e);
+        res.status(500).json({ success: false, e });
+      }
+  }
 }
